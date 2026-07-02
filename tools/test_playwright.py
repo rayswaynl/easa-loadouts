@@ -225,8 +225,22 @@ with sync_playwright() as p:
 
     # ── Build-2 tests ─────────────────────────────────────────────────────────
 
-    # Read the real EASA_Init.sqf for round-trip tests
-    EASA_SQF_PATH = r"C:\Users\Steff\a2waspwarfare\Missions\[55-2hc]warfarev2_073v48co.chernarus\Client\Module\EASA\EASA_Init.sqf"
+    # Read the real EASA_Init.sqf for round-trip tests.
+    # The a2waspwarfare checkout location varies per machine — try known spots,
+    # then EASA_SQF_ROOT env var as an override.
+    _EASA_REL = r"Missions\[55-2hc]warfarev2_073v48co.chernarus\Client\Module\EASA\EASA_Init.sqf"
+    _EASA_ROOTS = [
+        os.environ.get("EASA_SQF_ROOT"),
+        os.path.join(os.path.dirname(SERVE_DIR), "a2waspwarfare"),                       # sibling of repo root
+        os.path.abspath(os.path.join(SERVE_DIR, "..", "..", "..", "..", "a2waspwarfare")),  # sibling when running from a worktree
+        r"C:\Users\Miksuu\Documents\projects\a2waspwarfare",
+        r"C:\Users\Steff\a2waspwarfare",
+    ]
+    EASA_SQF_PATH = next(
+        (os.path.join(r, _EASA_REL) for r in _EASA_ROOTS
+         if r and os.path.isfile(os.path.join(r, _EASA_REL))),
+        os.path.join(_EASA_ROOTS[-1], _EASA_REL),
+    )
     try:
         with open(EASA_SQF_PATH, encoding="utf-8") as f:
             easa_sqf_text = f.read()
