@@ -17,6 +17,7 @@
  * state = {
  *   mode: 'plane' | 'heli' | 'vehicle',
  *   side: 'blufor' | 'opfor' | null,       // side filter (null = all sides)
+ *   afLevels: number[],                    // selected AF (aircraft factory) levels (empty = all)
  *   airframeClass: string | null,         // selected EASA-registered airframe class
  *   rack: Array<{                          // ordered station entries
  *     id: string,                          // random uuid for keying
@@ -577,6 +578,10 @@ kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3
 
       <!-- Airframe picker (plane/heli mode) -->
       <div id="airframePicker">
+        <!-- AF (aircraft factory) level filter — multi-select -->
+        <div class="section-label" id="afLevelLabel">AF Level</div>
+        <div id="afLevelBtns" class="segmented" role="group" aria-labelledby="afLevelLabel"></div>
+
         <div class="section-label">Airframe</div>
         <div id="pickerGrid" class="picker-grid" role="list" aria-label="Airframe selection"></div>
 
@@ -890,6 +895,7 @@ const DATA = {
 const state = {
   mode: 'plane',
   side: null,
+  afLevels: [],         // selected AF (aircraft factory) levels; empty = show all
   airframeClass: null,
   rack: [],             // [{id, weaponClass, magClass, isGun}]
   price: 0,
@@ -945,7 +951,7 @@ const LS_PENDING = 'easa-loadouts-pending-v1';
 function saveState() {
   try {
     const snap = {
-      mode: state.mode, side: state.side,
+      mode: state.mode, side: state.side, afLevels: [...state.afLevels],
       airframeClass: state.airframeClass, rack: [...state.rack],
       price: state.price, label: state.label,
       selectedPresetRef: state.selectedPresetRef, dirty: state.dirty,
@@ -1109,12 +1115,51 @@ function catLabel(cat) { return CAT_LABELS[cat] || cat?.toUpperCase() || '?'; }
 const AIR_CATS = ['gun','rockets','agm','bomb','aam','cm'];
 
 /* ============================================================
+   Render — AF (aircraft factory) level filter buttons
+   ============================================================ */
+// AF levels available in the current mode's roster (pre-filter), ascending
+function afLevelsForMode(mode) {
+  const lvls = airframesForMode(mode).map(a => a.afLevel).filter(l => l != null);
+  return [...new Set(lvls)].sort((a, b) => a - b);
+}
+
+function renderAfLevelBtns() {
+  const el = $('afLevelBtns'); if(!el) return;
+  el.innerHTML = '';
+  const levels = afLevelsForMode(state.mode);
+  const lbl = $('afLevelLabel');
+  const show = levels.length > 0;
+  el.style.display = show ? 'flex' : 'none';
+  if(lbl) lbl.style.display = show ? 'block' : 'none';
+  for(const lv of levels) {
+    const b = document.createElement('button');
+    const on = state.afLevels.includes(lv);
+    if(on) b.className = 'on';
+    b.textContent = 'AF' + lv;
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.setAttribute('aria-label', `Aircraft factory level ${lv}`);
+    b.onclick = () => toggleAfLevel(lv);
+    el.appendChild(b);
+  }
+}
+
+// Multi-select toggle; empty selection = no filtering
+function toggleAfLevel(lv) {
+  const i = state.afLevels.indexOf(lv);
+  if(i >= 0) state.afLevels.splice(i, 1); else state.afLevels.push(lv);
+  renderPicker();
+  debouncedSave();
+}
+
+/* ============================================================
    Render — airframe picker (left panel)
    ============================================================ */
 function renderPicker() {
+  renderAfLevelBtns();
   const grid = $('pickerGrid'); if(!grid) return;
   grid.innerHTML = '';
-  const afs = airframesForMode(state.mode);
+  let afs = airframesForMode(state.mode);
+  if(state.afLevels.length) afs = afs.filter(a => state.afLevels.includes(a.afLevel));
   if(!afs.length) {
     const ph = document.createElement('div');
     ph.className='picker-empty'; ph.style.gridColumn='1/-1';
@@ -2496,6 +2541,8 @@ function checkRestore() {
 function applyRestoredState(saved) {
   Object.assign(state, saved);
   state.side = saved.side || null;
+  state.afLevels = Array.isArray(saved.afLevels)
+    ? saved.afLevels.filter(l => Number.isInteger(l)) : [];
   applySideUI();
   setMode(state.mode);
   if(state.airframeClass) { selectAirframe(state.airframeClass); }
