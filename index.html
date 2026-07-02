@@ -16,6 +16,7 @@
  * =====================================================================
  * state = {
  *   mode: 'plane' | 'heli' | 'vehicle',
+ *   side: 'blufor' | 'opfor' | null,       // side filter (null = all sides)
  *   faction: string | null,               // active faction chip filter
  *   airframeClass: string | null,         // selected EASA-registered airframe class
  *   rack: Array<{                          // ordered station entries
@@ -53,6 +54,7 @@
   --gunmetal: #14171B; --steel: #2A2F36; --steel2: #343b44;
   --olive: #5C6536; --bone: #E7E3D6; --orange: #D9763C; --orange-deep: #B85F2A;
   --chalk: #F2EFE8; --line: #39414b; --danger: #c0392b;
+  --blufor: #4a86c8; --opfor: #c8524a;
 }
 
 /* ---- Reset / base ---- */
@@ -242,7 +244,7 @@ button.danger:hover { background: var(--danger); color: #fff; }
   color: var(--olive); letter-spacing: 2px; }
 .stage-title { font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: 3px;
   text-transform: uppercase; color: #39414b; }
-.stage-inner { flex: 1; overflow-y: auto; padding: 40px 20px 14px; z-index: 2;
+.stage-inner { flex: 1; overflow-y: auto; padding: 16px 20px 14px; z-index: 2;
   display: flex; flex-direction: column; align-items: center; min-height: 0; }
 /* Airframe silhouette */
 .af-silhouette {
@@ -314,6 +316,21 @@ button.danger:hover { background: var(--danger); color: #fff; }
 .stage-empty-title { font-family: Oswald, sans-serif; font-size: 12px; letter-spacing: 3px;
   text-transform: uppercase; color: #39414b; margin-bottom: 10px; }
 .stage-empty-hint { font-size: 11px; color: #39414b; line-height: 2; }
+
+/* ============================================================
+   SIDE SELECTOR — BLUFOR / OPFOR (top of ordnance rack stage)
+   ============================================================ */
+.side-selector { position: relative; z-index: 3; display: flex; justify-content: center;
+  gap: 10px; padding: 12px 0 2px; flex-shrink: 0; }
+.side-btn { font-family: Oswald, Inter, sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase; padding: 7px 26px;
+  border-radius: 4px; background: #0d1014; }
+.side-btn.side-blufor { border: 1px solid rgba(74,134,200,.55); color: var(--blufor); }
+.side-btn.side-blufor:hover { border-color: var(--blufor); }
+.side-btn.side-blufor.on { background: var(--blufor); border-color: var(--blufor); color: #0b1622; }
+.side-btn.side-opfor { border: 1px solid rgba(200,82,74,.55); color: var(--opfor); }
+.side-btn.side-opfor:hover { border-color: var(--opfor); }
+.side-btn.side-opfor.on { background: var(--opfor); border-color: var(--opfor); color: #220d0b; }
 
 /* ============================================================
    VEHICLE MODE — stage
@@ -603,6 +620,14 @@ kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3
       <span class="stage-title">ORDNANCE RACK</span>
     </div>
 
+    <!-- Side selector: BLUFOR / OPFOR filter (toggle off = all sides) -->
+    <div class="side-selector" id="sideSelector" role="group" aria-label="Side filter">
+      <button id="sideBtn-blufor" class="side-btn side-blufor" aria-pressed="false"
+        onclick="setSide('blufor')" title="Show BLUFOR (West) equipment only">BLUFOR</button>
+      <button id="sideBtn-opfor" class="side-btn side-opfor" aria-pressed="false"
+        onclick="setSide('opfor')" title="Show OPFOR (East) equipment only">OPFOR</button>
+    </div>
+
     <!-- Plane/heli mode content -->
     <div class="stage-inner" id="stageAir">
       <!-- Empty state -->
@@ -660,7 +685,7 @@ kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3
     </div>
 
     <!-- Vehicle mode content -->
-    <div id="stageVehicle" style="display:none;align-items:center;justify-content:center;flex:1;padding:40px 20px 14px;z-index:2">
+    <div id="stageVehicle" style="display:none;align-items:center;justify-content:center;flex:1;padding:16px 20px 14px;z-index:2">
       <div class="vehicle-stage" id="vehicleStageContent">
         <div class="stage-empty">
           <div class="stage-empty-glyph">🚗</div>
@@ -868,6 +893,7 @@ const DATA = {
    ============================================================ */
 const state = {
   mode: 'plane',
+  side: null,
   faction: null,
   airframeClass: null,
   rack: [],             // [{id, weaponClass, magClass, isGun}]
@@ -926,7 +952,7 @@ const LS_PENDING = 'easa-loadouts-pending-v1';
 function saveState() {
   try {
     const snap = {
-      mode: state.mode, faction: state.faction,
+      mode: state.mode, side: state.side, faction: state.faction,
       airframeClass: state.airframeClass, rack: [...state.rack],
       price: state.price, label: state.label,
       selectedPresetRef: state.selectedPresetRef, dirty: state.dirty,
@@ -1038,17 +1064,40 @@ function thumbPath(thumbFile) {
   return `assets/img/${thumbFile}`;
 }
 
-// Get all factions visible in current mode's airframe pool
-function factionsForMode(mode) {
-  const ecs = new Set(easaClasses());
-  const af = DATA.airframes?.filter(a => a.kind===mode && ecs.has(a.class)) || [];
-  return [...new Set(af.map(a => a.faction).filter(Boolean))].sort();
+/* ============================================================
+   Side filter — faction → side mapping
+   Source: a2waspwarfare mission (Common/Init/Init_CommonConstants.sqf
+   WFBE_C_UNITS_FACTIONS_WEST/EAST/GUER + Core_Squads side tags).
+   GUER (GUE/TKGUE/PMC), UN, and civilian factions have no BLUFOR/OPFOR
+   side — they are only visible when no side filter is active.
+   ============================================================ */
+const FACTION_SIDES = {
+  // BLUFOR (West)
+  US:'blufor', US_CO:'blufor', USMC:'blufor', BIS_US:'blufor', CDF:'blufor',
+  BAF:'blufor', CZ:'blufor', ACR:'blufor',
+  // OPFOR (East)
+  RU:'opfor', INS:'opfor', TKA:'opfor', TK:'opfor', BIS_TK:'opfor',
+  // Independent / neutral (Resistance, UN, civilians, fallback)
+  GUE:null, GUE_CO:null, TKGUE:null, BIS_TK_GUE:null, PMC_BAF:null,
+  UN:null, CIV:null, BIS_TK_CIV:null, Default:null
+};
+function factionSide(f) {
+  return Object.prototype.hasOwnProperty.call(FACTION_SIDES, f) ? FACTION_SIDES[f] : null;
+}
+function matchesSide(faction) {
+  return !state.side || factionSide(faction) === state.side;
 }
 
-// Get airframes for current mode, filtered by faction
+// Get all factions visible in current mode's airframe pool
+function factionsForMode(mode) {
+  return [...new Set(airframesForMode(mode, null).map(a => a.faction).filter(Boolean))].sort();
+}
+
+// Get airframes for current mode, filtered by side + faction
 function airframesForMode(mode, faction) {
   const ecs = new Set(easaClasses());
   let af = DATA.airframes?.filter(a => a.kind===mode && ecs.has(a.class)) || [];
+  af = af.filter(a => matchesSide(a.faction));
   if(faction) af = af.filter(a => a.faction===faction);
   return af;
 }
@@ -1080,7 +1129,8 @@ function renderFactionChips() {
   const el = $('factionChips'); if(!el) return;
   let factions;
   if(state.mode==='vehicle') {
-    factions = [...new Set((DATA.presetsDraft?.groundVehicles?.eligible||[]).map(v=>v.faction).filter(Boolean))].sort();
+    factions = [...new Set((DATA.presetsDraft?.groundVehicles?.eligible||[])
+      .filter(v=>matchesSide(v.faction)).map(v=>v.faction).filter(Boolean))].sort();
   } else {
     factions = factionsForMode(state.mode);
   }
@@ -1590,6 +1640,25 @@ function addStation(weapCls, magCls) {
 }
 
 /* ============================================================
+   Side switching (BLUFOR / OPFOR toggle)
+   ============================================================ */
+function setSide(side) {
+  state.side = (state.side === side) ? null : side;
+  state.faction = null; // active faction may not exist on the new side
+  applySideUI();
+  renderFactionChips(); renderPicker();
+  if(state.mode === 'vehicle') renderVehiclePicker();
+  debouncedSave();
+}
+
+function applySideUI() {
+  for(const s of ['blufor','opfor']) {
+    const btn = $('sideBtn-'+s);
+    if(btn) { btn.classList.toggle('on', state.side===s); btn.setAttribute('aria-pressed', state.side===s?'true':'false'); }
+  }
+}
+
+/* ============================================================
    Mode switching
    ============================================================ */
 function setMode(mode) {
@@ -1631,8 +1700,8 @@ function renderVehiclePicker() {
   const gv=DATA.presetsDraft?.groundVehicles;
   if(!gv) return;
 
-  const eligible=(gv.eligible||[]).filter(v=>!state.faction||v.faction===state.faction);
-  const excluded=(gv.excluded||[]).filter(v=>!state.faction||v.faction===state.faction);
+  const eligible=(gv.eligible||[]).filter(v=>matchesSide(v.faction)&&(!state.faction||v.faction===state.faction));
+  const excluded=(gv.excluded||[]).filter(v=>matchesSide(v.faction)&&(!state.faction||v.faction===state.faction));
 
   if(eligible.length) {
     const lbl=document.createElement('div'); lbl.className='section-label';
@@ -2072,6 +2141,8 @@ window.state = state;
 window.DATA = DATA;
 window.selectAirframe = selectAirframe;
 window.setMode = setMode;
+window.setSide = setSide;
+window.FACTION_SIDES = FACTION_SIDES;
 window.loadPreset = loadPreset;
 window.getState = () => JSON.parse(JSON.stringify(state));
 window._parseSqfArray = _parseSqfArray;
@@ -2475,6 +2546,8 @@ function checkRestore() {
 
 function applyRestoredState(saved) {
   Object.assign(state, saved);
+  state.side = saved.side || null;
+  applySideUI();
   setMode(state.mode);
   if(state.airframeClass) { selectAirframe(state.airframeClass); }
   if(state.vehicleClass) { selectVehicle(state.vehicleClass); }

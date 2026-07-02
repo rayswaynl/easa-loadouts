@@ -247,8 +247,17 @@ with sync_playwright() as p:
     except FileNotFoundError:
         easa_sqf_text = None
 
-    # ── Test 7: Full-file import → parseEasaInit → 21 vehicles ──────────────
+    # ── Test 7: Full-file import → parseEasaInit → all source vehicles ──────
     if easa_sqf_text:
+        # Python parser gives the expected vehicle count (source of truth —
+        # the mission file gains vehicles over time, don't hardcode)
+        import sys, os
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from gen_easa_seed import parse_easa_sqf, _parse_sqf_array
+        from pathlib import Path
+
+        src_vehicles = parse_easa_sqf(Path(EASA_SQF_PATH))
+
         page.click("#modeBtn-plane")
         page.wait_for_timeout(300)
 
@@ -260,23 +269,15 @@ with sync_playwright() as p:
         import_count = page.evaluate("""() => {
             return window.DATA.seed.vehicles.length;
         }""")
-        if import_count == 21:
-            ok(f"Full-file import: 21 vehicles parsed")
+        if import_count == len(src_vehicles):
+            ok(f"Full-file import: {import_count} vehicles parsed (matches Python parser)")
         else:
-            fail(f"Full-file import: vehicle count", f"expected 21, got {import_count}")
+            fail(f"Full-file import: vehicle count", f"expected {len(src_vehicles)}, got {import_count}")
 
         # ── Test 8: Export full → byte-identical to source ───────────────────
         exported = page.evaluate("""() => {
             return window.exportFullEasaInit();
         }""")
-
-        # Compare semantically: re-parse both and check arrays are equal
-        import sys, os
-        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-        from gen_easa_seed import parse_easa_sqf, _parse_sqf_array
-        from pathlib import Path
-
-        src_vehicles = parse_easa_sqf(Path(EASA_SQF_PATH))
         # Parse the exported text using the Python parser via a temp file
         import tempfile
         with tempfile.NamedTemporaryFile(mode='w', suffix='.sqf', delete=False, encoding='utf-8') as tmp:
@@ -462,6 +463,77 @@ with sync_playwright() as p:
         fail("Import modal: error strip", "error div not visible after bad import attempt")
     # Close modal
     page.evaluate("() => closeImportModal()")
+
+    # ── Test 12: BLUFOR/OPFOR side selector filters the airframe picker ──────
+    page.click("#modeBtn-plane")
+    page.wait_for_timeout(300)
+
+    both_btns = page.evaluate("""() =>
+        !!document.getElementById('sideBtn-blufor') && !!document.getElementById('sideBtn-opfor')
+    """)
+    if both_btns:
+        ok("Side selector: BLUFOR + OPFOR buttons present")
+    else:
+        fail("Side selector: buttons present", "missing #sideBtn-blufor or #sideBtn-opfor")
+
+    all_count = page.evaluate("() => document.querySelectorAll('#pickerGrid .picker-tile').length")
+
+    page.click("#sideBtn-blufor")
+    page.wait_for_timeout(300)
+    blufor = page.evaluate("""() => {
+        const shown = [...document.querySelectorAll('#pickerGrid .picker-tile')].map(t => t.getAttribute('aria-label'));
+        return {
+            count: shown.length,
+            pressed: document.getElementById('sideBtn-blufor').getAttribute('aria-pressed') === 'true',
+            hasA10: shown.some(s => /A-?10/i.test(s)),       // US → BLUFOR
+            hasSu34: shown.some(s => /Su-?34/i.test(s)),     // RU → OPFOR
+            side: window.state.side
+        };
+    }""")
+    if blufor['pressed'] and blufor['side'] == 'blufor' and blufor['hasA10'] and not blufor['hasSu34']:
+        ok(f"Side selector: BLUFOR filters picker ({blufor['count']}/{all_count} planes, A-10 in, Su-34 out)")
+    else:
+        fail("Side selector: BLUFOR filter", f"{blufor}")
+
+    page.click("#sideBtn-opfor")
+    page.wait_for_timeout(300)
+    opfor = page.evaluate("""() => {
+        const shown = [...document.querySelectorAll('#pickerGrid .picker-tile')].map(t => t.getAttribute('aria-label'));
+        return {
+            bluforOff: document.getElementById('sideBtn-blufor').getAttribute('aria-pressed') === 'false',
+            hasA10: shown.some(s => /A-?10/i.test(s)),
+            hasSu34: shown.some(s => /Su-?34/i.test(s)),
+            side: window.state.side
+        };
+    }""")
+    if opfor['bluforOff'] and opfor['side'] == 'opfor' and opfor['hasSu34'] and not opfor['hasA10']:
+        ok("Side selector: OPFOR filters picker (Su-34 in, A-10 out, BLUFOR released)")
+    else:
+        fail("Side selector: OPFOR filter", f"{opfor}")
+
+    # Toggle off → all sides again
+    page.click("#sideBtn-opfor")
+    page.wait_for_timeout(300)
+    reset_count = page.evaluate("() => document.querySelectorAll('#pickerGrid .picker-tile').length")
+    side_null = page.evaluate("() => window.state.side === null")
+    if side_null and reset_count == all_count:
+        ok(f"Side selector: toggle off restores all {all_count} planes")
+    else:
+        fail("Side selector: toggle off", f"side_null={side_null}, count={reset_count}/{all_count}")
+
+    # Vehicle mode also filters by side
+    page.click("#modeBtn-vehicle")
+    page.wait_for_timeout(400)
+    veh_all = page.evaluate("() => document.querySelectorAll('#vehListEl .veh-row').length")
+    page.click("#sideBtn-opfor")
+    page.wait_for_timeout(400)
+    veh_opfor = page.evaluate("() => document.querySelectorAll('#vehListEl .veh-row').length")
+    page.click("#sideBtn-opfor")  # reset
+    page.wait_for_timeout(300)
+    if 0 < veh_opfor < veh_all:
+        ok(f"Side selector: vehicle list filtered ({veh_opfor}/{veh_all} rows on OPFOR)")
+    else:
+        fail("Side selector: vehicle filter", f"opfor={veh_opfor}, all={veh_all}")
 
     browser.close()
 
