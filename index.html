@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EASA Loadouts — WASP Armament Editor</title>
+<meta name="description" content="Single-file offline EASA armament editor for WASP Warfare — design aircraft loadouts and vehicle weapon mounts, export SQF.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Cpath d='M10 60 L48 24 L86 60' fill='none' stroke='%23D9763C' stroke-width='7' stroke-linecap='square'/%3E%3Cpath d='M24 72 L48 48 L72 72' fill='none' stroke='%235C6536' stroke-width='5' stroke-linecap='square'/%3E%3Cline x1='48' y1='60' x2='48' y2='80' stroke='%23E7E3D6' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/*
+ * =====================================================================
+ * STATE MODEL (see also JS section)
+ * =====================================================================
+ * state = {
+ *   mode: 'plane' | 'heli' | 'vehicle',
+ *   faction: string | null,               // active faction chip filter
+ *   airframeClass: string | null,         // selected EASA-registered airframe class
+ *   rack: Array<{                          // ordered station entries
+ *     id: string,                          // random uuid for keying
+ *     weaponClass: string,
+ *     magClass: string,
+ *     isGun: boolean                       // gun station flag (visual distinction)
+ *   }>,
+ *   price: number,                         // total price (editable)
+ *   label: string,                         // loadout label
+ *   selectedPresetRef: {                   // which preset is loaded (null = custom)
+ *     source: 'seed' | 'rw',
+ *     airframeClass: string,
+ *     index: number
+ *   } | null,
+ *   dirty: boolean,                        // unsaved changes vs last preset load
+ *   // Vehicle-specific:
+ *   vehicleClass: string | null,           // selected ground vehicle class
+ *   vWeaponClass: string | null,           // mounted weapon
+ *   vMagClass: string | null,              // chosen magazine
+ *   vMagCount: number                      // 1-10
+ * }
+ *
+ * Export contract for build-2:
+ *   window.exportSinglePresetRow()  → string (SQF)
+ *   window.exportVehicleSnippet()   → string (SQF)
+ *   window.exportFullEasaInit()     → string (SQF)
+ *   window.importEasaBlock(sqf)     → void (populates state from pasted SQF)
+ *   window.getState()               → deep clone of current state
+ * =====================================================================
+ */
+
+/* ---- Variables ---- */
+:root {
+  --gunmetal: #14171B; --steel: #2A2F36; --steel2: #343b44;
+  --olive: #5C6536; --bone: #E7E3D6; --orange: #D9763C; --orange-deep: #B85F2A;
+  --chalk: #F2EFE8; --line: #39414b; --danger: #c0392b;
+}
+
+/* ---- Reset / base ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: Inter, system-ui, Arial, sans-serif;
+  background: var(--gunmetal); color: var(--bone); overflow: hidden; }
+h1, h2, h3 { font-family: Oswald, Inter, sans-serif; font-weight: 600; }
+a { color: var(--orange); }
+
+/* Skip link */
+.skip-link { position: absolute; left: -9999px; top: 4px; padding: 6px 12px;
+  background: var(--orange); color: #1a1208; font-weight: 600; border-radius: 4px;
+  z-index: 200; font-size: 13px; }
+.skip-link:focus { left: 4px; }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--steel2); border-radius: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ---- Brand bar ---- */
+.brandbar {
+  height: 54px; display: flex; align-items: center; gap: 14px; padding: 0 16px;
+  background: linear-gradient(90deg, #101317 0%, #171b20 100%);
+  border-top: 1px solid var(--olive); border-bottom: 1px solid var(--line);
+  position: relative; z-index: 10; flex-shrink: 0;
+}
+.brandbar .mark { width: 34px; height: 34px; flex: 0 0 34px; }
+.brandbar .word { display: flex; flex-direction: column; line-height: 1; }
+.brandbar .word .t1 { font-family: Oswald, sans-serif; font-weight: 600; font-size: 19px;
+  letter-spacing: 3px; color: var(--bone); text-transform: uppercase; }
+.brandbar .word .t2 { font-family: Oswald, sans-serif; font-weight: 400; font-size: 10px;
+  letter-spacing: 6px; color: var(--orange); margin-top: 2px; }
+.brandbar .tool { margin-left: 8px; padding-left: 14px; border-left: 1px solid var(--line);
+  font-size: 12px; color: #9aa3ad; }
+.brandbar .tool b { color: var(--bone); font-weight: 600; }
+.brandbar .spacer { flex: 1; }
+.brandbar .chip { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8b939c;
+  border: 1px solid var(--line); border-radius: 10px; padding: 3px 9px; background: #0d1014; }
+.brandbar .chip b { color: var(--olive); }
+.status-led { width: 8px; height: 8px; border-radius: 50%; background: #3ecf4a;
+  box-shadow: 0 0 6px rgba(62,207,74,.5); flex: 0 0 8px; cursor: default; }
+.status-led.led-error { background: var(--danger); box-shadow: 0 0 4px rgba(192,57,43,.6); animation: none; }
+.status-led.led-warn { background: var(--orange); box-shadow: 0 0 6px rgba(217,118,60,.5);
+  animation: ledPulse 1.2s ease-in-out infinite; }
+@keyframes ledPulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+@media (prefers-reduced-motion:reduce) { .status-led.led-warn { animation: none; } }
+
+.help-btn { width: 26px; height: 26px; border-radius: 50%; padding: 0; font-size: 13px;
+  font-weight: 700; display: flex; align-items: center; justify-content: center;
+  color: var(--bone); background: var(--steel2); border: 1px solid var(--line);
+  flex: 0 0 26px; cursor: pointer; transition: border-color 120ms, color 120ms; }
+.help-btn:hover { border-color: var(--orange); color: var(--orange); }
+.help-btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+/* ---- App grid ---- */
+.app { display: grid; grid-template-columns: 310px 1fr 340px;
+  height: calc(100vh - 80px); /* brandbar + footer */ }
+.panel { background: var(--steel); border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.panel.right { border-right: none; border-left: 1px solid var(--line); }
+.panel header { padding: 11px 14px; border-bottom: 1px solid var(--line);
+  background: var(--gunmetal); flex-shrink: 0; }
+.panel header h2 { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
+  border-left: 3px solid var(--olive); padding-left: 10px; }
+.panel header h2::before { content: attr(data-ordinal) " / "; font-size: 9px;
+  color: var(--olive); letter-spacing: 1px; display: block; margin-bottom: 2px;
+  font-family: 'JetBrains Mono', monospace; }
+.panel header .sub { font-size: 10px; color: #9aa3ad; margin-top: 3px;
+  font-family: 'JetBrains Mono', monospace; }
+.scroll { overflow-y: auto; padding: 10px 12px; flex: 1; min-height: 0; }
+
+/* ---- Inputs ---- */
+label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .6px;
+  color: #9aa3ad; margin: 10px 0 4px; }
+input[type=text], input[type=number], select, textarea {
+  width: 100%; background: var(--gunmetal); border: 1px solid var(--line);
+  color: var(--bone); border-radius: 5px; padding: 7px 8px; outline: none;
+  font-family: inherit; font-size: 13px; }
+input:focus, select:focus, textarea:focus { border-color: var(--orange); }
+textarea { resize: vertical; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.5; }
+
+/* ---- Buttons ---- */
+button { cursor: pointer; background: var(--steel2); color: var(--bone);
+  border: 1px solid var(--line); border-radius: 5px; padding: 7px 10px;
+  font-family: inherit; font-size: 13px;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease; }
+button:hover { border-color: var(--orange); }
+button:active { transform: scale(.98); }
+button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+button:disabled { opacity: .4; cursor: not-allowed; }
+button.primary { background: var(--orange); border-color: var(--orange); color: #1a1208; font-weight: 600; }
+button.primary:hover { background: var(--orange-deep); border-color: var(--orange-deep); }
+button.danger { border-color: var(--danger); color: #e88; }
+button.danger:hover { background: var(--danger); color: #fff; }
+.btnbar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+
+/* ---- Segmented control ---- */
+.segmented { display: flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.segmented button { flex: 1; border: none; border-radius: 0; background: var(--gunmetal);
+  padding: 8px 6px; font-size: 12px; color: #9aa3ad; }
+.segmented button + button { border-left: 1px solid var(--line); }
+.segmented button:hover { color: var(--bone); }
+.segmented button.on { background: var(--orange); color: #1a1208; font-weight: 600; }
+
+/* ---- Chips ---- */
+.chip { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  border: 1px solid #46505b; border-radius: 10px; padding: 2px 9px;
+  color: #c8d0d8; background: var(--gunmetal); }
+.chip.on { border-color: var(--orange); color: var(--orange); background: #251f18; }
+.chip.clickable { cursor: pointer; }
+.chip.clickable:hover { border-color: var(--orange); color: var(--orange); }
+.chip.aa-badge { background: rgba(217,118,60,.2); border-color: var(--orange);
+  color: var(--orange); font-weight: 500; }
+.chip.rw-badge { background: rgba(92,101,54,.25); border-color: var(--olive); color: #8fa05a; }
+.chip.warn-badge { background: rgba(192,57,43,.15); border-color: var(--danger); color: #e88; }
+.faction-chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0; }
+
+/* ---- Divider ---- */
+.divider { height: 1px; background: var(--line); margin: 10px 0; }
+
+/* ---- Hint ---- */
+.hint { font-size: 11px; color: #8b939c; line-height: 1.5; margin-top: 6px; }
+.hint code { background: #0d1014; padding: 1px 4px; border-radius: 3px; color: var(--orange); }
+
+/* ============================================================
+   LEFT PANEL — Airframe picker + preset list
+   ============================================================ */
+.picker-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 6px; }
+.picker-tile {
+  position: relative; border: 1px solid var(--line); border-radius: 5px;
+  background: var(--gunmetal); cursor: pointer; overflow: hidden; display: flex;
+  flex-direction: column; transition: transform 100ms ease, border-color 100ms ease; }
+.picker-tile:hover { transform: translateY(-1px); border-color: var(--orange);
+  box-shadow: 0 3px 8px rgba(0,0,0,.4); }
+.picker-tile.selected { border-color: var(--orange); background: #1c1408; }
+.picker-tile img, .picker-tile .picker-ph {
+  width: 100%; height: 52px; object-fit: contain; background: #0d1014; display: block; }
+.picker-ph { display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #39414b;
+  letter-spacing: .5px; text-align: center; padding: 4px; }
+.picker-lab { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #c8d0d8;
+  padding: 3px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border-top: 1px solid var(--steel); text-align: left; }
+.picker-tile.selected .picker-lab { color: var(--orange); }
+.picker-empty { font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: #39414b; padding: 12px 0; text-align: center; letter-spacing: 1px; }
+
+/* Preset list */
+.preset-group-title { font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 1.5px; color: #9aa3ad; margin: 10px 0 5px;
+  display: flex; align-items: center; gap: 6px; }
+.preset-group-title::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.preset-row {
+  display: flex; align-items: center; gap: 8px; padding: 5px 8px; margin-bottom: 3px;
+  border: 1px solid var(--line); border-radius: 4px; background: #0e1115;
+  cursor: pointer; transition: border-color 100ms; font-size: 11px; }
+.preset-row:hover { border-color: var(--orange); }
+.preset-row.selected { border-color: var(--orange); background: #1c1408; }
+.preset-row .pr-price { font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: var(--olive); white-space: nowrap; }
+.preset-row .pr-label { flex: 1; min-width: 0; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--bone); overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; }
+.preset-row .pr-badges { display: flex; gap: 4px; flex-shrink: 0; }
+/* Virtualised preset list */
+.vlist-wrap { position: relative; overflow-y: auto; border: 1px solid var(--line);
+  border-radius: 4px; max-height: 260px; }
+
+/* ============================================================
+   CENTER — Hardpoint rack stage (identity moment)
+   ============================================================ */
+.stage {
+  position: relative; background: radial-gradient(120% 120% at 50% 10%, #0f1318 0%, #09090d 100%);
+  display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+/* Corner brackets */
+.stage-brackets { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  box-shadow: inset 18px 18px 0 -16px var(--line), inset -18px 18px 0 -16px var(--line),
+              inset 18px -18px 0 -16px var(--line), inset -18px -18px 0 -16px var(--line); }
+/* Grain overlay */
+.stage-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px,
+    rgba(255,255,255,.012) 3px, rgba(255,255,255,.012) 4px); opacity: .04; }
+.stage-header { position: absolute; top: 10px; left: 14px; display: flex;
+  align-items: baseline; gap: 8px; z-index: 3; pointer-events: none; }
+.stage-ord { font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  color: var(--olive); letter-spacing: 2px; }
+.stage-title { font-family: Oswald, sans-serif; font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: #39414b; }
+.stage-inner { flex: 1; overflow-y: auto; padding: 40px 20px 14px; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; min-height: 0; }
+/* Airframe silhouette */
+.af-silhouette {
+  position: relative; width: 100%; max-width: 400px; margin-bottom: 18px;
+  display: flex; justify-content: center; }
+.af-silhouette img {
+  max-width: 100%; max-height: 120px; object-fit: contain;
+  filter: grayscale(1) brightness(.6) contrast(1.1);
+  mix-blend-mode: lighten; }
+.af-silhouette-ph { width: 100%; height: 90px; display: flex; align-items: center;
+  justify-content: center; font-family: Oswald, sans-serif; font-size: 24px;
+  letter-spacing: 4px; text-transform: uppercase; color: #1e2228; }
+/* Station rack */
+.rack-section { width: 100%; max-width: 480px; }
+.rack-section-title { font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 2px; color: #39414b; margin-bottom: 8px;
+  text-align: center; }
+.rack { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; margin-bottom: 12px; }
+/* Station tile — stenciled crate style */
+.station-tile {
+  width: 82px; min-height: 74px; border: 1px solid var(--line); border-radius: 4px;
+  background: #0d1014; display: flex; flex-direction: column; cursor: default;
+  position: relative; transition: border-color 100ms; }
+.station-tile.gun-tile { border-color: var(--olive); background: #0e1109; }
+.station-tile .st-thumb { width: 100%; height: 38px; display: flex; align-items: center;
+  justify-content: center; background: #0a0d11; border-bottom: 1px solid var(--line); overflow: hidden; }
+.station-tile.gun-tile .st-thumb { background: #0a0e08; }
+.station-tile .st-thumb img { max-width: 90%; max-height: 90%; object-fit: contain; filter: grayscale(.5); }
+.station-tile .st-thumb .st-ph { font-size: 9px; color: #39414b; font-family: 'JetBrains Mono', monospace; }
+.station-tile .st-body { padding: 3px 5px; flex: 1; }
+.station-tile .st-class { font-family: 'JetBrains Mono', monospace; font-size: 8px;
+  color: #6b7480; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.station-tile .st-mag { font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  color: var(--bone); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.station-tile .st-count { font-family: 'JetBrains Mono', monospace; font-size: 8px;
+  color: var(--olive); }
+.station-tile .st-remove { position: absolute; top: 2px; right: 3px; width: 14px; height: 14px;
+  border: none; background: transparent; color: #39414b; font-size: 11px; padding: 0;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  border-radius: 2px; transition: color 80ms, background 80ms; line-height: 1; }
+.station-tile .st-remove:hover { color: #e88; background: rgba(192,57,43,.15); }
+.add-station-btn { display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 1px; color: #39414b; background: transparent;
+  border: 1px dashed #1e2228; border-radius: 4px; padding: 6px 14px;
+  cursor: pointer; transition: border-color 100ms, color 100ms; margin-top: 4px; }
+.add-station-btn:hover { border-color: var(--orange); color: var(--orange); }
+/* Pylon capacity meter */
+.pylon-meter { width: 100%; max-width: 320px; margin: 12px auto 8px; }
+.pylon-meter-label { font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  color: #9aa3ad; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;
+  display: flex; justify-content: space-between; }
+.pylon-bar-track { height: 6px; background: #0d1014; border-radius: 3px;
+  border: 1px solid var(--line); overflow: hidden; }
+.pylon-bar-fill { height: 100%; background: var(--olive);
+  transition: width 200ms ease, background 200ms ease; border-radius: 3px; }
+.pylon-bar-fill.over { background: var(--danger); }
+/* Totals strip */
+.totals-strip { width: 100%; max-width: 480px; display: flex; align-items: center;
+  gap: 10px; padding: 8px 12px; background: #0c0f13;
+  border: 1px solid var(--line); border-radius: 4px; flex-wrap: wrap; margin-top: 4px; }
+.totals-strip .ts-price { display: flex; align-items: center; gap: 6px; }
+.totals-strip .ts-price label { margin: 0; font-size: 9px; color: #9aa3ad; }
+.totals-strip .ts-price input { width: 80px; font-size: 12px; padding: 3px 6px;
+  font-family: 'JetBrains Mono', monospace; }
+.totals-badges { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+/* Empty state */
+.stage-empty { text-align: center; padding: 40px 20px; font-family: 'JetBrains Mono', monospace; }
+.stage-empty-glyph { font-size: 36px; color: #1e2228; margin-bottom: 16px; }
+.stage-empty-title { font-family: Oswald, sans-serif; font-size: 12px; letter-spacing: 3px;
+  text-transform: uppercase; color: #39414b; margin-bottom: 10px; }
+.stage-empty-hint { font-size: 11px; color: #39414b; line-height: 2; }
+
+/* ============================================================
+   VEHICLE MODE — stage
+   ============================================================ */
+.vehicle-stage { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 14px; }
+.veh-note { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #9aa3ad;
+  line-height: 1.7; padding: 8px 10px; background: #0c0f13; border: 1px solid var(--line);
+  border-left: 3px solid var(--olive); border-radius: 3px; }
+.veh-station { display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
+.veh-weapon-card { flex: 1; min-width: 120px; padding: 10px 12px; background: #0d1014;
+  border: 1px solid var(--line); border-radius: 4px; }
+.veh-weapon-card h4 { font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: #9aa3ad; margin-bottom: 8px; }
+.veh-weapon-select { width: 100%; margin-bottom: 8px; }
+.veh-mag-select { width: 100%; margin-bottom: 8px; }
+.mag-count-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.mag-count-row label { margin: 0; flex-shrink: 0; }
+.mag-count-row input { width: 60px; flex-shrink: 0; }
+
+/* ============================================================
+   RIGHT PANEL — Weapon pool + export placeholder
+   ============================================================ */
+.pool-search { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.pool-search input { flex: 1; font-size: 12px; }
+.pool-cats { display: flex; flex-wrap: wrap; gap: 5px; margin: 7px 0; }
+.pool-scroll { max-height: 280px; overflow-y: auto; border: 1px solid var(--line);
+  border-radius: 6px; padding: 6px; background: #0e1115; }
+.pool-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.pool-tile {
+  border: 1px solid var(--line); border-radius: 4px; background: var(--gunmetal);
+  cursor: pointer; overflow: hidden; display: flex; flex-direction: column;
+  transition: transform 100ms ease, border-color 100ms ease; }
+.pool-tile:hover { transform: translateY(-1px); border-color: var(--orange);
+  box-shadow: 0 2px 6px rgba(0,0,0,.4); }
+.pool-tile img, .pool-tile .pool-ph {
+  width: 100%; height: 44px; object-fit: contain; background: #0a0d11; display: block; }
+.pool-ph { display: flex; align-items: center; justify-content: center;
+  font-size: 8px; color: #39414b; font-family: 'JetBrains Mono', monospace; }
+.pool-lab { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: #c8d0d8;
+  padding: 2px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border-top: 1px solid var(--steel); }
+.pool-empty { font-size: 11px; color: #39414b; padding: 10px;
+  font-family: 'JetBrains Mono', monospace; text-align: center; }
+/* Show-all toggle */
+.show-all-toggle { font-size: 10px; color: var(--orange); background: none;
+  border: none; cursor: pointer; padding: 4px 0; font-family: 'JetBrains Mono', monospace; }
+.show-all-toggle:hover { text-decoration: underline; }
+
+/* Mag picker modal */
+.mag-modal { position: fixed; inset: 0; background: rgba(8,10,13,.7);
+  display: none; align-items: center; justify-content: center; z-index: 50;
+  backdrop-filter: blur(4px); }
+.mag-modal.open { display: flex; }
+.mag-modal-box { width: 440px; max-width: 92vw; background: var(--steel);
+  border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.mag-modal-head { display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  border-bottom: 1px solid var(--line); background: var(--gunmetal); }
+.mag-modal-head h2 { font-size: 13px; flex: 1; letter-spacing: 1px; text-transform: uppercase; }
+.mag-modal-head .mclose { font-size: 20px; background: none; border: none;
+  color: #9aa3ad; cursor: pointer; padding: 0; min-width: 28px; min-height: 28px;
+  display: flex; align-items: center; justify-content: center; }
+.mag-list-scroll { max-height: 320px; overflow-y: auto; padding: 10px 12px; }
+.mag-option { display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+  margin-bottom: 5px; border: 1px solid var(--line); border-radius: 4px;
+  background: #0e1115; cursor: pointer; transition: border-color 100ms; }
+.mag-option:hover { border-color: var(--orange); }
+.mag-opt-name { flex: 1; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--bone); }
+.mag-opt-count { font-size: 10px; color: var(--olive); flex-shrink: 0; }
+.mag-opt-class { font-size: 9px; color: #6b7480; font-family: 'JetBrains Mono', monospace; }
+
+/* Export placeholder */
+.export-placeholder { padding: 10px 12px; border: 1px solid var(--line); border-radius: 5px;
+  background: #0e1115; margin-bottom: 10px; }
+.export-placeholder h4 { font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: #39414b; margin-bottom: 6px; }
+.export-placeholder p { font-size: 10px; color: #39414b;
+  font-family: 'JetBrains Mono', monospace; line-height: 1.6; }
+.export-placeholder button { opacity: .35; cursor: not-allowed; font-size: 11px;
+  padding: 5px 10px; margin-top: 8px; }
+.export-placeholder button:hover { border-color: var(--line); }
+
+/* ============================================================
+   VEHICLE PICKER (left panel)
+   ============================================================ */
+.veh-list { display: flex; flex-direction: column; gap: 3px; }
+.veh-row { display: flex; align-items: center; gap: 8px; padding: 5px 8px;
+  border: 1px solid var(--line); border-radius: 4px; background: #0e1115;
+  cursor: pointer; transition: border-color 100ms; font-size: 11px; }
+.veh-row:hover { border-color: var(--orange); }
+.veh-row.selected { border-color: var(--orange); background: #1c1408; }
+.veh-row.excluded { cursor: default; opacity: .45; }
+.veh-row.excluded:hover { border-color: var(--line); }
+.veh-class { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #6b7480; flex: 1; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.veh-name { font-size: 11px; color: var(--bone); white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; flex: 1.5; }
+.veh-excl-reason { font-size: 9px; color: var(--danger); flex-shrink: 0;
+  font-family: 'JetBrains Mono', monospace; }
+
+/* ============================================================
+   MODALS (help, mag picker)
+   ============================================================ */
+.modal-back { position: fixed; inset: 0; background: rgba(8,10,13,.65); display: none;
+  align-items: center; justify-content: center; z-index: 40; backdrop-filter: blur(3px); }
+.modal-back.open { display: flex; }
+.modal { width: 480px; max-width: 94vw; max-height: 86vh; background: var(--steel);
+  border: 1px solid var(--line); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; }
+.modal-head { display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  border-bottom: 1px solid var(--line); background: var(--gunmetal); }
+.modal-head h2 { font-size: 14px; letter-spacing: 1px; }
+.modal-head .x { cursor: pointer; color: #9aa3ad; font-size: 20px; line-height: 1;
+  background: none; border: none; min-width: 32px; min-height: 32px;
+  display: flex; align-items: center; justify-content: center; }
+.modal-body { padding: 16px 20px; overflow-y: auto; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; line-height: 2.2; color: var(--bone); }
+kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3px;
+  padding: 1px 6px; font-size: 11px; color: var(--bone); }
+
+/* ============================================================
+   TOASTS
+   ============================================================ */
+.toast-container { position: fixed; bottom: 34px; right: 20px; z-index: 60;
+  display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast { background: var(--steel2); border-left: 3px solid var(--olive); color: var(--bone);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 8px 14px;
+  border-radius: 4px; box-shadow: 0 4px 16px rgba(0,0,0,.5); opacity: 1;
+  transition: opacity 400ms ease; pointer-events: auto; }
+.toast.fade-out { opacity: 0; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer-strip { height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 16px;
+  background: #0d1014; border-top: 1px solid var(--line);
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #8b939c; flex-shrink: 0; }
+.footer-chip { background: var(--steel2); border: 1px solid var(--line); border-radius: 10px;
+  padding: 1px 8px; font-size: 9px; }
+.footer-sep { color: var(--line); }
+.footer-link { color: #8b939c; text-decoration: none; }
+.footer-link:hover { color: var(--bone); }
+
+/* ============================================================
+   STAGGERED REVEAL
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .brandbar { animation: fadeSlideIn 250ms ease both 0ms; }
+  .panel:first-of-type { animation: fadeSlideIn 250ms ease both 100ms; }
+  .stage { animation: fadeSlideIn 250ms ease both 200ms; }
+  .panel.right { animation: fadeSlideIn 250ms ease both 300ms; }
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+.xlink-btn { display: inline-flex; align-items: center; gap: 4px; font-size: 11px;
+  padding: 4px 10px; color: #9aa3ad; border: 1px solid #39414b; border-radius: 5px;
+  text-decoration: none; cursor: pointer; background: transparent; white-space: nowrap; }
+.xlink-btn:hover { color: var(--bone); border-color: var(--bone); }
+.section-label { font-family: Oswald, sans-serif; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 2px; color: #9aa3ad; margin: 12px 0 6px; }
+
+/* Auto-restore banner */
+.restore-banner { display: none; align-items: center; gap: 10px; padding: 6px 14px;
+  background: var(--gunmetal); border-bottom: 1px solid var(--line);
+  font-size: 12px; color: var(--chalk); flex-shrink: 0; }
+.restore-banner.show { display: flex; }
+
+/* Preset label editable row */
+.label-row { display: flex; gap: 6px; align-items: center; width: 100%; max-width: 480px; margin-top: 8px; }
+.label-row input { flex: 1; font-size: 11px; padding: 4px 7px; font-family: 'JetBrains Mono', monospace; }
+
+/* Gun station note */
+.gun-note { font-size: 9px; color: var(--olive); font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .5px; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#rackStage">Skip to ordnance rack</a>
+
+<!-- Auto-restore banner -->
+<div id="restoreBanner" class="restore-banner" role="alert">
+  <span id="restoreMsg">Restoring previous session…</span>
+  <button id="restoreAccept" class="primary" style="font-size:11px;padding:4px 10px">Restore</button>
+  <button id="restoreDiscard" style="font-size:11px;padding:4px 10px">Start fresh</button>
+</div>
+
+<!-- ====== Brand bar ====== -->
+<div class="brandbar" role="banner">
+  <svg class="mark" viewBox="0 0 96 96" role="img" aria-label="WASP Warfare">
+    <g fill="none" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter">
+      <polyline points="10,62 48,24 86,62" stroke="#D9763C"/>
+      <polyline points="24,74 48,50 72,74" stroke="#5C6536"/>
+    </g>
+    <line x1="48" y1="60" x2="48" y2="80" stroke="#E7E3D6" stroke-width="4" stroke-linecap="square"/>
+  </svg>
+  <div class="word">
+    <span class="t1">EASA LOADOUTS</span>
+    <span class="t2">WASP ARMAMENT EDITOR</span>
+  </div>
+  <div class="tool"><b>EASA Loadouts</b> · aircraft + vehicle armament designer</div>
+  <span id="statusLed" class="status-led" title="Data loaded" aria-label="Status: data loaded"></span>
+  <div class="spacer"></div>
+  <button class="help-btn" id="helpBtn" title="Keyboard shortcuts (?)" aria-label="Help">?</button>
+  <a href="https://miksuu.com/tools" class="xlink-btn" title="Back to all tools">&#8592; All Tools</a>
+  <div class="chip" id="modeChip">mode: <b>PLANE</b></div>
+</div>
+
+<!-- App -->
+<div class="app">
+
+  <!-- ============================================================
+       LEFT: Mode + Faction + Airframe/Vehicle picker + Presets
+       ============================================================ -->
+  <div class="panel" id="leftPanel" aria-label="Aircraft selector and presets">
+    <header>
+      <h2 data-ordinal="01">ARSENAL</h2>
+      <div class="sub">mode · roster · presets</div>
+    </header>
+    <div class="scroll" id="leftScroll">
+
+      <!-- Mode segmented control -->
+      <div class="section-label" id="modeLabel">Mode</div>
+      <div class="segmented" role="group" aria-labelledby="modeLabel">
+        <button id="modeBtn-plane" class="on" aria-pressed="true" onclick="setMode('plane')">Airplane</button>
+        <button id="modeBtn-heli" aria-pressed="false" onclick="setMode('heli')">Helicopter</button>
+        <button id="modeBtn-vehicle" aria-pressed="false" onclick="setMode('vehicle')">Vehicle</button>
+      </div>
+
+      <!-- Faction filter chips -->
+      <div class="section-label">Faction</div>
+      <div id="factionChips" class="faction-chips" role="group" aria-label="Faction filter"></div>
+
+      <!-- Airframe picker (plane/heli mode) -->
+      <div id="airframePicker">
+        <div class="section-label">Airframe</div>
+        <div id="pickerGrid" class="picker-grid" role="list" aria-label="Airframe selection"></div>
+
+        <!-- Preset list -->
+        <div id="presetSection" style="display:none">
+          <div class="divider"></div>
+          <div id="presetGroupIG" style="display:none">
+            <div class="preset-group-title">In-Game</div>
+            <div id="presetListIG" class="vlist-wrap" role="list" aria-label="In-game presets"></div>
+          </div>
+          <div id="presetGroupRW" style="display:none">
+            <div class="preset-group-title">
+              Real-World <span class="chip rw-badge" style="font-size:9px">RW</span>
+            </div>
+            <div id="presetListRW" role="list" aria-label="Real-world presets"></div>
+          </div>
+          <div id="presetEmpty" class="preset-row" style="cursor:default;display:none">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#39414b">— NO PRESETS —</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vehicle picker (vehicle mode) -->
+      <div id="vehiclePicker" style="display:none">
+        <div class="section-label">Ground Vehicle</div>
+        <div id="vehListEl" class="veh-list" role="list" aria-label="Ground vehicle selection"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CENTER: Hardpoint rack stage (the identity moment)
+       ============================================================ -->
+  <div class="stage" id="rackStage" role="main" aria-label="Ordnance rack">
+    <div class="stage-brackets" aria-hidden="true"></div>
+    <div class="stage-overlay" aria-hidden="true"></div>
+    <div class="stage-header" aria-hidden="true">
+      <span class="stage-ord">02</span>
+      <span class="stage-title">ORDNANCE RACK</span>
+    </div>
+
+    <!-- Plane/heli mode content -->
+    <div class="stage-inner" id="stageAir">
+      <!-- Empty state -->
+      <div class="stage-empty" id="stageEmpty">
+        <div class="stage-empty-glyph">✈</div>
+        <div class="stage-empty-title">— NO AIRFRAME SELECTED —</div>
+        <div class="stage-empty-hint">Select an aircraft from the left panel<br>to begin configuring ordnance.</div>
+      </div>
+
+      <!-- Loaded state -->
+      <div id="stageLoaded" style="display:none;width:100%;max-width:500px;display:none;flex-direction:column;align-items:center">
+        <!-- Silhouette -->
+        <div class="af-silhouette" id="afSilhouette" aria-hidden="true">
+          <div class="af-silhouette-ph" id="afSilPh" style="display:none">— AIRFRAME —</div>
+          <img id="afSilImg" src="" alt="" style="display:none">
+        </div>
+
+        <!-- Label row -->
+        <div class="label-row">
+          <label for="rackLabel" style="margin:0;width:auto;white-space:nowrap">Label</label>
+          <input type="text" id="rackLabel" placeholder="Preset label…" aria-label="Preset label">
+        </div>
+
+        <!-- Station rack -->
+        <div class="rack-section" style="margin-top:12px">
+          <div class="rack-section-title" aria-hidden="true">⬦ HARDPOINTS ⬦</div>
+          <div class="rack" id="stationRack" role="list" aria-label="Station rack"></div>
+          <div style="display:flex;justify-content:center">
+            <button class="add-station-btn" id="addStationBtn" onclick="openPoolPicker()" aria-label="Add station">
+              + STATION
+            </button>
+          </div>
+        </div>
+
+        <!-- Pylon capacity meter -->
+        <div class="pylon-meter" id="pylonMeter">
+          <div class="pylon-meter-label">
+            <span>PYLON LOAD</span>
+            <span id="pylonCount">0 / 0</span>
+          </div>
+          <div class="pylon-bar-track">
+            <div class="pylon-bar-fill" id="pylonBarFill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Totals strip -->
+        <div class="totals-strip" role="region" aria-label="Loadout totals">
+          <div class="ts-price">
+            <label for="priceInput">PRICE $</label>
+            <input type="number" id="priceInput" min="0" step="100" value="0" aria-label="Preset price">
+          </div>
+          <div class="totals-badges" id="totalsBadges"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle mode content -->
+    <div id="stageVehicle" style="display:none;align-items:center;justify-content:center;flex:1;padding:40px 20px 14px;z-index:2">
+      <div class="vehicle-stage" id="vehicleStageContent">
+        <div class="stage-empty">
+          <div class="stage-empty-glyph">🚗</div>
+          <div class="stage-empty-title">— NO VEHICLE SELECTED —</div>
+          <div class="stage-empty-hint">Select an eligible vehicle from the left panel.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       RIGHT: Weapon pool + Export placeholder
+       ============================================================ -->
+  <div class="panel right" id="rightPanel" aria-label="Weapon pool and export">
+    <header>
+      <h2 data-ordinal="03">ORDNANCE</h2>
+      <div class="sub">pool · categories · export</div>
+    </header>
+    <div class="scroll">
+
+      <!-- Search + Category chips -->
+      <div class="pool-search">
+        <input type="text" id="poolSearch" placeholder="Search weapons…" autocomplete="off" aria-label="Search weapon pool">
+      </div>
+      <div class="pool-cats" id="poolCats" role="group" aria-label="Weapon categories"></div>
+      <div id="showAllRow" style="text-align:center;margin-bottom:4px;display:none">
+        <button class="show-all-toggle" id="showAllBtn" onclick="toggleShowAll()">SHOW ALL WEAPONS</button>
+      </div>
+
+      <!-- Pool grid -->
+      <div class="pool-scroll" id="poolScroll">
+        <div class="pool-grid" id="poolGrid" role="list" aria-label="Weapon pool"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Export placeholder (build-2 wires these) -->
+      <div class="export-placeholder">
+        <h4>Export — build 2</h4>
+        <p>SQF export + import coming in the next build pass. Functions are stubbed and ready to wire.</p>
+        <div class="btnbar" style="flex-direction:column;gap:5px">
+          <button disabled title="Export in build-2">Copy Preset Row SQF</button>
+          <button disabled title="Export in build-2">Copy Full EASA_Init.sqf</button>
+          <button disabled title="Export in build-2" id="exportVehBtn">Copy Vehicle Snippet</button>
+        </div>
+      </div>
+
+      <!-- In-game notes -->
+      <div class="divider"></div>
+      <div class="hint" id="easaNotes" style="display:none">
+        <b style="color:var(--bone)">In-game notes:</b><br>
+        EASA usable at the side's service point only (70 m range) · driver seat required ·
+        Requires EASA upgrade ($4,000, unlocked after Air Factory) · Module param default ON ·
+        Cost check is <code>&gt;</code> (need <em>more</em> than price) · rearm re-applies the EASA preset automatically.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.app -->
+
+<!-- Footer -->
+<div class="footer-strip">
+  <span class="footer-chip">v1.0.0-core</span>
+  <span class="footer-sep">·</span>
+  <a href="https://miksuu.com/tools" class="footer-link">Part of the Warfare Tools suite → miksuu.com/tools</a>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+<!-- Help modal -->
+<div class="modal-back" id="helpModalBack" role="presentation">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
+    <div class="modal-head">
+      <h2 id="helpModalTitle">KEYBOARD SHORTCUTS</h2>
+      <button class="x" id="helpModalClose" aria-label="Close help">&#215;</button>
+    </div>
+    <div class="modal-body">
+      <div><kbd>?</kbd> — Open / close this overlay</div>
+      <div><kbd>Esc</kbd> — Close modal / picker</div>
+      <div><kbd>/</kbd> — Focus weapon pool search</div>
+      <div style="margin-top:12px;font-size:10px;color:#9aa3ad;text-transform:uppercase;letter-spacing:1px">Mode switching</div>
+      <div><kbd>1</kbd> — Airplane mode</div>
+      <div><kbd>2</kbd> — Helicopter mode</div>
+      <div><kbd>3</kbd> — Vehicle mode</div>
+      <div style="margin-top:12px;font-size:10px;color:#9aa3ad;text-transform:uppercase;letter-spacing:1px">Rack</div>
+      <div><kbd>↑</kbd> <kbd>↓</kbd> — Navigate presets in list</div>
+      <div><kbd>Enter</kbd> — Load highlighted preset</div>
+      <div><kbd>Delete</kbd> — Remove last station</div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--line);
+        font-size:10px;color:#9aa3ad">
+        EASA LOADOUTS · Part of the Warfare Tools suite · miksuu.com/tools<br>
+        Export functions wired in build-2 (window.exportSinglePresetRow, exportFullEasaInit, exportVehicleSnippet, importEasaBlock)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mag picker modal -->
+<div class="mag-modal" id="magModal" role="dialog" aria-modal="true" aria-labelledby="magModalTitle">
+  <div class="mag-modal-box">
+    <div class="mag-modal-head">
+      <h2 id="magModalTitle">SELECT MAGAZINE</h2>
+      <button class="mclose" id="magModalClose" aria-label="Close">&#215;</button>
+    </div>
+    <div class="mag-list-scroll" id="magListScroll" role="list" aria-label="Available magazines"></div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SCRIPT
+     ================================================================ -->
+<script>
+'use strict';
+/* ============================================================
+   Data (lazy-loaded inline via fetch-self or embedded path)
+   ============================================================ */
+// All data lives in assets/data/*.json (same-origin, offline-compatible via file://)
+// We load them on init and cache in DATA.
+
+const DATA = {
+  seed: null,      // easa-seed.json
+  airframes: null, // airframes.json
+  weapons: null,   // weapons.json
+  magazines: null, // magazines.json
+  vehicles: null,  // vehicles.json
+  presetsDraft: null // presets-draft.json (real-world presets + groundVehicles)
+};
+
+/* ============================================================
+   State model
+   ============================================================ */
+const state = {
+  mode: 'plane',
+  faction: null,
+  airframeClass: null,
+  rack: [],             // [{id, weaponClass, magClass, isGun}]
+  price: 0,
+  label: '',
+  selectedPresetRef: null,
+  dirty: false,
+  // vehicle
+  vehicleClass: null,
+  vWeaponClass: null,
+  vMagClass: null,
+  vMagCount: 1
+};
+
+// Pending mag pick callback (set when opening mag modal from pool)
+let _pendingWeapon = null;
+// Virtualised preset list state
+let _presetScrollTimer = null;
+// Show-all toggle for pool
+let _showAll = false;
+// Active pool category filter
+let _poolCat = null;
+// Pool search term
+let _poolSearch = '';
+// Focused preset index (keyboard nav)
+let _focusedPreset = -1;
+// Debounce timer for autosave
+let _saveTimer = null;
+
+/* ============================================================
+   Utility
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function uid() { return Math.random().toString(36).slice(2,9); }
+
+function showToast(msg, duration=2500) {
+  const c = $('toastContainer'); if(!c) return;
+  const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.classList.add('fade-out'); setTimeout(() => t.remove(), 420); }, duration);
+}
+
+function setLed(s) {
+  const led = $('statusLed'); if(!led) return;
+  led.className = 'status-led' + (s==='error'?' led-error':s==='warn'?' led-warn':'');
+  led.title = s==='error'?'Validation error':s==='warn'?'Unsaved changes':'Data loaded';
+}
+
+/* ============================================================
+   Local-storage autosave
+   ============================================================ */
+const LS_KEY = 'easa-loadouts-state-v1';
+const LS_PENDING = 'easa-loadouts-pending-v1';
+
+function saveState() {
+  try {
+    const snap = {
+      mode: state.mode, faction: state.faction,
+      airframeClass: state.airframeClass, rack: [...state.rack],
+      price: state.price, label: state.label,
+      selectedPresetRef: state.selectedPresetRef, dirty: state.dirty,
+      vehicleClass: state.vehicleClass, vWeaponClass: state.vWeaponClass,
+      vMagClass: state.vMagClass, vMagCount: state.vMagCount
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(snap));
+  } catch(e) { console.warn('autosave failed', e); }
+}
+
+function debouncedSave() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(saveState, 800);
+}
+
+function loadSavedState() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  } catch { return null; }
+}
+
+/* ============================================================
+   Data loading
+   ============================================================ */
+async function loadJson(path) {
+  const r = await fetch(path); if(!r.ok) throw new Error(path+' '+r.status);
+  return r.json();
+}
+
+async function initData() {
+  try {
+    [DATA.seed, DATA.airframes, DATA.weapons, DATA.magazines, DATA.vehicles, DATA.presetsDraft] = await Promise.all([
+      loadJson('assets/data/easa-seed.json'),
+      loadJson('assets/data/airframes.json'),
+      loadJson('assets/data/weapons.json'),
+      loadJson('assets/data/magazines.json'),
+      loadJson('assets/data/vehicles.json'),
+      loadJson('docs/research/presets-draft.json')
+    ]);
+    validateVehicleFlags();
+    setLed('ok');
+    return true;
+  } catch(e) {
+    console.error('Data load failed:', e);
+    setLed('error');
+    return false;
+  }
+}
+
+// vehicles.json armed flag is authoritative; if presets-draft disagrees, log a warning
+function validateVehicleFlags() {
+  const vehicleMap = new Map(DATA.vehicles.map(v => [v.class, v]));
+  const gv = DATA.presetsDraft?.groundVehicles;
+  if(!gv) return;
+  for(const e of (gv.eligible||[])) {
+    const v = vehicleMap.get(e.class);
+    if(v && v.armed) console.warn(`EASA eligibility conflict: ${e.class} is curated-eligible but vehicles.json armed=true — trusting vehicles.json`);
+  }
+  for(const e of (gv.excluded||[])) {
+    const v = vehicleMap.get(e.class);
+    if(v && !v.armed) console.warn(`EASA eligibility conflict: ${e.class} is curated-excluded but vehicles.json armed=false`);
+  }
+}
+
+/* ============================================================
+   Derived data helpers
+   ============================================================ */
+// EASA-registered airframe classes
+function easaClasses() { return DATA.seed.vehicles.map(v => v.class); }
+
+// airframes.json map by class
+function airframeMap() {
+  if(!DATA.airframes) return new Map();
+  return new Map(DATA.airframes.map(a => [a.class, a]));
+}
+
+// seed vehicle by class
+function seedVehicle(cls) { return DATA.seed?.vehicles.find(v => v.class===cls) || null; }
+
+// Get real-world presets for an airframe class
+function rwPresetsFor(cls) {
+  if(!DATA.presetsDraft?.airframes) return [];
+  return (DATA.presetsDraft.airframes.find(a => a.class===cls) || {presets:[]}).presets || [];
+}
+
+// Compute AA flag for a preset's mags array (any mag with airLock=true in magazines.json)
+function computeHasAA(mags) {
+  if(!DATA.magazines) return false;
+  return mags.some(m => DATA.magazines[m]?.airLock === true);
+}
+
+// Get magazine display info
+function magInfo(cls) {
+  const m = DATA.magazines?.[cls];
+  return m || {displayName: cls, count: 1, airLock: false, thumb: null};
+}
+
+// Weapon display info
+function wpnInfo(cls) {
+  const w = DATA.weapons?.[cls];
+  return w || {displayName: cls, category: 'other', magazines: [], thumb: null};
+}
+
+// Airframe thumbnail path
+function thumbPath(thumbFile) {
+  if(!thumbFile) return null;
+  return `assets/img/${thumbFile}`;
+}
+
+// Get all factions visible in current mode's airframe pool
+function factionsForMode(mode) {
+  const ecs = new Set(easaClasses());
+  const af = DATA.airframes?.filter(a => a.kind===mode && ecs.has(a.class)) || [];
+  return [...new Set(af.map(a => a.faction).filter(Boolean))].sort();
+}
+
+// Get airframes for current mode, filtered by faction
+function airframesForMode(mode, faction) {
+  const ecs = new Set(easaClasses());
+  let af = DATA.airframes?.filter(a => a.kind===mode && ecs.has(a.class)) || [];
+  if(faction) af = af.filter(a => a.faction===faction);
+  return af;
+}
+
+// Build plausible weapon pool for an airframe (weapons in its seed presets + stock)
+function buildPlausiblePool(cls) {
+  const sv = seedVehicle(cls);
+  const af = airframeMap().get(cls);
+  const weapSet = new Set();
+  if(sv) {
+    for(const p of sv.presets) for(const w of p.weapons) weapSet.add(w);
+    for(const w of (sv.default?.weapons||[])) weapSet.add(w);
+  }
+  if(af?.stock?.weapons) for(const w of af.stock.weapons) weapSet.add(w);
+  return [...weapSet];
+}
+
+// Get weapon category label for display
+const CAT_LABELS = {gun:'GUN',rockets:'ROCKETS',agm:'AGM',bomb:'BOMBS',aam:'AAM',cm:'CM',other:'OTHER',mg:'MG',at:'AT',gl:'GL'};
+function catLabel(cat) { return CAT_LABELS[cat] || cat?.toUpperCase() || '?'; }
+
+// Air-relevant categories
+const AIR_CATS = ['gun','rockets','agm','bomb','aam','cm'];
+
+/* ============================================================
+   Render helpers — faction chips
+   ============================================================ */
+function renderFactionChips() {
+  const el = $('factionChips'); if(!el) return;
+  let factions;
+  if(state.mode==='vehicle') {
+    factions = [...new Set((DATA.presetsDraft?.groundVehicles?.eligible||[]).map(v=>v.faction).filter(Boolean))].sort();
+  } else {
+    factions = factionsForMode(state.mode);
+  }
+  el.innerHTML = '';
+  const allChip = document.createElement('span');
+  allChip.className = 'chip clickable' + (!state.faction?' on':'');
+  allChip.textContent = 'ALL'; allChip.tabIndex = 0;
+  allChip.onclick = () => { state.faction=null; renderFactionChips(); renderPicker(); };
+  allChip.onkeydown = e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();allChip.onclick();} };
+  el.appendChild(allChip);
+  for(const f of factions) {
+    const c = document.createElement('span');
+    c.className = 'chip clickable' + (state.faction===f?' on':'');
+    c.textContent = f; c.tabIndex = 0;
+    c.onclick = () => { state.faction=f; renderFactionChips(); renderPicker(); };
+    c.onkeydown = e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();c.onclick();} };
+    el.appendChild(c);
+  }
+}
+
+/* ============================================================
+   Render — airframe picker (left panel)
+   ============================================================ */
+function renderPicker() {
+  const grid = $('pickerGrid'); if(!grid) return;
+  grid.innerHTML = '';
+  const afs = airframesForMode(state.mode, state.faction);
+  if(!afs.length) {
+    const ph = document.createElement('div');
+    ph.className='picker-empty'; ph.style.gridColumn='1/-1';
+    ph.textContent='— NO AIRFRAMES —'; grid.appendChild(ph); return;
+  }
+  for(const af of afs) {
+    const tile = document.createElement('div');
+    tile.className = 'picker-tile' + (state.airframeClass===af.class?' selected':'');
+    tile.setAttribute('role','button'); tile.setAttribute('tabindex','0');
+    tile.setAttribute('aria-pressed', state.airframeClass===af.class ? 'true':'false');
+    tile.setAttribute('aria-label', af.displayName || af.class);
+    const thumb = af.thumb ? thumbPath(af.thumb) : null;
+    if(thumb) {
+      const img = document.createElement('img');
+      img.src = thumb; img.alt = af.displayName || af.class;
+      img.onerror = () => { img.style.display='none'; ph.style.display='flex'; };
+      const ph = document.createElement('div'); ph.className='picker-ph';
+      ph.textContent = (af.class||'').slice(0,8); ph.style.display='none';
+      tile.appendChild(img); tile.appendChild(ph);
+    } else {
+      const ph = document.createElement('div'); ph.className='picker-ph';
+      ph.textContent = (af.class||'').slice(0,10); tile.appendChild(ph);
+    }
+    const lab = document.createElement('div'); lab.className='picker-lab';
+    lab.textContent = af.displayName || af.class; tile.appendChild(lab);
+    tile.onclick = () => selectAirframe(af.class);
+    tile.onkeydown = e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();selectAirframe(af.class);} };
+    grid.appendChild(tile);
+  }
+}
+
+/* ============================================================
+   Render — preset list (virtualised for large lists like Su39)
+   ============================================================ */
+function renderPresets() {
+  const section = $('presetSection');
+  const groupIG = $('presetGroupIG');
+  const listIG  = $('presetListIG');
+  const groupRW = $('presetGroupRW');
+  const listRW  = $('presetListRW');
+  const emptyEl = $('presetEmpty');
+  if(!section) return;
+
+  if(!state.airframeClass) { section.style.display='none'; return; }
+  section.style.display='block';
+
+  const sv = seedVehicle(state.airframeClass);
+  const rwPresets = rwPresetsFor(state.airframeClass);
+
+  // IN-GAME presets (may be large — use virtual scroll)
+  if(sv?.presets?.length) {
+    groupIG.style.display='block';
+    renderVirtualPresets(listIG, sv.presets, 'seed');
+  } else { groupIG.style.display='none'; }
+
+  // REAL-WORLD presets
+  if(rwPresets.length) {
+    groupRW.style.display='block';
+    listRW.innerHTML='';
+    for(let i=0;i<rwPresets.length;i++) {
+      const p = rwPresets[i];
+      const row = makePresetRow(p, 'rw', i);
+      listRW.appendChild(row);
+    }
+  } else { groupRW.style.display='none'; }
+
+  if(!sv?.presets?.length && !rwPresets.length) {
+    emptyEl.style.display='flex'; } else { emptyEl.style.display='none'; }
+}
+
+// Virtualised preset list for potentially 100+ in-game presets
+function renderVirtualPresets(container, presets, source) {
+  // Render all but use a scrollable container with max-height
+  container.innerHTML='';
+  for(let i=0;i<presets.length;i++) {
+    const p = presets[i];
+    const hasAA = computeHasAA(p.mags || []);
+    const selected = state.selectedPresetRef?.source===source &&
+      state.selectedPresetRef?.airframeClass===state.airframeClass &&
+      state.selectedPresetRef?.index===i;
+
+    const row = document.createElement('div');
+    row.className='preset-row'+(selected?' selected':'');
+    row.setAttribute('role','button'); row.tabIndex=0;
+    row.setAttribute('aria-label', `${p.label||p.name} $${p.price||''}`);
+    row.dataset.presetIdx = i;
+
+    const price = document.createElement('span'); price.className='pr-price';
+    price.textContent = p.price != null ? `$${p.price}` : '';
+    row.appendChild(price);
+
+    const label = document.createElement('span'); label.className='pr-label';
+    label.textContent = p.label || p.name || '(unnamed)';
+    row.appendChild(label);
+
+    const badges = document.createElement('span'); badges.className='pr-badges';
+    if(hasAA) {
+      const b = document.createElement('span'); b.className='chip aa-badge'; b.textContent='AA'; b.title='Air-to-air missiles — gated behind AIRAAM upgrade in-game';
+      badges.appendChild(b);
+    }
+    row.appendChild(badges);
+
+    row.onclick = () => loadPreset(source, state.airframeClass, i);
+    row.onkeydown = e => { if(e.key==='Enter') loadPreset(source,state.airframeClass,i); };
+    container.appendChild(row);
+  }
+}
+
+function makePresetRow(p, source, i) {
+  const row = document.createElement('div');
+  row.className='preset-row';
+  row.setAttribute('role','button'); row.tabIndex=0;
+  if(p.why) row.title=p.why;
+  row.setAttribute('aria-label', (p.name||p.label) + (p.why?' — '+p.why:''));
+
+  const badges = document.createElement('span'); badges.className='pr-badges';
+  const rwb = document.createElement('span'); rwb.className='chip rw-badge'; rwb.textContent='RW';
+  badges.appendChild(rwb);
+  row.appendChild(badges);
+
+  const label = document.createElement('span'); label.className='pr-label';
+  label.textContent = p.name || p.label || '(unnamed)';
+  row.appendChild(label);
+
+  row.onclick = () => loadPreset(source, state.airframeClass, i);
+  row.onkeydown = e => { if(e.key==='Enter') loadPreset(source,state.airframeClass,i); };
+  return row;
+}
+
+/* ============================================================
+   Select airframe
+   ============================================================ */
+function selectAirframe(cls) {
+  state.airframeClass = cls;
+  state.rack = [];
+  state.price = 0;
+  state.label = '';
+  state.selectedPresetRef = null;
+  state.dirty = false;
+  renderPicker();
+  renderPresets();
+  renderStageAir();
+  renderPool();
+  showNotes(true);
+  debouncedSave();
+}
+
+/* ============================================================
+   Load preset into rack
+   ============================================================ */
+function loadPreset(source, airframeClass, index) {
+  let preset;
+  if(source==='seed') {
+    const sv = seedVehicle(airframeClass);
+    if(!sv) return;
+    preset = sv.presets[index];
+    if(!preset) return;
+    // Convert flat mags array to station entries (one mag entry per station)
+    state.rack = preset.mags.map(magCls => {
+      const w = DATA.weapons;
+      // Find which weapon uses this mag
+      const weapCls = findWeaponForMag(magCls, preset.weapons) || preset.weapons[0] || '';
+      const isGun = wpnInfo(weapCls).category === 'gun';
+      return { id: uid(), weaponClass: weapCls, magClass: magCls, isGun };
+    });
+    state.price = preset.price || 0;
+    state.label = preset.label || '';
+  } else if(source==='rw') {
+    const rwp = rwPresetsFor(airframeClass)[index];
+    if(!rwp) return;
+    state.rack = (rwp.items || []).map(item => {
+      const magCls = (item.mags&&item.mags[0]) ? item.mags[0].class : '';
+      const isGun = wpnInfo(item.weapon).category === 'gun';
+      return { id: uid(), weaponClass: item.weapon, magClass: magCls, isGun };
+    });
+    state.price = 0; // RW presets don't have in-game prices
+    state.label = rwp.name || '';
+  }
+
+  state.selectedPresetRef = { source, airframeClass, index };
+  state.dirty = false;
+  renderPresets();
+  renderStageAir();
+  updateTotals();
+  debouncedSave();
+  showToast(`Loaded: ${state.label||'preset'}`);
+}
+
+// Heuristic: find which weapon from the preset weapons list is responsible for a given mag
+function findWeaponForMag(magCls, weapons) {
+  // check weapons.json for each weapon to see if it lists this mag
+  for(const w of (weapons||[])) {
+    const wi = wpnInfo(w);
+    if(wi.magazines && wi.magazines.includes(magCls)) return w;
+  }
+  return null;
+}
+
+/* ============================================================
+   Render center stage (air mode)
+   ============================================================ */
+function renderStageAir() {
+  const empty = $('stageEmpty');
+  const loaded = $('stageLoaded');
+  if(!state.airframeClass) {
+    empty.style.display=''; loaded.style.display='none'; return;
+  }
+  empty.style.display='none'; loaded.style.display='flex';
+
+  // Silhouette
+  const af = airframeMap().get(state.airframeClass);
+  const img = $('afSilImg'); const ph = $('afSilPh');
+  if(af?.thumb) {
+    img.src = thumbPath(af.thumb); img.alt = af.displayName||af.class;
+    img.style.display='block'; ph.style.display='none';
+    img.onerror = ()=>{ img.style.display='none'; ph.style.display='flex'; ph.textContent=af.displayName||af.class; };
+  } else {
+    img.style.display='none'; ph.style.display='flex';
+    ph.textContent = af?.displayName || state.airframeClass;
+  }
+
+  // Label input
+  const labelInp = $('rackLabel');
+  if(labelInp) { labelInp.value = state.label; labelInp.oninput = () => { state.label=labelInp.value; state.dirty=true; setLed('warn'); debouncedSave(); }; }
+
+  renderRack();
+  updateTotals();
+}
+
+/* ============================================================
+   Render rack (station tiles)
+   ============================================================ */
+function renderRack() {
+  const rack = $('stationRack'); if(!rack) return;
+  rack.innerHTML='';
+  if(!state.rack.length) {
+    const ph = document.createElement('div');
+    ph.style.cssText='font-family:JetBrains Mono,monospace;font-size:10px;color:#39414b;padding:12px;text-align:center;letter-spacing:1px;width:100%';
+    ph.textContent='— NO ORDNANCE SELECTED —';
+    rack.appendChild(ph); return;
+  }
+  for(let i=0;i<state.rack.length;i++) {
+    const s = state.rack[i];
+    const tile = document.createElement('div');
+    tile.className='station-tile'+(s.isGun?' gun-tile':'');
+    tile.setAttribute('role','listitem');
+    tile.setAttribute('aria-label', `Station ${i+1}: ${s.magClass}`);
+
+    // Remove button
+    const rm = document.createElement('button');
+    rm.className='st-remove'; rm.textContent='×'; rm.setAttribute('aria-label','Remove station '+i);
+    rm.onclick = () => { state.rack.splice(i,1); state.dirty=true; setLed('warn'); renderRack(); updateTotals(); debouncedSave(); };
+    tile.appendChild(rm);
+
+    // Thumbnail area
+    const thumb = document.createElement('div'); thumb.className='st-thumb';
+    const mi = magInfo(s.magClass);
+    const wi = wpnInfo(s.weaponClass);
+    const thumbFile = mi.thumb || wi.thumb;
+    if(thumbFile) {
+      const img = document.createElement('img'); img.src=thumbPath(thumbFile); img.alt=mi.displayName||s.magClass;
+      img.onerror=()=>{img.style.display='none';};
+      thumb.appendChild(img);
+    } else {
+      const sph = document.createElement('span'); sph.className='st-ph';
+      sph.textContent = (s.magClass||'').slice(0,8);
+      thumb.appendChild(sph);
+    }
+    tile.appendChild(thumb);
+
+    // Body
+    const body = document.createElement('div'); body.className='st-body';
+    const cls = document.createElement('div'); cls.className='st-class';
+    cls.textContent = s.weaponClass || '—'; body.appendChild(cls);
+    const mag = document.createElement('div'); mag.className='st-mag';
+    mag.textContent = mi.displayName || s.magClass; body.appendChild(mag);
+    const cnt = document.createElement('div'); cnt.className='st-count';
+    cnt.textContent = mi.count ? `×${mi.count}` : ''; body.appendChild(cnt);
+    if(s.isGun) {
+      const gn=document.createElement('div'); gn.className='gun-note'; gn.textContent='GUN'; body.appendChild(gn);
+    }
+    tile.appendChild(body);
+    rack.appendChild(tile);
+  }
+}
+
+/* ============================================================
+   Update totals strip + pylon meter
+   ============================================================ */
+function updateTotals() {
+  // Price input
+  const pi = $('priceInput');
+  if(pi) { pi.value = state.price; pi.oninput = () => { state.price=parseInt(pi.value)||0; state.dirty=true; setLed('warn'); debouncedSave(); }; }
+
+  // AA badge
+  const mags = state.rack.map(s=>s.magClass);
+  const hasAA = computeHasAA(mags);
+
+  // Pylon meter
+  const sv = seedVehicle(state.airframeClass);
+  const maxPylons = sv?.pylons || state.rack.length;
+  const usedPylons = state.rack.length;
+  const pylonCount = $('pylonCount');
+  const pylonFill = $('pylonBarFill');
+  if(pylonCount) pylonCount.textContent = `${usedPylons} / ${maxPylons}`;
+  if(pylonFill) {
+    const pct = maxPylons>0 ? Math.min(100, usedPylons/maxPylons*100) : 0;
+    pylonFill.style.width = pct+'%';
+    pylonFill.classList.toggle('over', usedPylons>maxPylons);
+  }
+
+  // Badges
+  const badges = $('totalsBadges'); if(!badges) return;
+  badges.innerHTML='';
+  if(hasAA) {
+    const b=document.createElement('span'); b.className='chip aa-badge';
+    b.textContent='AA'; b.title='Air-to-air missiles — gated behind AIRAAM upgrade in-game';
+    badges.appendChild(b);
+  }
+  if(state.dirty) {
+    const b=document.createElement('span'); b.className='chip warn-badge'; b.textContent='MODIFIED';
+    badges.appendChild(b);
+  }
+  if(usedPylons>maxPylons) {
+    const b=document.createElement('span'); b.className='chip warn-badge';
+    b.textContent='OVERLOADED'; b.title='Pylon count exceeds documented max — weapon cycling may be affected';
+    badges.appendChild(b);
+  }
+
+  // LED
+  setLed(state.dirty?'warn':'ok');
+}
+
+/* ============================================================
+   Render weapon pool (right panel)
+   ============================================================ */
+function renderPool() {
+  const cats = $('poolCats');
+  const grid = $('poolGrid');
+  if(!cats||!grid) return;
+
+  // Determine plausible pool
+  let plausibleSet = new Set();
+  if(state.airframeClass) {
+    const pool = buildPlausiblePool(state.airframeClass);
+    plausibleSet = new Set(pool);
+  }
+  const allWeapons = Object.entries(DATA.weapons||{});
+  const airWeapons = allWeapons.filter(([cls,w]) => AIR_CATS.includes(w.category));
+
+  // Category chips
+  const allCats = [...new Set(airWeapons.map(([,w])=>w.category))].sort();
+  cats.innerHTML='';
+  const allC=document.createElement('span'); allC.className='chip clickable'+(!_poolCat?' on':'');
+  allC.textContent='ALL'; allC.tabIndex=0;
+  allC.onclick=()=>{_poolCat=null;renderPool();};
+  allC.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();allC.onclick();}};
+  cats.appendChild(allC);
+  for(const cat of allCats) {
+    const c=document.createElement('span'); c.className='chip clickable'+(_poolCat===cat?' on':'');
+    c.textContent=catLabel(cat); c.tabIndex=0;
+    c.onclick=()=>{_poolCat=cat;renderPool();};
+    c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.onclick();}};
+    cats.appendChild(c);
+  }
+
+  // Show-all toggle
+  const showAllRow=$('showAllRow'); const showAllBtn=$('showAllBtn');
+  if(state.airframeClass) {
+    showAllRow.style.display='block';
+    showAllBtn.textContent=_showAll?'SHOW PLAUSIBLE ONLY':'SHOW ALL WEAPONS';
+  } else {
+    showAllRow.style.display='none';
+  }
+
+  // Filter weapons
+  let pool = _showAll || !state.airframeClass ? airWeapons : airWeapons.filter(([cls])=>plausibleSet.has(cls));
+  if(_poolCat) pool = pool.filter(([,w])=>w.category===_poolCat);
+  if(_poolSearch) pool = pool.filter(([cls,w])=>cls.toLowerCase().includes(_poolSearch)||w.displayName?.toLowerCase().includes(_poolSearch));
+
+  // Render
+  grid.innerHTML='';
+  if(!pool.length) {
+    const ph=document.createElement('div'); ph.className='pool-empty';
+    ph.textContent='— NO WEAPONS MATCH —'; grid.appendChild(ph); return;
+  }
+  for(const [cls,w] of pool) {
+    const tile=document.createElement('div'); tile.className='pool-tile';
+    tile.setAttribute('role','button'); tile.tabIndex=0;
+    tile.setAttribute('aria-label', (w.displayName||cls));
+    const thumb=w.thumb?thumbPath(w.thumb):null;
+    if(thumb) {
+      const img=document.createElement('img'); img.src=thumb; img.alt=w.displayName||cls;
+      img.onerror=()=>{img.style.display='none';};
+      tile.appendChild(img);
+    } else {
+      const ph=document.createElement('div'); ph.className='pool-ph';
+      ph.textContent=(cls||'').slice(0,10); tile.appendChild(ph);
+    }
+    const lab=document.createElement('div'); lab.className='pool-lab'; lab.textContent=w.displayName||cls;
+    tile.appendChild(lab);
+    tile.onclick=()=>openMagPicker(cls,w);
+    tile.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openMagPicker(cls,w);}};
+    grid.appendChild(tile);
+  }
+}
+
+function toggleShowAll() { _showAll=!_showAll; renderPool(); }
+
+/* ============================================================
+   Open pool picker (from "+ station" button)
+   ============================================================ */
+function openPoolPicker() {
+  // Focus the pool search
+  const ps=$('poolSearch'); if(ps) { ps.focus(); ps.select(); }
+  showToast('Select a weapon from the pool →');
+}
+
+/* ============================================================
+   Mag picker modal
+   ============================================================ */
+function openMagPicker(weapCls, weapData) {
+  _pendingWeapon = {cls: weapCls, data: weapData};
+  const modal=$('magModal'); if(!modal) return;
+  const title=$('magModalTitle');
+  if(title) title.textContent = (weapData.displayName||weapCls).toUpperCase()+' — SELECT MAGAZINE';
+  const scroll=$('magListScroll'); if(!scroll) return;
+  scroll.innerHTML='';
+
+  const mags = weapData.magazines || [];
+  if(!mags.length) {
+    const ph=document.createElement('div');
+    ph.style.cssText='padding:12px;font-family:JetBrains Mono,monospace;font-size:11px;color:#39414b';
+    ph.textContent='No magazines defined for this weapon.';
+    scroll.appendChild(ph);
+  }
+  for(const magCls of mags) {
+    const mi = magInfo(magCls);
+    const row=document.createElement('div'); row.className='mag-option';
+    row.setAttribute('role','button'); row.tabIndex=0;
+    row.setAttribute('aria-label', `${mi.displayName} ×${mi.count}`);
+    const name=document.createElement('div'); name.className='mag-opt-name';
+    name.textContent=mi.displayName||magCls;
+    const cnt=document.createElement('div'); cnt.className='mag-opt-count';
+    cnt.textContent=mi.count?`×${mi.count}`:'';
+    const cls=document.createElement('div'); cls.className='mag-opt-class'; cls.textContent=magCls;
+    row.appendChild(name); row.appendChild(cnt);
+    const right=document.createElement('div');
+    right.style.cssText='display:flex;flex-direction:column;align-items:flex-end;gap:2px';
+    right.appendChild(cnt); right.appendChild(cls);
+    row.appendChild(right);
+    if(mi.airLock) {
+      const b=document.createElement('span'); b.className='chip aa-badge'; b.textContent='AA';
+      b.title='Air-lock missile — AA badge in presets'; row.appendChild(b);
+    }
+    row.onclick=()=>addStation(weapCls, magCls);
+    row.onkeydown=e=>{if(e.key==='Enter') addStation(weapCls,magCls);};
+    scroll.appendChild(row);
+  }
+  modal.classList.add('open');
+  // Focus first option
+  const first = scroll.querySelector('.mag-option');
+  if(first) setTimeout(()=>first.focus(),50);
+}
+
+function closeMagModal() { const m=$('magModal'); if(m) m.classList.remove('open'); _pendingWeapon=null; }
+
+/* ============================================================
+   Add station to rack
+   ============================================================ */
+function addStation(weapCls, magCls) {
+  const isGun = wpnInfo(weapCls).category === 'gun';
+  state.rack.push({ id:uid(), weaponClass:weapCls, magClass:magCls, isGun });
+  state.dirty=true; state.selectedPresetRef=null;
+  renderRack(); updateTotals(); renderPresets(); debouncedSave();
+  closeMagModal();
+  showToast(`Added: ${magInfo(magCls).displayName||magCls}`);
+}
+
+/* ============================================================
+   Mode switching
+   ============================================================ */
+function setMode(mode) {
+  state.mode=mode; state.faction=null; state.airframeClass=null;
+  state.rack=[]; state.price=0; state.label=''; state.selectedPresetRef=null; state.dirty=false;
+  state.vehicleClass=null; state.vWeaponClass=null; state.vMagClass=null; state.vMagCount=1;
+  ['plane','heli','vehicle'].forEach(m=>{
+    const btn=$('modeBtn-'+m);
+    if(btn) { btn.classList.toggle('on',m===mode); btn.setAttribute('aria-pressed',m===mode?'true':'false'); }
+  });
+  // Toggle sections
+  const ap=$('airframePicker'); const vp=$('vehiclePicker');
+  const stAir=$('stageAir'); const stVeh=$('stageVehicle');
+  if(mode==='vehicle') {
+    if(ap) ap.style.display='none'; if(vp) vp.style.display='block';
+    if(stAir) stAir.style.display='none'; if(stVeh) stVeh.style.display='flex';
+    $('easaNotes').style.display='none';
+    $('showAllRow').style.display='none';
+  } else {
+    if(ap) ap.style.display='block'; if(vp) vp.style.display='none';
+    if(stAir) stAir.style.display='flex'; if(stVeh) stVeh.style.display='none';
+  }
+  const mc=$('modeChip'); if(mc) mc.innerHTML=`mode: <b>${mode.toUpperCase()}</b>`;
+  renderFactionChips(); renderPicker(); renderPool();
+  if(mode==='vehicle') renderVehicleStage();
+  debouncedSave();
+}
+
+function showNotes(show) { const n=$('easaNotes'); if(n) n.style.display=show?'block':'none'; }
+
+/* ============================================================
+   Vehicle mode
+   ============================================================ */
+function renderVehiclePicker() {
+  const el=$('vehListEl'); if(!el) return;
+  el.innerHTML='';
+  const vehicleMap=new Map(DATA.vehicles.map(v=>[v.class,v]));
+  const gv=DATA.presetsDraft?.groundVehicles;
+  if(!gv) return;
+
+  const eligible=(gv.eligible||[]).filter(v=>!state.faction||v.faction===state.faction);
+  const excluded=(gv.excluded||[]).filter(v=>!state.faction||v.faction===state.faction);
+
+  if(eligible.length) {
+    const lbl=document.createElement('div'); lbl.className='section-label';
+    lbl.textContent='Eligible'; el.appendChild(lbl);
+    for(const v of eligible) {
+      const vd=vehicleMap.get(v.class);
+      // vehicles.json armed flag is authoritative
+      if(vd&&vd.armed) { console.warn(`${v.class}: curated eligible but armed=true in vehicles.json — skipping`); continue; }
+      const row=document.createElement('div');
+      row.className='veh-row'+(state.vehicleClass===v.class?' selected':'');
+      row.setAttribute('role','button'); row.tabIndex=0;
+      row.setAttribute('aria-label', v.name||v.class);
+      const name=document.createElement('span'); name.className='veh-name'; name.textContent=v.name||v.class;
+      const cls=document.createElement('span'); cls.className='veh-class'; cls.textContent=v.class;
+      row.appendChild(name); row.appendChild(cls);
+      row.onclick=()=>selectVehicle(v.class);
+      row.onkeydown=e=>{if(e.key==='Enter') selectVehicle(v.class);};
+      el.appendChild(row);
+    }
+  }
+
+  if(excluded.length) {
+    const lbl=document.createElement('div'); lbl.className='section-label';
+    lbl.style.color='#6b3030'; lbl.textContent='Excluded (already armed)'; el.appendChild(lbl);
+    for(const v of excluded) {
+      const row=document.createElement('div'); row.className='veh-row excluded';
+      row.setAttribute('role','listitem'); row.setAttribute('tabindex','-1');
+      row.title=v.reason||'Excluded';
+      const name=document.createElement('span'); name.className='veh-name'; name.textContent=v.class;
+      const reason=document.createElement('span'); reason.className='veh-excl-reason'; reason.textContent=v.reason||'armed';
+      row.appendChild(name); row.appendChild(reason);
+      el.appendChild(row);
+    }
+  }
+}
+
+function selectVehicle(cls) {
+  state.vehicleClass=cls; state.vWeaponClass=null; state.vMagClass=null; state.vMagCount=1;
+  renderVehiclePicker(); renderVehicleStage(); debouncedSave();
+}
+
+function renderVehicleStage() {
+  const c=$('vehicleStageContent'); if(!c) return;
+  renderVehiclePicker();
+  if(!state.vehicleClass) {
+    c.innerHTML=`<div class="stage-empty">
+      <div class="stage-empty-glyph">🚗</div>
+      <div class="stage-empty-title">— AWAITING ORDERS —</div>
+      <div class="stage-empty-hint">Select an eligible vehicle from the left panel.</div>
+    </div>`; return;
+  }
+  const gv=DATA.presetsDraft?.groundVehicles;
+  const mountable=gv?.mountable||[];
+
+  c.innerHTML='';
+  // Vehicle note
+  const note=document.createElement('div'); note.className='veh-note';
+  note.innerHTML='<b>Vehicle armament note:</b> Dynamically added weapons lose ammo on rearm (rearm reads CfgMagazines, not WFBE state). To persist: re-apply via addWeaponTurret + addMagazineTurret after each rearm. Unarmed vehicles ONLY — a 2nd weapon on an already-armed vehicle causes HUD cycling glitch and rearm corruption.';
+  c.appendChild(note);
+
+  // Weapon station
+  const station=document.createElement('div'); station.className='veh-station';
+  const card=document.createElement('div'); card.className='veh-weapon-card';
+
+  const h4=document.createElement('h4'); h4.textContent='WEAPON STATION'; card.appendChild(h4);
+
+  // Weapon select
+  const wLbl=document.createElement('div'); wLbl.className='section-label'; wLbl.style.marginTop='0'; wLbl.textContent='Weapon';
+  card.appendChild(wLbl);
+  const wSel=document.createElement('select'); wSel.className='veh-weapon-select';
+  wSel.setAttribute('aria-label','Weapon');
+  const defOpt=document.createElement('option'); defOpt.value=''; defOpt.textContent='— Select weapon —'; wSel.appendChild(defOpt);
+  for(const m of mountable) {
+    const opt=document.createElement('option'); opt.value=m.weapon;
+    opt.textContent=(m.displayName||m.weapon)+(m.side?' ['+m.side+']':'');
+    if(state.vWeaponClass===m.weapon) opt.selected=true;
+    wSel.appendChild(opt);
+  }
+  card.appendChild(wSel);
+
+  // Magazine select (populated on weapon change)
+  const mLbl=document.createElement('div'); mLbl.className='section-label'; mLbl.textContent='Magazine';
+  card.appendChild(mLbl);
+  const mSel=document.createElement('select'); mSel.className='veh-mag-select';
+  mSel.setAttribute('aria-label','Magazine');
+  card.appendChild(mSel);
+
+  // Count stepper
+  const cntRow=document.createElement('div'); cntRow.className='mag-count-row';
+  const cntLbl=document.createElement('label'); cntLbl.textContent='Count (1–10)'; cntLbl.htmlFor='vehMagCount';
+  const cntInp=document.createElement('input'); cntInp.type='number'; cntInp.min=1; cntInp.max=10;
+  cntInp.value=state.vMagCount; cntInp.id='vehMagCount'; cntInp.setAttribute('aria-label','Magazine count');
+  cntRow.appendChild(cntLbl); cntRow.appendChild(cntInp);
+  card.appendChild(cntRow);
+
+  function populateMags(weapCls) {
+    mSel.innerHTML='';
+    const m=mountable.find(x=>x.weapon===weapCls);
+    if(!m) { const d=document.createElement('option');d.textContent='—';mSel.appendChild(d);return; }
+    for(const mg of (m.mags||[])) {
+      const opt=document.createElement('option'); opt.value=mg.class;
+      opt.textContent=mg.displayName||(mg.class);
+      if(state.vMagClass===mg.class) opt.selected=true;
+      mSel.appendChild(opt);
+    }
+    if(!state.vMagClass && m.mags?.[0]) state.vMagClass=m.mags[0].class;
+  }
+  populateMags(state.vWeaponClass);
+
+  wSel.onchange=()=>{
+    state.vWeaponClass=wSel.value; state.vMagClass=null;
+    populateMags(state.vWeaponClass); state.dirty=true; debouncedSave();
+  };
+  mSel.onchange=()=>{ state.vMagClass=mSel.value; state.dirty=true; debouncedSave(); };
+  cntInp.oninput=()=>{ state.vMagCount=Math.max(1,Math.min(10,parseInt(cntInp.value)||1)); state.dirty=true; debouncedSave(); };
+
+  station.appendChild(card); c.appendChild(station);
+
+  // Export note
+  const expNote=document.createElement('div'); expNote.className='hint';
+  expNote.innerHTML='<b>Export (build-2):</b> Generates a <code>Common_BalanceInit.sqf</code>-style <code>addWeaponTurret</code> snippet. Available via <code>window.exportVehicleSnippet()</code>.';
+  c.appendChild(expNote);
+}
+
+/* ============================================================
+   Export stubs (contract for build-2)
+   ============================================================ */
+// Expose state and core functions globally for Playwright tests and build-2 wiring
+window.state = state;
+window.DATA = DATA;
+window.selectAirframe = selectAirframe;
+window.setMode = setMode;
+window.loadPreset = loadPreset;
+window.getState = () => JSON.parse(JSON.stringify(state));
+
+window.exportSinglePresetRow = function() {
+  // Build-2 implement: emit [price, 'label', [[weapons],[mags]]] SQF row
+  if(!state.airframeClass) return '// No airframe selected';
+  const weapons=[...new Set(state.rack.map(s=>s.weaponClass).filter(Boolean))];
+  const mags=state.rack.map(s=>s.magClass).filter(Boolean);
+  return `[${state.price}, "${state.label}", [[${weapons.map(w=>`"${w}"`).join(', ')}], [${mags.map(m=>`"${m}"`).join(', ')}]]]`;
+};
+
+window.exportFullEasaInit = function() {
+  // Build-2: full round-trip regeneration of EASA_Init.sqf
+  return '// Full EASA_Init.sqf export — build-2';
+};
+
+window.exportVehicleSnippet = function() {
+  if(!state.vehicleClass||!state.vWeaponClass||!state.vMagClass) return '// No vehicle station configured';
+  const mags=Array(state.vMagCount).fill(`"${state.vMagClass}"`).join(', ');
+  return `// addWeaponTurret pattern (Common_BalanceInit.sqf style)\n_veh addWeaponTurret ["${state.vWeaponClass}", [0]];\n${Array(state.vMagCount).fill(`_veh addMagazineTurret ["${state.vMagClass}", [0]];`).join('\n')}\n// Note: magazines lost on rearm — re-apply above after each rearm event if persistence needed`;
+};
+
+window.importEasaBlock = function(sqf) {
+  // Build-2: parse pasted EASA_Init.sqf block into state
+  console.log('importEasaBlock stub — build-2 will implement parser', sqf.length,'chars');
+};
+
+/* ============================================================
+   Help modal
+   ============================================================ */
+function openHelp() { const m=$('helpModalBack'); if(m){m.classList.add('open'); $('helpModalClose')?.focus();} }
+function closeHelp() { const m=$('helpModalBack'); if(m) m.classList.remove('open'); }
+
+/* ============================================================
+   Keyboard shortcuts
+   ============================================================ */
+document.addEventListener('keydown', e => {
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT') {
+    if(e.key==='Escape') e.target.blur();
+    return;
+  }
+  if(e.key==='?' || e.key==='/') {
+    if(e.key==='?') { e.preventDefault(); openHelp(); return; }
+    if(e.key==='/') { e.preventDefault(); $('poolSearch')?.focus(); return; }
+  }
+  if(e.key==='Escape') { closeHelp(); closeMagModal(); return; }
+  if(e.key==='1') { e.preventDefault(); setMode('plane'); }
+  if(e.key==='2') { e.preventDefault(); setMode('heli'); }
+  if(e.key==='3') { e.preventDefault(); setMode('vehicle'); }
+  if(e.key==='Delete'||e.key==='Backspace') {
+    if(state.rack.length>0) {
+      e.preventDefault(); state.rack.pop(); state.dirty=true; renderRack(); updateTotals(); debouncedSave();
+    }
+  }
+});
+
+/* ============================================================
+   Modal close buttons
+   ============================================================ */
+$('helpBtn')?.addEventListener('click', openHelp);
+$('helpModalClose')?.addEventListener('click', closeHelp);
+$('helpModalBack')?.addEventListener('click', e => { if(e.target===$('helpModalBack')) closeHelp(); });
+$('magModalClose')?.addEventListener('click', closeMagModal);
+$('magModal')?.addEventListener('click', e => { if(e.target===$('magModal')) closeMagModal(); });
+
+/* ============================================================
+   Pool search
+   ============================================================ */
+$('poolSearch')?.addEventListener('input', e => {
+  _poolSearch = e.target.value.toLowerCase().trim();
+  renderPool();
+});
+
+/* ============================================================
+   Restore banner
+   ============================================================ */
+function checkRestore() {
+  const saved = loadSavedState();
+  if(!saved) return;
+  const banner=$('restoreBanner'); const msg=$('restoreMsg');
+  if(!banner||!msg) return;
+  const airLabel = saved.airframeClass||saved.vehicleClass||'session';
+  msg.textContent = `Restore previous session? (mode: ${saved.mode}, ${airLabel})`;
+  banner.classList.add('show');
+  $('restoreAccept')?.addEventListener('click', () => {
+    banner.classList.remove('show');
+    applyRestoredState(saved);
+  });
+  $('restoreDiscard')?.addEventListener('click', () => {
+    banner.classList.remove('show');
+    localStorage.removeItem(LS_KEY);
+  });
+}
+
+function applyRestoredState(saved) {
+  Object.assign(state, saved);
+  setMode(state.mode);
+  if(state.airframeClass) { selectAirframe(state.airframeClass); }
+  if(state.vehicleClass) { selectVehicle(state.vehicleClass); }
+  // Rerender rack (rack was wiped by selectAirframe — restore it)
+  if(saved.rack) state.rack = saved.rack;
+  state.price = saved.price||0; state.label = saved.label||'';
+  state.selectedPresetRef = saved.selectedPresetRef;
+  renderStageAir(); renderPresets(); updateTotals();
+  showToast('Session restored');
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+async function init() {
+  const ok = await initData();
+  if(!ok) {
+    showToast('⚠ Data load error — check console', 5000);
+    return;
+  }
+  checkRestore();
+  setMode('plane');
+}
+
+init();
+</script>
+</body>
+</html>
