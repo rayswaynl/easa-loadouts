@@ -1799,47 +1799,47 @@
   ],
   "groundVehicles": {
     "eligible": [
-      { "class": "MMT_USMC", "name": "USMC Supply Truck", "faction": "USMC" },
-      { "class": "M1030", "name": "M1030 Motorcycle", "faction": "USMC" },
-      { "class": "HMMWV", "name": "HMMWV (base)", "faction": "USMC" },
+      { "class": "MMT_USMC", "name": "Mountain bike", "faction": "USMC" },
+      { "class": "M1030", "name": "Motorcycle", "faction": "USMC" },
+      { "class": "HMMWV", "name": "HMMWV", "faction": "USMC" },
       {
         "class": "HMMWV_Ambulance",
-        "name": "HMMWV Ambulance",
+        "name": "HMMWV (Ambulance)",
         "faction": "USMC"
       },
-      { "class": "MTVR", "name": "MTVR Cargo Truck", "faction": "USMC" },
-      { "class": "MtvrRepair", "name": "MTVR Repair", "faction": "USMC" },
-      { "class": "MtvrRefuel", "name": "MTVR Refuel", "faction": "USMC" },
+      { "class": "MTVR", "name": "Truck", "faction": "USMC" },
+      { "class": "MtvrRepair", "name": "MTVR (Repair)", "faction": "USMC" },
+      { "class": "MtvrRefuel", "name": "MTVR (Fuel)", "faction": "USMC" },
       {
         "class": "WarfareSalvageTruck_USMC",
-        "name": "Salvage Truck (USMC)",
+        "name": "Salvage Truck",
         "faction": "USMC"
       },
       {
         "class": "WarfareReammoTruck_USMC",
-        "name": "Reammo Truck (USMC)",
+        "name": "MTVR (Ammunition)",
         "faction": "USMC"
       },
       {
         "class": "WarfareSupplyTruck_USMC",
-        "name": "Supply Truck (USMC)",
+        "name": "Supply Truck",
         "faction": "USMC"
       },
       {
         "class": "Zodiac",
-        "name": "Zodiac Inflatable Boat",
+        "name": "CRRC",
         "faction": "USMC"
       },
-      { "class": "PBX", "name": "PBX Patrol Boat", "faction": "USMC" },
-      { "class": "ATV_US_EP1", "name": "ATV (US EP1)", "faction": "US_CO" },
+      { "class": "PBX", "name": "PBX", "faction": "USMC" },
+      { "class": "ATV_US_EP1", "name": "ATV", "faction": "US_CO" },
       {
         "class": "HMMWV_M1035_DES_EP1",
-        "name": "HMMWV Soft-Top (Desert)",
+        "name": "HMMWV Utility",
         "faction": "US_CO"
       },
       {
         "class": "M1133_MEV_EP1",
-        "name": "Stryker MEV Medevac",
+        "name": "Stryker MEV",
         "faction": "US_CO"
       },
       { "class": "BAF_ATV_W", "name": "BAF ATV", "faction": "US_CO" },
@@ -1850,99 +1850,99 @@
       },
       {
         "class": "LandRover_Special_CZ_EP1",
-        "name": "CZ Special Land Rover",
+        "name": "Military Offroad Special",
         "faction": "US_CO"
       },
-      { "class": "MMT_Civ", "name": "Civilian Truck", "faction": "RU" },
-      { "class": "TT650_Ins", "name": "Motorbike (INS)", "faction": "INS" },
-      { "class": "TT650_Gue", "name": "Motorbike (GUE)", "faction": "GUE" },
-      { "class": "TT650_TK_EP1", "name": "Motorbike (TK)", "faction": "TKA" },
-      { "class": "UAZ_RU", "name": "UAZ (RU base)", "faction": "RU" },
-      { "class": "UAZ_INS", "name": "UAZ (INS base)", "faction": "INS" },
-      { "class": "UAZ_CDF", "name": "UAZ (CDF base)", "faction": "CDF" },
+      { "class": "MMT_Civ", "name": "Mountain bike", "faction": "RU" },
+      { "class": "TT650_Ins", "name": "Motorcycle", "faction": "INS" },
+      { "class": "TT650_Gue", "name": "Motorcycle", "faction": "GUE" },
+      { "class": "TT650_TK_EP1", "name": "Motorcycle", "faction": "TKA" },
+      { "class": "UAZ_RU", "name": "UAZ", "faction": "RU" },
+      { "class": "UAZ_INS", "name": "UAZ", "faction": "INS" },
+      { "class": "UAZ_CDF", "name": "UAZ", "faction": "CDF" },
       {
         "class": "UAZ_Unarmed_TK_EP1",
-        "name": "UAZ Unarmed (TK)",
+        "name": "UAZ",
         "faction": "TKA"
       },
-      { "class": "SUV_TK_EP1", "name": "SUV (TK)", "faction": "TKA" },
+      { "class": "SUV_TK_EP1", "name": "SUV", "faction": "TKA" },
       { "class": "SUV_PMC", "name": "SUV (PMC)", "faction": "GUE_CO" },
-      { "class": "Kamaz", "name": "Kamaz Truck", "faction": "RU" },
-      { "class": "KamazRepair", "name": "Kamaz Repair", "faction": "RU" },
-      { "class": "KamazRefuel", "name": "Kamaz Refuel", "faction": "RU" },
-      { "class": "Ural_CDF", "name": "Ural Truck (CDF)", "faction": "CDF" },
-      { "class": "Ural_INS", "name": "Ural Truck (INS)", "faction": "INS" },
+      { "class": "Kamaz", "name": "Utility Truck", "faction": "RU" },
+      { "class": "KamazRepair", "name": "Utility Truck (Repair)", "faction": "RU" },
+      { "class": "KamazRefuel", "name": "Utility Truck (Fuel)", "faction": "RU" },
+      { "class": "Ural_CDF", "name": "Ural", "faction": "CDF" },
+      { "class": "Ural_INS", "name": "Ural", "faction": "INS" },
       {
         "class": "WarfareSalvageTruck_RU",
-        "name": "Salvage Truck (RU)",
+        "name": "Salvage Truck",
         "faction": "RU"
       },
       {
         "class": "WarfareReammoTruck_RU",
-        "name": "Reammo Truck (RU)",
+        "name": "Utility Truck (Ammunition)",
         "faction": "RU"
       },
       {
         "class": "WarfareSupplyTruck_RU",
-        "name": "Supply Truck (RU)",
+        "name": "Supply Truck",
         "faction": "RU"
       },
       {
         "class": "WarfareSalvageTruck_CDF",
-        "name": "Salvage Truck (CDF)",
+        "name": "Salvage Truck",
         "faction": "CDF"
       },
       {
         "class": "UralRepair_CDF",
-        "name": "Ural Repair (CDF)",
+        "name": "Ural (Repair)",
         "faction": "CDF"
       },
       {
         "class": "UralReammo_CDF",
-        "name": "Ural Reammo (CDF)",
+        "name": "Ural (Ammunition)",
         "faction": "CDF"
       },
       {
         "class": "UralRefuel_CDF",
-        "name": "Ural Refuel (CDF)",
+        "name": "Ural (Fuel)",
         "faction": "CDF"
       },
       {
         "class": "WarfareSupplyTruck_CDF",
-        "name": "Supply Truck (CDF)",
+        "name": "Supply Truck",
         "faction": "CDF"
       },
       {
         "class": "WarfareSalvageTruck_INS",
-        "name": "Salvage Truck (INS)",
+        "name": "Salvage Truck",
         "faction": "INS"
       },
       {
         "class": "UralRepair_INS",
-        "name": "Ural Repair (INS)",
+        "name": "Ural (Repair)",
         "faction": "INS"
       },
       {
         "class": "UralReammo_INS",
-        "name": "Ural Reammo (INS)",
+        "name": "Ural (Ammunition)",
         "faction": "INS"
       },
       {
         "class": "UralRefuel_INS",
-        "name": "Ural Refuel (INS)",
+        "name": "Ural (Fuel)",
         "faction": "INS"
       },
       {
         "class": "WarfareSupplyTruck_INS",
-        "name": "Supply Truck (INS)",
+        "name": "Supply Truck",
         "faction": "INS"
       },
       {
         "class": "GAZ_Vodnik_MedEvac",
-        "name": "Vodnik MedEvac",
+        "name": "Vodnik (Ambulance)",
         "faction": "RU"
       },
-      { "class": "V3S_TK_EP1", "name": "V3S Truck (TK)", "faction": "TKA" },
+      { "class": "V3S_TK_EP1", "name": "V3S", "faction": "TKA" },
       {
         "class": "V3S_Open_EP1",
         "name": "V3S Open Truck (TK)",
@@ -1950,28 +1950,28 @@
       },
       {
         "class": "M113Ambul_TK_EP1",
-        "name": "M113 Ambulance (TK)",
+        "name": "M113 Ambulance",
         "faction": "TKA"
       },
-      { "class": "V3S_Gue", "name": "V3S Truck (GUE)", "faction": "GUE" },
+      { "class": "V3S_Gue", "name": "Truck", "faction": "GUE" },
       {
         "class": "WarfareRepairTruck_Gue",
-        "name": "Repair Truck (GUE)",
+        "name": "Repair Truck",
         "faction": "GUE"
       },
       {
         "class": "WarfareSalvageTruck_Gue",
-        "name": "Salvage Truck (GUE)",
+        "name": "Salvage Truck",
         "faction": "GUE"
       },
       {
         "class": "WarfareReammoTruck_Gue",
-        "name": "Reammo Truck (GUE)",
+        "name": "Ural (Ammunition)",
         "faction": "GUE"
       },
       {
         "class": "WarfareSupplyTruck_Gue",
-        "name": "Supply Truck (GUE)",
+        "name": "Supply Truck",
         "faction": "GUE"
       }
     ],
