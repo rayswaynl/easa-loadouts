@@ -384,16 +384,27 @@ button.danger:hover { background: var(--danger); color: #fff; }
 .mag-opt-count { font-size: 10px; color: var(--olive); flex-shrink: 0; }
 .mag-opt-class { font-size: 9px; color: #6b7480; font-family: 'JetBrains Mono', monospace; }
 
-/* Export placeholder */
-.export-placeholder { padding: 10px 12px; border: 1px solid var(--line); border-radius: 5px;
+/* Export panel */
+.export-panel { padding: 10px 12px; border: 1px solid var(--line); border-radius: 5px;
   background: #0e1115; margin-bottom: 10px; }
-.export-placeholder h4 { font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 2px;
-  text-transform: uppercase; color: #39414b; margin-bottom: 6px; }
-.export-placeholder p { font-size: 10px; color: #39414b;
-  font-family: 'JetBrains Mono', monospace; line-height: 1.6; }
-.export-placeholder button { opacity: .35; cursor: not-allowed; font-size: 11px;
-  padding: 5px 10px; margin-top: 8px; }
-.export-placeholder button:hover { border-color: var(--line); }
+.export-panel h4 { font-family: Oswald, sans-serif; font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--olive); margin-bottom: 8px;
+  border-left: 3px solid var(--olive); padding-left: 8px; }
+.export-preview { width: 100%; min-height: 64px; max-height: 140px; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; line-height: 1.5; resize: vertical; margin-top: 6px;
+  background: #080a0d; color: #a8b4be; border: 1px solid var(--line); border-radius: 3px; padding: 6px 8px; }
+.export-row { display: flex; gap: 6px; margin-bottom: 5px; align-items: stretch; flex-wrap: wrap; }
+.export-row .copy-btn { flex-shrink: 0; font-size: 10px; padding: 4px 9px; white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace; transition: background 80ms, border-color 80ms; }
+.export-row .copy-btn.flashed { background: var(--olive); border-color: var(--olive); color: var(--bone); }
+.export-row .dl-btn { flex-shrink: 0; font-size: 10px; padding: 4px 9px; color: #9aa3ad;
+  font-family: 'JetBrains Mono', monospace; }
+.import-badge { font-family: 'JetBrains Mono', monospace; font-size: 9px; background: rgba(92,101,54,.2);
+  border: 1px solid var(--olive); color: #8fa05a; border-radius: 10px; padding: 2px 8px;
+  display: none; }
+.import-badge.show { display: inline-block; }
+.export-gate { font-size: 10px; color: #8b939c; font-family: 'JetBrains Mono', monospace;
+  padding: 3px 0; font-style: italic; }
 
 /* ============================================================
    VEHICLE PICKER (left panel)
@@ -686,15 +697,59 @@ kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3
 
       <div class="divider"></div>
 
-      <!-- Export placeholder (build-2 wires these) -->
-      <div class="export-placeholder">
-        <h4>Export — build 2</h4>
-        <p>SQF export + import coming in the next build pass. Functions are stubbed and ready to wire.</p>
-        <div class="btnbar" style="flex-direction:column;gap:5px">
-          <button disabled title="Export in build-2">Copy Preset Row SQF</button>
-          <button disabled title="Export in build-2">Copy Full EASA_Init.sqf</button>
-          <button disabled title="Export in build-2" id="exportVehBtn">Copy Vehicle Snippet</button>
+      <!-- Export panel (build-2) -->
+      <div class="export-panel">
+        <h4>SQF Export / Import
+          <span class="import-badge" id="importedBadge">IMPORTED</span>
+        </h4>
+
+        <!-- Import button -->
+        <div class="btnbar" style="margin-bottom:8px">
+          <button id="openImportBtn" onclick="openImportModal()" style="font-size:11px;padding:5px 10px">
+            &#8645; Import EASA_Init.sqf…
+          </button>
         </div>
+
+        <!-- Preset row export -->
+        <div class="section-label" style="margin:8px 0 4px">Preset Row</div>
+        <div class="export-row">
+          <button class="copy-btn" id="copyPresetRowBtn" disabled title="Select an airframe and configure a rack first"
+            onclick="doExportSinglePreset()">COPY ROW</button>
+          <button class="dl-btn" id="dlPresetRowBtn" disabled onclick="doDownloadPresetRow()">DL</button>
+        </div>
+        <textarea class="export-preview" id="presetRowPreview" readonly rows="3" placeholder="// Rack → SQF preset row"></textarea>
+
+        <!-- New-vehicle block (only when airframe NOT in seed) -->
+        <div id="newVehicleSection" style="display:none">
+          <div class="section-label" style="margin:8px 0 4px">New Vehicle Block</div>
+          <div class="export-row">
+            <button class="copy-btn" id="copyNewVehBtn" onclick="doExportNewVehicle()">COPY BLOCK</button>
+            <button class="dl-btn" id="dlNewVehBtn" onclick="doDownloadNewVehicle()">DL</button>
+          </div>
+          <textarea class="export-preview" id="newVehiclePreview" readonly rows="4" placeholder="// 3-array block"></textarea>
+        </div>
+
+        <!-- Full file (only after import) -->
+        <div id="fullFileSection" style="display:none">
+          <div class="section-label" style="margin:8px 0 4px">Full EASA_Init.sqf</div>
+          <div class="export-gate" id="fullFileGate">Import a full file first to enable</div>
+          <div class="export-row">
+            <button class="copy-btn" id="copyFullBtn" disabled onclick="doExportFullEasa()">COPY FILE</button>
+            <button class="dl-btn" id="dlFullBtn" disabled onclick="doDownloadFull()">DL</button>
+          </div>
+          <textarea class="export-preview" id="fullFilePreview" readonly rows="3" placeholder="// Full EASA_Init.sqf (after import)"></textarea>
+        </div>
+
+        <!-- Vehicle snippet (vehicle mode only) -->
+        <div id="vehSnippetSection" style="display:none">
+          <div class="section-label" style="margin:8px 0 4px">Vehicle Snippet</div>
+          <div class="export-row">
+            <button class="copy-btn" id="copyVehSnipBtn" id="exportVehBtn" onclick="doExportVehicleSnippet()">COPY SNIPPET</button>
+            <button class="dl-btn" id="dlVehSnipBtn" onclick="doDownloadVehicleSnippet()">DL</button>
+          </div>
+          <textarea class="export-preview" id="vehSnippetPreview" readonly rows="5" placeholder="// addWeaponTurret snippet"></textarea>
+        </div>
+
       </div>
 
       <!-- In-game notes -->
@@ -719,6 +774,35 @@ kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3
 
 <!-- Toast container -->
 <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
+
+<!-- Import modal -->
+<div class="modal-back" id="importModalBack" role="presentation">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="importModalTitle" style="width:560px;max-width:96vw">
+    <div class="modal-head">
+      <h2 id="importModalTitle">IMPORT EASA_Init.sqf</h2>
+      <button class="x" id="importModalClose" aria-label="Close">&#215;</button>
+    </div>
+    <div class="modal-body" style="padding:14px 16px;font-family:inherit;font-size:12px;line-height:1.6">
+      <p style="color:#9aa3ad;margin-bottom:10px;font-size:11px">
+        Paste a full <code style="color:var(--orange)">EASA_Init.sqf</code> or a single vehicle block.
+        Full file: replaces the in-session preset table and enables the full-file export.
+        Single block: imports that vehicle's presets only.
+      </p>
+      <textarea id="importPasteBox" rows="12" placeholder="Paste SQF here…"
+        style="width:100%;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.5;
+               background:#080a0d;color:#a8b4be;border:1px solid var(--line);border-radius:4px;
+               padding:8px;resize:vertical;outline:none;"
+        aria-label="SQF paste area"></textarea>
+      <div id="importError" style="display:none;margin-top:8px;padding:6px 10px;
+        background:rgba(192,57,43,.12);border:1px solid var(--danger);border-radius:4px;
+        color:#e88;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.5"></div>
+      <div class="btnbar" style="margin-top:10px;justify-content:flex-end">
+        <button onclick="closeImportModal()" style="font-size:12px">Cancel</button>
+        <button class="primary" id="importConfirmBtn" onclick="doImport()" style="font-size:12px">Import</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Help modal -->
 <div class="modal-back" id="helpModalBack" role="presentation">
@@ -1168,6 +1252,7 @@ function selectAirframe(cls) {
   renderStageAir();
   renderPool();
   showNotes(true);
+  updateExportPanel();
   debouncedSave();
 }
 
@@ -1208,6 +1293,7 @@ function loadPreset(source, airframeClass, index) {
   renderPresets();
   renderStageAir();
   updateTotals();
+  updateExportPanel();
   debouncedSave();
   showToast(`Loaded: ${state.label||'preset'}`);
 }
@@ -1247,7 +1333,7 @@ function renderStageAir() {
 
   // Label input
   const labelInp = $('rackLabel');
-  if(labelInp) { labelInp.value = state.label; labelInp.oninput = () => { state.label=labelInp.value; state.dirty=true; setLed('warn'); debouncedSave(); }; }
+  if(labelInp) { labelInp.value = state.label; labelInp.oninput = () => { state.label=labelInp.value; state.dirty=true; setLed('warn'); updateExportPanel(); debouncedSave(); }; }
 
   renderRack();
   updateTotals();
@@ -1275,7 +1361,7 @@ function renderRack() {
     // Remove button
     const rm = document.createElement('button');
     rm.className='st-remove'; rm.textContent='×'; rm.setAttribute('aria-label','Remove station '+i);
-    rm.onclick = () => { state.rack.splice(i,1); state.dirty=true; setLed('warn'); renderRack(); updateTotals(); debouncedSave(); };
+    rm.onclick = () => { state.rack.splice(i,1); state.dirty=true; setLed('warn'); renderRack(); updateTotals(); updateExportPanel(); debouncedSave(); };
     tile.appendChild(rm);
 
     // Thumbnail area
@@ -1316,7 +1402,7 @@ function renderRack() {
 function updateTotals() {
   // Price input
   const pi = $('priceInput');
-  if(pi) { pi.value = state.price; pi.oninput = () => { state.price=parseInt(pi.value)||0; state.dirty=true; setLed('warn'); debouncedSave(); }; }
+  if(pi) { pi.value = state.price; pi.oninput = () => { state.price=parseInt(pi.value)||0; state.dirty=true; setLed('warn'); updateExportPanel(); debouncedSave(); }; }
 
   // AA badge
   const mags = state.rack.map(s=>s.magClass);
@@ -1498,7 +1584,7 @@ function addStation(weapCls, magCls) {
   const isGun = wpnInfo(weapCls).category === 'gun';
   state.rack.push({ id:uid(), weaponClass:weapCls, magClass:magCls, isGun });
   state.dirty=true; state.selectedPresetRef=null;
-  renderRack(); updateTotals(); renderPresets(); debouncedSave();
+  renderRack(); updateTotals(); renderPresets(); updateExportPanel(); debouncedSave();
   closeMagModal();
   showToast(`Added: ${magInfo(magCls).displayName||magCls}`);
 }
@@ -1529,6 +1615,7 @@ function setMode(mode) {
   const mc=$('modeChip'); if(mc) mc.innerHTML=`mode: <b>${mode.toUpperCase()}</b>`;
   renderFactionChips(); renderPicker(); renderPool();
   if(mode==='vehicle') renderVehicleStage();
+  updateExportPanel();
   debouncedSave();
 }
 
@@ -1584,7 +1671,7 @@ function renderVehiclePicker() {
 
 function selectVehicle(cls) {
   state.vehicleClass=cls; state.vWeaponClass=null; state.vMagClass=null; state.vMagCount=1;
-  renderVehiclePicker(); renderVehicleStage(); debouncedSave();
+  renderVehiclePicker(); renderVehicleStage(); updateExportPanel(); debouncedSave();
 }
 
 function renderVehicleStage() {
@@ -1657,10 +1744,10 @@ function renderVehicleStage() {
 
   wSel.onchange=()=>{
     state.vWeaponClass=wSel.value; state.vMagClass=null;
-    populateMags(state.vWeaponClass); state.dirty=true; debouncedSave();
+    populateMags(state.vWeaponClass); state.dirty=true; updateExportPanel(); debouncedSave();
   };
-  mSel.onchange=()=>{ state.vMagClass=mSel.value; state.dirty=true; debouncedSave(); };
-  cntInp.oninput=()=>{ state.vMagCount=Math.max(1,Math.min(10,parseInt(cntInp.value)||1)); state.dirty=true; debouncedSave(); };
+  mSel.onchange=()=>{ state.vMagClass=mSel.value; state.dirty=true; updateExportPanel(); debouncedSave(); };
+  cntInp.oninput=()=>{ state.vMagCount=Math.max(1,Math.min(10,parseInt(cntInp.value)||1)); state.dirty=true; updateExportPanel(); debouncedSave(); };
 
   station.appendChild(card); c.appendChild(station);
 
@@ -1671,39 +1758,653 @@ function renderVehicleStage() {
 }
 
 /* ============================================================
-   Export stubs (contract for build-2)
+   SQF PARSER — JS port of gen_easa_seed.py grammar
+   ============================================================
+   Handles:
+   - Single-quoted SQF strings with '' escape
+   - Integers (positive and negative)
+   - '[' ']' ',' array structure
+   - '//' and '/* *\/' comments stripped before tokenising
+   Returns parsed JS values (arrays, numbers, strings).
    ============================================================ */
-// Expose state and core functions globally for Playwright tests and build-2 wiring
+
+function _sqfStripComments(text) {
+  // Strip block comments /* ... */
+  let r = text.replace(/\/\*[\s\S]*?\*\//g, '');
+  // Strip line comments // ...
+  r = r.replace(/\/\/[^\n]*/g, '');
+  return r;
+}
+
+function _sqfTokenise(text) {
+  const tokens = [];
+  let i = 0; const n = text.length;
+  while (i < n) {
+    const ch = text[i];
+    if (' \t\r\n'.includes(ch)) { i++; continue; }
+    if (ch === '[') { tokens.push(['[',null]); i++; continue; }
+    if (ch === ']') { tokens.push([']',null]); i++; continue; }
+    if (ch === ',') { tokens.push([',',null]); i++; continue; }
+    if (ch === "'") {
+      i++;
+      let buf = '';
+      while (i < n) {
+        const c = text[i];
+        if (c === "'") {
+          if (i+1 < n && text[i+1] === "'") { buf += "'"; i += 2; }
+          else { i++; break; }
+        } else { buf += c; i++; }
+      }
+      tokens.push(['STR', buf]);
+      continue;
+    }
+    // Integer (incl. negative)
+    if (ch >= '0' && ch <= '9' || (ch === '-' && i+1 < n && text[i+1] >= '0' && text[i+1] <= '9')) {
+      let j = i+1;
+      while (j < n && text[j] >= '0' && text[j] <= '9') j++;
+      tokens.push(['INT', parseInt(text.slice(i,j), 10)]);
+      i = j; continue;
+    }
+    i++; // skip unexpected chars
+  }
+  return tokens;
+}
+
+class _SqfParser {
+  constructor(tokens) { this._tok = tokens; this._pos = 0; }
+  _peek() { return this._pos < this._tok.length ? this._tok[this._pos] : null; }
+  _consume(expectedType) {
+    const tok = this._tok[this._pos];
+    if (expectedType && tok[0] !== expectedType) throw new Error(`Expected ${expectedType} at ${this._pos}, got ${tok[0]}`);
+    this._pos++;
+    return tok;
+  }
+  parseValue() {
+    const tok = this._peek();
+    if (!tok) throw new Error('Unexpected end');
+    if (tok[0] === '[') return this.parseArray();
+    if (tok[0] === 'INT') { this._consume(); return tok[1]; }
+    if (tok[0] === 'STR') { this._consume(); return tok[1]; }
+    throw new Error(`Unexpected token ${tok[0]}`);
+  }
+  parseArray() {
+    this._consume('[');
+    const items = [];
+    let tok = this._peek();
+    if (tok && tok[0] === ']') { this._consume(']'); return items; }
+    items.push(this.parseValue());
+    while (true) {
+      tok = this._peek();
+      if (!tok || tok[0] === ']') break;
+      if (tok[0] === ',') {
+        this._consume(',');
+        tok = this._peek();
+        if (tok && tok[0] === ']') break; // trailing comma
+        items.push(this.parseValue());
+      } else throw new Error(`Expected , or ] at ${this._pos}, got ${tok[0]}`);
+    }
+    this._consume(']');
+    return items;
+  }
+}
+
+function _parseSqfArray(text) {
+  const clean = _sqfStripComments(text);
+  const tokens = _sqfTokenise(clean);
+  return new _SqfParser(tokens).parseArray();
+}
+
+// Find matching bracket (respects single-quoted strings)
+function _findMatchingBracket(text, start) {
+  let depth = 0, i = start; const n = text.length;
+  while (i < n) {
+    const ch = text[i];
+    if (ch === '[') { depth++; i++; }
+    else if (ch === ']') { depth--; if (depth === 0) return i; i++; }
+    else if (ch === "'") {
+      i++;
+      while (i < n) {
+        if (text[i] === "'") {
+          if (i+1 < n && text[i+1] === "'") { i += 2; }
+          else { i++; break; }
+        } else i++;
+      }
+    } else i++;
+  }
+  throw new Error('No matching ] from ' + start);
+}
+
+function _extractArrayAfter(text, pos) {
+  const start = text.indexOf('[', pos);
+  if (start === -1) throw new Error('No [ found after ' + pos);
+  const end = _findMatchingBracket(text, start);
+  return { value: _parseSqfArray(text.slice(start, end+1)), end: end+1 };
+}
+
+// Comment regexes matching Python: "// Su-34 [AF5] - 10 pylons"
+const _COMMENT_RE = /\/\/\s*([^\n]+?)\s*-\s*(\d+)\s+pylons/g;
+const _BLOCK_COMMENT_RE = /\/\*\s*([^\n*]+?)\s*-\s*(\d+)\s+pylons\s*\*\//g;
+
+function _findVehicleComment(text, pos) {
+  const window = text.slice(Math.max(0, pos-400), pos);
+  // Try // style
+  const inlineRe = /\/\/\s*([^\n]+?)\s*-\s*(\d+)\s+pylons/g;
+  let m, last = null;
+  while ((m = inlineRe.exec(window)) !== null) last = m;
+  if (last) return { comment: `${last[1].trim()} - ${last[2]} pylons`, pylons: parseInt(last[2]) };
+  // Try /* */ style
+  const blockRe = /\/\*\s*([^\n*]+?)\s*-\s*(\d+)\s+pylons\s*\*\//g;
+  last = null;
+  while ((m = blockRe.exec(window)) !== null) last = m;
+  if (last) return { comment: `${last[1].trim()} - ${last[2]} pylons`, pylons: parseInt(last[2]) };
+  return { comment: null, pylons: null };
+}
+
+/* ============================================================
+   parseEasaInit(text) — full SQF file or partial block
+   Returns { vehicles, isFullFile, header, footer, srcSpans }
+   srcSpans[i] = { start, end } byte offsets of the 3-line block
+   for vehicle i in the original text.
+   ============================================================ */
+function parseEasaInit(text) {
+  const vehicles = [];
+  const srcSpans = [];
+
+  // Find all _easaVehi = _easaVehi + positions
+  const vehiRe = /_easaVehi\s*=\s*_easaVehi\s*\+/g;
+  let vm;
+  const vehiPositions = [];
+  while ((vm = vehiRe.exec(text)) !== null) vehiPositions.push(vm.index);
+
+  for (const vp of vehiPositions) {
+    // Parse classname
+    let vehiArr, afterVehi;
+    try {
+      const r = _extractArrayAfter(text, vp); vehiArr = r.value; afterVehi = r.end;
+    } catch(e) { throw new Error(`Failed _easaVehi at ${vp}: ${e.message}`); }
+    if (!vehiArr.length || typeof vehiArr[0] !== 'string') continue;
+    const classname = vehiArr[0];
+
+    // Header comment
+    const { comment, pylons } = _findVehicleComment(text, vp);
+
+    // _easaDefault
+    const dp = text.indexOf('_easaDefault = _easaDefault +', afterVehi);
+    if (dp === -1 || dp - afterVehi > 5000) throw new Error(`No _easaDefault for ${classname}`);
+    let defaultArr, afterDefault;
+    try {
+      const r = _extractArrayAfter(text, dp); defaultArr = r.value; afterDefault = r.end;
+    } catch(e) { throw new Error(`Failed _easaDefault for ${classname}: ${e.message}`); }
+    if (!defaultArr.length || !Array.isArray(defaultArr[0])) throw new Error(`Bad _easaDefault for ${classname}`);
+    const defaultLoadout = defaultArr[0];
+    if (defaultLoadout.length < 2) throw new Error(`_easaDefault < 2 elements for ${classname}`);
+
+    // _easaLoadout
+    const lp = text.indexOf('_easaLoadout = _easaLoadout +', afterDefault);
+    if (lp === -1 || lp - afterDefault > 5000) throw new Error(`No _easaLoadout for ${classname}`);
+    let loadoutArr, afterLoadout;
+    try {
+      const r = _extractArrayAfter(text, lp); loadoutArr = r.value; afterLoadout = r.end;
+    } catch(e) { throw new Error(`Failed _easaLoadout for ${classname}: ${e.message}`); }
+    if (!loadoutArr.length || !Array.isArray(loadoutArr[0])) throw new Error(`Bad _easaLoadout for ${classname}`);
+    const rawPresets = loadoutArr[0];
+
+    const presets = [];
+    for (let i = 0; i < rawPresets.length; i++) {
+      const row = rawPresets[i];
+      if (!Array.isArray(row) || row.length < 3) throw new Error(`Preset ${i} for ${classname} bad structure`);
+      const price = row[0], label = row[1], loadout = row[2];
+      if (typeof price !== 'number') throw new Error(`Preset ${i} for ${classname}: price not int`);
+      if (typeof label !== 'string') throw new Error(`Preset ${i} for ${classname}: label not str`);
+      if (!Array.isArray(loadout) || loadout.length < 2) throw new Error(`Preset ${i} for ${classname}: loadout bad`);
+      // Ignore 4th element (AA flag) — computed, not authored
+      presets.push({ price, label, weapons: loadout[0], mags: loadout[1] });
+    }
+
+    // srcSpan: from start of comment line (or vp) to end of loadout statement (incl. ;)
+    // Find the start: look for the // comment line before vp (within 400 chars)
+    let spanStart = vp;
+    const preBlock = text.slice(Math.max(0, vp - 400), vp);
+    const commentMatch = /\/\/[^\n]*pylons[^\n]*\n?$/.exec(preBlock);
+    if (commentMatch) {
+      spanStart = vp - 400 + commentMatch.index + Math.max(0, vp - 400 - Math.max(0, vp - 400));
+      // Simpler: scan backwards from vp for newline + //
+      let scanBack = vp - 1;
+      while (scanBack >= 0 && text[scanBack] !== '\n') scanBack--;
+      const lineStart = scanBack + 1;
+      if (text.slice(lineStart, vp).match(/^\s*\/\//)) spanStart = lineStart;
+    }
+    // Find the semicolon after the loadout bracket
+    let spanEnd = afterLoadout;
+    while (spanEnd < text.length && text[spanEnd] !== ';') spanEnd++;
+    if (spanEnd < text.length) spanEnd++; // include the ;
+
+    srcSpans.push({ start: spanStart, end: spanEnd });
+
+    vehicles.push({ class: classname, comment, pylons,
+      default: { weapons: defaultLoadout[0], mags: defaultLoadout[1] },
+      presets });
+  }
+
+  // Detect full file: has the boilerplate Private line at the top
+  const isFullFile = text.includes("_easaDefault = [];") && text.includes("_easaLoadout = [];") && text.includes("_easaVehi = [];");
+
+  // Extract header and footer for round-trip
+  let header = '', footer = '';
+  if (isFullFile && vehicles.length > 0) {
+    // header = everything up to (but not including) the first vehicle span
+    header = text.slice(0, srcSpans[0].start);
+    // footer = everything after the last vehicle span
+    footer = text.slice(srcSpans[srcSpans.length - 1].end);
+  }
+
+  return { vehicles, isFullFile, header, footer, srcSpans, originalText: text };
+}
+
+/* ============================================================
+   SQF EMITTER — mirrors Python emit_vehicle_block()
+   ============================================================ */
+function _sqfStr(s) { return "'" + s.replace(/'/g, "''") + "'"; }
+function _sqfStrList(items) { return '[' + items.map(_sqfStr).join(',') + ']'; }
+
+function emitVehicleBlock(v) {
+  const lines = [];
+  if (v.comment) lines.push(`// ${v.comment}`);
+  lines.push(`_easaVehi = _easaVehi + [${_sqfStr(v.class)}];`);
+  const dw = _sqfStrList(v.default.weapons);
+  const dm = _sqfStrList(v.default.mags);
+  lines.push(`_easaDefault = _easaDefault + [[${dw},${dm}]];`);
+  lines.push('_easaLoadout = _easaLoadout + [');
+  lines.push('[');
+  const presetStrs = v.presets.map(p => {
+    const pw = _sqfStrList(p.weapons);
+    const pm = _sqfStrList(p.mags);
+    return `[${p.price},${_sqfStr(p.label)},[${pw},${pm}]]`;
+  });
+  lines.push(presetStrs.join(',\n'));
+  lines.push(']');
+  lines.push('];');
+  return lines.join('\n');
+}
+
+function emitAllBlocks(vehicles) {
+  return vehicles.map(emitVehicleBlock).join('\n\n');
+}
+
+/* ============================================================
+   Import state (build-2)
+   ============================================================ */
+// Stores parsed result from full-file import for round-trip gate
+const _importState = {
+  parsed: null,        // { vehicles, isFullFile, header, footer, srcSpans, originalText }
+  isFullFile: false,
+  vehicleCount: 0
+};
+
+/* ============================================================
+   Import modal
+   ============================================================ */
+function openImportModal() {
+  const m = $('importModalBack'); if (m) { m.classList.add('open'); $('importPasteBox')?.focus(); }
+  const errEl = $('importError'); if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
+}
+
+function closeImportModal() {
+  const m = $('importModalBack'); if (m) m.classList.remove('open');
+}
+
+function doImport() {
+  const sqf = $('importPasteBox')?.value || '';
+  try {
+    window.importEasaBlock(sqf);
+    closeImportModal();
+  } catch(e) {
+    const errEl = $('importError');
+    if (errEl) { errEl.style.display = 'block'; errEl.textContent = 'Parse error: ' + e.message; }
+  }
+}
+
+/* ============================================================
+   Global window exports — state, data, parse/emit, UI functions
+   (contract for Playwright tests and external callers)
+   ============================================================ */
 window.state = state;
 window.DATA = DATA;
 window.selectAirframe = selectAirframe;
 window.setMode = setMode;
 window.loadPreset = loadPreset;
 window.getState = () => JSON.parse(JSON.stringify(state));
+window._parseSqfArray = _parseSqfArray;
+window.parseEasaInit = parseEasaInit;
+window.emitVehicleBlock = emitVehicleBlock;
+window.openImportModal = openImportModal;
+window.closeImportModal = closeImportModal;
+window.renderRack = renderRack;
+window.updateTotals = updateTotals;
 
-window.exportSinglePresetRow = function() {
-  // Build-2 implement: emit [price, 'label', [[weapons],[mags]]] SQF row
-  if(!state.airframeClass) return '// No airframe selected';
-  const weapons=[...new Set(state.rack.map(s=>s.weaponClass).filter(Boolean))];
-  const mags=state.rack.map(s=>s.magClass).filter(Boolean);
-  return `[${state.price}, "${state.label}", [[${weapons.map(w=>`"${w}"`).join(', ')}], [${mags.map(m=>`"${m}"`).join(', ')}]]]`;
-};
-
-window.exportFullEasaInit = function() {
-  // Build-2: full round-trip regeneration of EASA_Init.sqf
-  return '// Full EASA_Init.sqf export — build-2';
-};
-
-window.exportVehicleSnippet = function() {
-  if(!state.vehicleClass||!state.vWeaponClass||!state.vMagClass) return '// No vehicle station configured';
-  const mags=Array(state.vMagCount).fill(`"${state.vMagClass}"`).join(', ');
-  return `// addWeaponTurret pattern (Common_BalanceInit.sqf style)\n_veh addWeaponTurret ["${state.vWeaponClass}", [0]];\n${Array(state.vMagCount).fill(`_veh addMagazineTurret ["${state.vMagClass}", [0]];`).join('\n')}\n// Note: magazines lost on rearm — re-apply above after each rearm event if persistence needed`;
-};
-
+/* ============================================================
+   window.importEasaBlock(sqf) — replaces in-session data
+   ============================================================ */
 window.importEasaBlock = function(sqf) {
-  // Build-2: parse pasted EASA_Init.sqf block into state
-  console.log('importEasaBlock stub — build-2 will implement parser', sqf.length,'chars');
+  if (!sqf || !sqf.trim()) throw new Error('Empty input');
+
+  let parsed;
+  try { parsed = parseEasaInit(sqf); }
+  catch(e) { throw new Error(e.message); }
+
+  if (!parsed.vehicles.length) throw new Error('No vehicle blocks found. Check that the text contains _easaVehi = _easaVehi + [...] additions.');
+
+  // Store for round-trip export
+  _importState.parsed = parsed;
+  _importState.isFullFile = parsed.isFullFile;
+  _importState.vehicleCount = parsed.vehicles.length;
+
+  // Replace DATA.seed.vehicles in-session (non-destructive to original seed reference)
+  if (!DATA.seed) throw new Error('Data not loaded yet');
+  if (parsed.isFullFile) {
+    // Full file: completely replace the session's seed table
+    DATA.seed = { ...DATA.seed, vehicles: parsed.vehicles };
+    showToast(`IMPORTED ${parsed.vehicles.length} vehicles — full file loaded`);
+  } else {
+    // Partial: merge / replace vehicle entries by class
+    const existing = new Map(DATA.seed.vehicles.map(v => [v.class, v]));
+    for (const v of parsed.vehicles) existing.set(v.class, v);
+    DATA.seed = { ...DATA.seed, vehicles: [...existing.values()] };
+    showToast(`IMPORTED ${parsed.vehicles.length} vehicle block(s) — merged into session`);
+  }
+
+  // Show IMPORTED badge
+  const badge = $('importedBadge');
+  if (badge) badge.classList.add('show');
+
+  // Show/hide full-file export section
+  const fullSection = $('fullFileSection');
+  if (fullSection) fullSection.style.display = parsed.isFullFile ? 'block' : 'none';
+  updateExportPanel();
+
+  // If an airframe is selected, re-render its presets (may now have imported ones)
+  if (state.airframeClass) {
+    renderPresets();
+    showNotes(true);
+  }
 };
+
+/* ============================================================
+   Auto-generate label from rack contents
+   Format: "GBU-12 (4) | R-73 (2)"  — displayName + total count per weapon
+   ============================================================ */
+function autoGenerateLabel() {
+  if (!state.rack.length) return '';
+  // Group by weaponClass, count total rounds (sum of magInfo.count per station)
+  const weaponMags = new Map(); // weaponClass -> {displayName, totalRounds}
+  for (const s of state.rack) {
+    if (!s.weaponClass) continue;
+    const mi = magInfo(s.magClass);
+    const cnt = mi.count || 1;
+    if (!weaponMags.has(s.weaponClass)) {
+      const wi = wpnInfo(s.weaponClass);
+      weaponMags.set(s.weaponClass, { displayName: mi.displayName || s.magClass, totalRounds: 0 });
+    }
+    weaponMags.get(s.weaponClass).totalRounds += cnt;
+  }
+  return [...weaponMags.values()].map(w => `${w.displayName} (${w.totalRounds})`).join(' | ');
+}
+
+/* ============================================================
+   window.exportSinglePresetRow() — 3-element SQF preset row
+   ============================================================ */
+window.exportSinglePresetRow = function() {
+  if (!state.airframeClass || !state.rack.length) return '// No airframe or rack configured';
+
+  // Flatten rack to weapons/mags per SPEC:
+  // weapons = deduplicated weapon classes (stable rack order)
+  // mags = one entry per filled station (rack order)
+  const seenWeapons = new Set();
+  const weapons = [];
+  for (const s of state.rack) {
+    if (s.weaponClass && !seenWeapons.has(s.weaponClass)) {
+      weapons.push(s.weaponClass); seenWeapons.add(s.weaponClass);
+    }
+  }
+  const mags = state.rack.map(s => s.magClass).filter(Boolean);
+
+  const label = state.label || autoGenerateLabel();
+  const pw = _sqfStrList(weapons);
+  const pm = _sqfStrList(mags);
+
+  const header = [
+    `// Add to the vehicle's loadout array in EASA_Init.sqf`,
+    `// File: Client\\Module\\EASA\\EASA_Init.sqf`,
+    `// Find the vehicle registration block for ${state.airframeClass}:`,
+    `//   _easaLoadout = _easaLoadout + [ [...existing presets...] ];`,
+    `// Add a new row inside the vehicle's preset array (3 elements only — no 4th AA flag):`
+  ].join('\n');
+
+  const row = `[${state.price},${_sqfStr(label)},[${pw},${pm}]]`;
+  return header + '\n' + row;
+};
+
+/* ============================================================
+   New vehicle block export (airframe NOT in current seed)
+   ============================================================ */
+function exportNewVehicleBlock() {
+  if (!state.airframeClass) return '// No airframe selected';
+  const sv = seedVehicle(state.airframeClass);
+
+  // Default loadout: from airframes.json stock, or empty
+  const af = airframeMap().get(state.airframeClass);
+  const defWeapons = af?.stock?.weapons || [];
+  const defMags = af?.stock?.mags || [];
+
+  // Current rack as preset #1
+  const seenWeapons = new Set();
+  const weapons = [];
+  for (const s of state.rack) {
+    if (s.weaponClass && !seenWeapons.has(s.weaponClass)) { weapons.push(s.weaponClass); seenWeapons.add(s.weaponClass); }
+  }
+  const mags = state.rack.map(s => s.magClass).filter(Boolean);
+  const label = state.label || autoGenerateLabel() || 'Custom Preset';
+
+  const vData = {
+    class: state.airframeClass,
+    comment: af ? `${af.displayName || state.airframeClass} - ${af.pylons || 4} pylons` : null,
+    pylons: af?.pylons || null,
+    default: { weapons: defWeapons, mags: defMags },
+    presets: weapons.length ? [{ price: state.price, label, weapons, mags }] : []
+  };
+  return emitVehicleBlock(vData);
+}
+
+/* ============================================================
+   window.exportFullEasaInit() — regenerate entire file
+   GATE: only available after full-file import
+   ============================================================ */
+window.exportFullEasaInit = function() {
+  if (!_importState.isFullFile || !_importState.parsed) {
+    return '// Import a full EASA_Init.sqf first to enable this export';
+  }
+
+  const parsed = _importState.parsed;
+  // Re-emit all vehicle blocks; splice back header and footer from original
+  // We use the current DATA.seed.vehicles (which may have edits) rather than
+  // the original parsed vehicles, preserving comment/pylons metadata where available.
+  const classToMeta = new Map(parsed.vehicles.map(v => [v.class, { comment: v.comment, pylons: v.pylons }]));
+
+  const updatedVehicles = DATA.seed.vehicles.map(v => {
+    const meta = classToMeta.get(v.class);
+    return { ...v, comment: meta?.comment || v.comment, pylons: meta?.pylons || v.pylons };
+  });
+
+  const blocks = updatedVehicles.map(emitVehicleBlock).join('\n\n');
+  return parsed.header + blocks + parsed.footer;
+};
+
+/* ============================================================
+   window.exportVehicleSnippet() — BalanceInit-style SQF
+   ============================================================ */
+window.exportVehicleSnippet = function() {
+  if (!state.vehicleClass || !state.vWeaponClass || !state.vMagClass) {
+    return '// No vehicle station configured — select a vehicle, weapon, and magazine first';
+  }
+  const magLines = [];
+  for (let i = 0; i < state.vMagCount; i++) {
+    magLines.push(`_veh addMagazineTurret [${_sqfStr(state.vMagClass)}, [0]];`);
+  }
+  return [
+    `// Vehicle weapon mount — Common_BalanceInit.sqf style`,
+    `// File: Common\\Common_BalanceInit.sqf (or equivalent balance init)`,
+    `// IMPORTANT: Strip existing weapons before applying to avoid HUD cycling glitch:`,
+    `//   _veh removeWeapon ${_sqfStr(state.vWeaponClass)};`,
+    `//`,
+    `// Apply loadout:`,
+    ...magLines,
+    `_veh addWeaponTurret [${_sqfStr(state.vWeaponClass)}, [0]];`,
+    `//`,
+    `// REARM CAVEAT: Dynamically added weapons lose ammo on rearm because`,
+    `// Common_RearmVehicle.sqf reads CfgVehicles Magazines[] (config-defined only).`,
+    `// Optional re-apply hook (call after each rearm event):`,
+    `// {`,
+    `//   _veh removeWeapon ${_sqfStr(state.vWeaponClass)};`,
+    ...magLines.map(l => `//   ${l}`),
+    `//   _veh addWeaponTurret [${_sqfStr(state.vWeaponClass)}, [0]];`,
+    `// }`
+  ].join('\n');
+};
+
+/* ============================================================
+   Export panel UI — update contextual state of buttons/previews
+   ============================================================ */
+function updateExportPanel() {
+  const isAirMode = state.mode !== 'vehicle';
+  const hasRack = state.rack.length > 0;
+  const hasAirframe = !!state.airframeClass;
+  const isNewVehicle = hasAirframe && !seedVehicle(state.airframeClass);
+  const hasVehStation = !!(state.vehicleClass && state.vWeaponClass && state.vMagClass);
+  const hasImport = _importState.isFullFile && !!_importState.parsed;
+
+  // Preset row section (always visible in air mode)
+  const copyPresetRowBtn = $('copyPresetRowBtn');
+  const dlPresetRowBtn = $('dlPresetRowBtn');
+  const presetRowEnabled = isAirMode && hasAirframe && hasRack;
+  if (copyPresetRowBtn) {
+    copyPresetRowBtn.disabled = !presetRowEnabled;
+    copyPresetRowBtn.title = presetRowEnabled ? 'Copy preset row SQF' : 'Select an airframe and configure a rack first';
+  }
+  if (dlPresetRowBtn) dlPresetRowBtn.disabled = !presetRowEnabled;
+  if (presetRowEnabled) {
+    const ta = $('presetRowPreview');
+    if (ta) ta.value = window.exportSinglePresetRow();
+  } else {
+    const ta = $('presetRowPreview'); if (ta) ta.value = '';
+  }
+
+  // New vehicle block section
+  const nvSection = $('newVehicleSection');
+  if (nvSection) nvSection.style.display = (isAirMode && isNewVehicle && hasRack) ? 'block' : 'none';
+  if (isAirMode && isNewVehicle && hasRack) {
+    const ta = $('newVehiclePreview'); if (ta) ta.value = exportNewVehicleBlock();
+  }
+
+  // Full file section
+  const ffSection = $('fullFileSection');
+  if (ffSection) ffSection.style.display = hasImport ? 'block' : 'none';
+  const copyFullBtn = $('copyFullBtn'); const dlFullBtn = $('dlFullBtn');
+  const gateEl = $('fullFileGate');
+  if (hasImport) {
+    if (copyFullBtn) { copyFullBtn.disabled = false; copyFullBtn.title = 'Copy full regenerated EASA_Init.sqf'; }
+    if (dlFullBtn) dlFullBtn.disabled = false;
+    if (gateEl) gateEl.style.display = 'none';
+    const ta = $('fullFilePreview');
+    if (ta) ta.value = window.exportFullEasaInit().slice(0, 500) + '\n// … (copy or download for full content)';
+  } else {
+    if (copyFullBtn) copyFullBtn.disabled = true;
+    if (dlFullBtn) dlFullBtn.disabled = true;
+    if (gateEl) gateEl.style.display = 'block';
+  }
+
+  // Vehicle snippet section
+  const vsSection = $('vehSnippetSection');
+  if (vsSection) vsSection.style.display = state.mode === 'vehicle' ? 'block' : 'none';
+  if (state.mode === 'vehicle') {
+    const copyVBtn = $('copyVehSnipBtn'); const dlVBtn = $('dlVehSnipBtn');
+    if (copyVBtn) { copyVBtn.disabled = !hasVehStation; copyVBtn.title = hasVehStation ? 'Copy vehicle snippet' : 'Select vehicle, weapon, and magazine first'; }
+    if (dlVBtn) dlVBtn.disabled = !hasVehStation;
+    const ta = $('vehSnippetPreview');
+    if (ta) ta.value = hasVehStation ? window.exportVehicleSnippet() : '';
+  }
+}
+
+/* ============================================================
+   Copy-to-clipboard flash helper
+   ============================================================ */
+function _copyWithFlash(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    if (btn) {
+      const orig = btn.textContent;
+      btn.textContent = 'COPIED ✓'; btn.classList.add('flashed');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('flashed'); }, 1600);
+    }
+    showToast('Copied to clipboard');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;left:-9999px'; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); ta.remove();
+    showToast('Copied to clipboard');
+  });
+}
+
+function _download(filename, text) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], {type:'text/plain'}));
+  a.download = filename; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function doExportSinglePreset() {
+  const sqf = window.exportSinglePresetRow();
+  _copyWithFlash(sqf, $('copyPresetRowBtn'));
+  const ta = $('presetRowPreview'); if (ta) ta.value = sqf;
+}
+
+function doDownloadPresetRow() {
+  _download(`easa-preset-${state.airframeClass || 'custom'}.sqf`, window.exportSinglePresetRow());
+}
+
+function doExportNewVehicle() {
+  const sqf = exportNewVehicleBlock();
+  _copyWithFlash(sqf, $('copyNewVehBtn'));
+  const ta = $('newVehiclePreview'); if (ta) ta.value = sqf;
+}
+
+function doDownloadNewVehicle() {
+  _download(`easa-vehicle-${state.airframeClass || 'custom'}.sqf`, exportNewVehicleBlock());
+}
+
+function doExportFullEasa() {
+  const sqf = window.exportFullEasaInit();
+  _copyWithFlash(sqf, $('copyFullBtn'));
+}
+
+function doDownloadFull() {
+  _download('EASA_Init.sqf', window.exportFullEasaInit());
+}
+
+function doExportVehicleSnippet() {
+  const sqf = window.exportVehicleSnippet();
+  _copyWithFlash(sqf, $('copyVehSnipBtn'));
+  const ta = $('vehSnippetPreview'); if (ta) ta.value = sqf;
+}
+
+function doDownloadVehicleSnippet() {
+  _download(`easa-vehicle-snippet-${state.vehicleClass || 'custom'}.sqf`, window.exportVehicleSnippet());
+}
+
+/* ============================================================
+   Import modal close handlers
+   ============================================================ */
+$('importModalClose')?.addEventListener('click', closeImportModal);
+$('importModalBack')?.addEventListener('click', e => { if(e.target===$('importModalBack')) closeImportModal(); });
 
 /* ============================================================
    Help modal
@@ -1729,7 +2430,7 @@ document.addEventListener('keydown', e => {
   if(e.key==='3') { e.preventDefault(); setMode('vehicle'); }
   if(e.key==='Delete'||e.key==='Backspace') {
     if(state.rack.length>0) {
-      e.preventDefault(); state.rack.pop(); state.dirty=true; renderRack(); updateTotals(); debouncedSave();
+      e.preventDefault(); state.rack.pop(); state.dirty=true; renderRack(); updateTotals(); updateExportPanel(); debouncedSave();
     }
   }
 });
@@ -1781,7 +2482,7 @@ function applyRestoredState(saved) {
   if(saved.rack) state.rack = saved.rack;
   state.price = saved.price||0; state.label = saved.label||'';
   state.selectedPresetRef = saved.selectedPresetRef;
-  renderStageAir(); renderPresets(); updateTotals();
+  renderStageAir(); renderPresets(); updateTotals(); updateExportPanel();
   showToast('Session restored');
 }
 
