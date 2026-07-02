@@ -574,6 +574,109 @@ with sync_playwright() as p:
     else:
         fail("Arsenal panel: faction filter removal", f"{faction_gone}")
 
+    # ── Test 15: Mission display names (LoadoutManager parity) ───────────────
+    page.click("#modeBtn-plane")
+    page.wait_for_timeout(400)
+    plane_labels = page.evaluate(
+        "() => [...document.querySelectorAll('#pickerGrid .picker-lab')].map(l => l.textContent)")
+    expected_planes = ['A-10A', 'A-10C', 'Su-39', 'Su-25T', 'Su-25A', 'AV8B (LGB)', 'L-39', 'L-159']
+    missing = [n for n in expected_planes if n not in plane_labels]
+    if not missing:
+        ok("Mission names: plane picker uses LoadoutManager names (A-10A, Su-39, …)")
+    else:
+        fail("Mission names: plane picker", f"missing {missing} in {plane_labels}")
+
+    page.click("#modeBtn-heli")
+    page.wait_for_timeout(400)
+    heli_labels = page.evaluate(
+        "() => [...document.querySelectorAll('#pickerGrid .picker-lab')].map(l => l.textContent)")
+    expected_helis = ['AH-64D (TOW)', 'AH-64D (Hellfire)', 'Mi-24V (CZ)', 'Ka-52 (Black)']
+    missing = [n for n in expected_helis if n not in heli_labels]
+    if not missing:
+        ok("Mission names: heli picker uses LoadoutManager names (AH-64D (TOW), …)")
+    else:
+        fail("Mission names: heli picker", f"missing {missing} in {heli_labels}")
+
+    # ── Test 16: AF level buttons render above the airframe grid ─────────────
+    page.click("#modeBtn-plane")
+    page.wait_for_timeout(400)
+    af_btns = page.evaluate("""() => {
+        const btns = [...document.querySelectorAll('#afLevelBtns button')];
+        const bar = document.getElementById('afLevelBtns');
+        const grid = document.getElementById('pickerGrid');
+        return {
+            labels: btns.map(b => b.textContent),
+            aboveGrid: !!(bar && grid &&
+                (bar.compareDocumentPosition(grid) & Node.DOCUMENT_POSITION_FOLLOWING)),
+        };
+    }""")
+    if af_btns['labels'] == ['AF3', 'AF4', 'AF5'] and af_btns['aboveGrid']:
+        ok("AF filter: AF3/AF4/AF5 buttons rendered above the airframe grid")
+    else:
+        fail("AF filter: buttons", f"{af_btns}")
+
+    # ── Test 17: AF level single-select filters the picker ───────────────────
+    all_planes = page.evaluate("() => document.querySelectorAll('#pickerGrid .picker-tile').length")
+    page.evaluate("() => [...document.querySelectorAll('#afLevelBtns button')].find(b => b.textContent==='AF5').click()")
+    page.wait_for_timeout(300)
+    af5 = page.evaluate("""() => {
+        const labels = [...document.querySelectorAll('#pickerGrid .picker-lab')].map(l => l.textContent);
+        const btn = [...document.querySelectorAll('#afLevelBtns button')].find(b => b.textContent==='AF5');
+        return { labels, pressed: btn.getAttribute('aria-pressed') === 'true', sel: window.state.afLevels };
+    }""")
+    af5_expected = {'Su-34', 'Su-39', 'F-35B', 'AV8B'}
+    if af5['pressed'] and af5['sel'] == [5] and set(af5['labels']) == af5_expected:
+        ok(f"AF filter: AF5 shows only level-5 planes ({len(af5['labels'])}/{all_planes})")
+    else:
+        fail("AF filter: AF5 single select", f"{af5}")
+
+    # ── Test 18: AF level multi-select unions levels ──────────────────────────
+    page.evaluate("() => [...document.querySelectorAll('#afLevelBtns button')].find(b => b.textContent==='AF4').click()")
+    page.wait_for_timeout(300)
+    af45 = page.evaluate("""() => {
+        const labels = [...document.querySelectorAll('#pickerGrid .picker-lab')].map(l => l.textContent);
+        const on = [...document.querySelectorAll('#afLevelBtns button.on')].map(b => b.textContent);
+        return { labels, on, sel: [...window.state.afLevels].sort() };
+    }""")
+    af45_expected = af5_expected | {'Su-25T', 'A-10C', 'AV8B (LGB)'}
+    if sorted(af45['on']) == ['AF4', 'AF5'] and af45['sel'] == [4, 5] and set(af45['labels']) == af45_expected:
+        ok(f"AF filter: AF4+AF5 multi-select shows {len(af45['labels'])} planes")
+    else:
+        fail("AF filter: multi-select", f"{af45}")
+
+    # ── Test 19: Deselecting all AF levels restores the full roster ──────────
+    for lv in ('AF4', 'AF5'):
+        page.evaluate(f"() => [...document.querySelectorAll('#afLevelBtns button')].find(b => b.textContent==='{lv}').click()")
+        page.wait_for_timeout(200)
+    reset = page.evaluate("""() => ({
+        count: document.querySelectorAll('#pickerGrid .picker-tile').length,
+        sel: window.state.afLevels
+    })""")
+    if reset['count'] == all_planes and reset['sel'] == []:
+        ok(f"AF filter: deselect-all restores all {all_planes} planes")
+    else:
+        fail("AF filter: deselect all", f"{reset}")
+
+    # ── Test 20: AF filter follows the mode's roster (heli levels) ───────────
+    page.click("#modeBtn-heli")
+    page.wait_for_timeout(400)
+    heli_af = page.evaluate("""() => {
+        [...document.querySelectorAll('#afLevelBtns button')].find(b => b.textContent==='AF3').click();
+        return null;
+    }""")
+    page.wait_for_timeout(300)
+    heli_af3 = page.evaluate(
+        "() => [...document.querySelectorAll('#pickerGrid .picker-lab')].map(l => l.textContent)")
+    heli_af3_expected = {'Mi-24V (CZ)', 'AH-64D (TOW)', 'Wildcat AH11', 'Mi-24V', 'Mi-24P'}
+    if set(heli_af3) == heli_af3_expected:
+        ok(f"AF filter: heli mode AF3 shows {len(heli_af3)} level-3 helicopters")
+    else:
+        fail("AF filter: heli mode", f"{sorted(heli_af3)}")
+    # cleanup: deselect + back to plane
+    page.evaluate("() => [...document.querySelectorAll('#afLevelBtns button')].find(b => b.textContent==='AF3').click()")
+    page.click("#modeBtn-plane")
+    page.wait_for_timeout(300)
+
     browser.close()
 
 # ── summary ───────────────────────────────────────────────────────────────────

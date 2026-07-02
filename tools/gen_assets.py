@@ -909,6 +909,39 @@ def main(argv=None):
         'F35B', 'L159_ACR', 'A10', 'A10_US_EP1', 'AV8B', 'AV8B2',
     }
 
+    # Mission display names from a2waspwarfare LoadoutManager (inGameDisplayName)
+    # — the mission overrides/curates these, so they win over config displayName.
+    _MISSION_DISPLAY_NAME = {
+        # Aircraft (Tools/LoadoutManager/Data/Vehicles/Aircrafts)
+        'Su34': 'Su-34', 'Su25_Ins': 'Su-25A', 'Su25_TK_EP1': 'Su-25T',
+        'Su39': 'Su-39', 'L39_TK_EP1': 'L-39', 'F35B': 'F-35B',
+        'L159_ACR': 'L-159', 'A10': 'A-10A', 'A10_US_EP1': 'A-10C',
+        'AV8B': 'AV8B (LGB)', 'AV8B2': 'AV8B', 'Mi24_D_CZ_ACR': 'Mi-24V (CZ)',
+        'AH64D': 'AH-64D (TOW)', 'AH64D_EP1': 'AH-64D (Hellfire)',
+        'BAF_Apache_AH1_D': 'Apache AH1', 'AH1Z': 'AH-1Z',
+        'AW159_Lynx_BAF': 'Wildcat AH11', 'Mi24_V': 'Mi-24V', 'Mi24_P': 'Mi-24P',
+        'Ka52': 'Ka-52', 'Ka52Black': 'Ka-52 (Black)',
+        'AH6J_EP1': 'AH-6J', 'UH1Y': 'UH1Y', 'An2_TK_EP1': 'An-2',
+        'Mi24_D_TK_EP1': 'Mi-24D',
+        # Ground vehicles (Tools/LoadoutManager/Data/Vehicles/GroundVehicles)
+        'M2A2_EP1': 'M2A2 Bradley', 'M6_EP1': 'M6 Linebacker', 'MLRS': 'MLRS',
+        'MLRS_DES_EP1': 'MLRS (Desert)', 'M1128_MGS_EP1': 'Stryker MGS',
+        'Pandur2_ACR': 'Pandur', 'BMP2_INS': 'BMP-2', 'BMP2_TK_EP1': 'BMP-2',
+        'T34_TK_EP1': 'T-34', 'T34_TK_GUE_EP1': 'T-34 (Guerilla)',
+        'BRDM2_ATGM_INS': 'BRDM (Igla)', 'BTR90': 'BTR-90',
+    }
+
+    # Aircraft-factory (AF) level per airframe, from a2waspwarfare
+    # LoadoutManager inGameFactoryLevel (mirrors mission Core_*.sqf upgrade req).
+    _EASA_AF_LEVEL = {
+        'Su34': 5, 'Su25_Ins': 3, 'Su25_TK_EP1': 4, 'Su39': 5, 'L39_TK_EP1': 3,
+        'F35B': 5, 'L159_ACR': 3, 'A10': 3, 'A10_US_EP1': 4, 'AV8B': 4,
+        'AV8B2': 5, 'Mi24_D_CZ_ACR': 3, 'AH64D': 3, 'AH64D_EP1': 4,
+        'BAF_Apache_AH1_D': 4, 'AH1Z': 5, 'AW159_Lynx_BAF': 3, 'Mi24_V': 3,
+        'Mi24_P': 3, 'Ka52': 4, 'Ka52Black': 5,
+        'AH6J_EP1': 2, 'UH1Y': 2, 'An2_TK_EP1': 1, 'Mi24_D_TK_EP1': 3,
+    }
+
     # -----------------------------------------------------------------------
     # Helpers to determine airframe kind from ancestry
     # -----------------------------------------------------------------------
@@ -974,7 +1007,8 @@ def main(argv=None):
     # We need turret weapons/mags extracted from the raw text (pass 2)
     for cls in sorted(all_airframe_classes):
         rec = veh_raw[cls]
-        dn = rec.get('dn') or _resolve_field(cls, 'dn', veh_raw) or cls
+        dn = (_MISSION_DISPLAY_NAME.get(cls)
+              or rec.get('dn') or _resolve_field(cls, 'dn', veh_raw) or cls)
         k = kind_of(cls)
 
         # Faction
@@ -1020,6 +1054,7 @@ def main(argv=None):
             'displayName': dn,
             'kind': k,
             'faction': faction,
+            'afLevel': _EASA_AF_LEVEL.get(cls),
             'thumb': thumb,
             'stock': {
                 'weapons': all_weps,
@@ -1125,6 +1160,143 @@ def main(argv=None):
 
     vehicles_list = []
 
+    # In-game display names from the a2waspwarfare wiki visual catalogs
+    # (Base-Game-*-Visual-Catalog.md) for classes whose displayName is not
+    # resolvable from this config reference dump (would fall back to the
+    # classname otherwise).
+    _WIKI_DN_FILL = {
+        'ATV_CZ_EP1': 'ATV',
+        'ATV_US_EP1': 'ATV',
+        'BMP2_Ambul_CDF': 'BMP-2 Ambulance',
+        'BMP2_Ambul_INS': 'BMP-2 Ambulance',
+        'BMP2_CDF': 'BMP-2',
+        'BMP2_Gue': 'BMP-2',
+        'BMP2_HQ_CDF': 'BMP-2 (HQ)',
+        'BMP2_HQ_INS': 'BMP-2 (HQ)',
+        'BMP2_HQ_TK_EP1': 'BMP-2 (HQ)',
+        'BMP2_UN_EP1': 'BMP-2',
+        'BRDM2_ATGM_CDF': 'BRDM-2 (ATGM)',
+        'BRDM2_ATGM_TK_EP1': 'BRDM-2 (ATGM)',
+        'BRDM2_CDF': 'BRDM-2',
+        'BRDM2_Gue': 'BRDM-2',
+        'BRDM2_HQ_Gue': 'BRDM-2 (HQ)',
+        'BRDM2_HQ_TK_GUE_EP1': 'BRDM-2 (HQ)',
+        'BRDM2_INS': 'BRDM-2',
+        'BRDM2_TK_EP1': 'BRDM-2',
+        'BRDM2_TK_GUE_EP1': 'BRDM-2',
+        'BTR40_MG_TK_GUE_EP1': 'BTR-40 (DshKM)',
+        'BTR40_MG_TK_INS_EP1': 'BTR-40 (DshKM)',
+        'BTR40_TK_GUE_EP1': 'BTR-40',
+        'BTR40_TK_INS_EP1': 'BTR-40',
+        'CDF_WarfareBMGNest_PK': 'MG Nest (PK)',
+        'GRAD_CDF': 'Ural',
+        'GRAD_INS': 'Ural',
+        'GRAD_RU': 'Ural',
+        'GRAD_TK_EP1': 'Ural',
+        'GUE_WarfareBMGNest_PK': 'MG Nest (PK)',
+        'HMMWV_Ambulance_CZ_DES_EP1': 'HMMWV',
+        'HMMWV_Ambulance_DES_EP1': 'HMMWV',
+        'HMMWV_Avenger_DES_EP1': 'HMMWV',
+        'HMMWV_DES_EP1': 'HMMWV',
+        'HMMWV_M1151_M2_CZ_DES_EP1': 'HMMWV',
+        'HMMWV_M1151_M2_DES_EP1': 'HMMWV',
+        'HMMWV_MK19_DES_EP1': 'HMMWV (Mk19)',
+        'HMMWV_TOW_DES_EP1': 'HMMWV (TOW)',
+        'Ikarus_TK_CIV_EP1': 'Bus',
+        'Ins_WarfareBMGNest_PK': 'MG Nest (PK)',
+        'Kamaz': 'Utility Truck',
+        'LAV25': 'LAV-25',
+        'LandRover_CZ_EP1': 'Car',
+        'LandRover_MG_TK_EP1': 'Car',
+        'LandRover_MG_TK_INS_EP1': 'Car',
+        'LandRover_SPG9_TK_EP1': 'Car',
+        'LandRover_SPG9_TK_INS_EP1': 'Car',
+        'LandRover_TK_CIV_EP1': 'Car',
+        'M1030_US_DES_EP1': 'Motorcycle',
+        'M113Ambul_TK_EP1': 'M113 Ambulance',
+        'M113Ambul_UN_EP1': 'M113 Ambulance',
+        'M113_TK_EP1': 'M113',
+        'M113_UN_EP1': 'M113',
+        'M1A1_US_DES_EP1': 'M1A1',
+        'M1A2_US_TUSK_MG_EP1': 'M1A2 TUSK',
+        'MAZ_543_SCUD_TK_EP1': 'Truck',
+        'MMT_Civ': 'Mountain bike',
+        'MMT_USMC': 'Mountain bike',
+        'MTVR': 'Truck',
+        'Offroad_SPG9_TK_GUE_EP1': 'Off-road (SPG-9)',
+        'Old_bike_TK_CIV_EP1': 'Old bike',
+        'Old_bike_TK_INS_EP1': 'Old bike',
+        'Old_moto_TK_Civ_EP1': 'Old moto',
+        'Pickup_PK_GUE': 'Pickup (PK)',
+        'Pickup_PK_INS': 'Pickup (PK)',
+        'Pickup_PK_TK_GUE_EP1': 'Pickup (PK)',
+        'RU_WarfareBMGNest_PK': 'MG Nest (PK)',
+        'SUV_TK_CIV_EP1': 'SUV',
+        'SUV_TK_EP1': 'SUV',
+        'SUV_UN_EP1': 'SUV',
+        'T55_TK_EP1': 'T-55',
+        'T55_TK_GUE_EP1': 'T-55',
+        'T72_CDF': 'T-72',
+        'T72_Gue': 'T-72',
+        'T72_INS': 'T-72',
+        'T72_RU': 'T-72',
+        'T72_TK_EP1': 'T-72',
+        'TT650_Civ': 'Motorcycle',
+        'TT650_Gue': 'Motorcycle',
+        'TT650_Ins': 'Motorcycle',
+        'TT650_TK_CIV_EP1': 'Motorcycle',
+        'TT650_TK_EP1': 'Motorcycle',
+        'UAZ_AGS30_CDF': 'UAZ (AGS-30)',
+        'UAZ_AGS30_INS': 'UAZ (AGS-30)',
+        'UAZ_AGS30_RU': 'UAZ (AGS-30)',
+        'UAZ_AGS30_TK_EP1': 'UAZ (AGS-30)',
+        'UAZ_CDF': 'UAZ',
+        'UAZ_INS': 'UAZ',
+        'UAZ_MG_CDF': 'UAZ (DShKM)',
+        'UAZ_MG_INS': 'UAZ (DShKM)',
+        'UAZ_MG_TK_EP1': 'UAZ (DShKM)',
+        'UAZ_RU': 'UAZ',
+        'UAZ_SPG9_INS': 'UAZ (SPG-9)',
+        'UAZ_Unarmed_TK_CIV_EP1': 'UAZ',
+        'UAZ_Unarmed_TK_EP1': 'UAZ',
+        'UAZ_Unarmed_UN_EP1': 'UAZ',
+        'UralOpen_CDF': 'Ural (Open)',
+        'UralOpen_INS': 'Ural (Open)',
+        'UralReammo_CDF': 'Ural (Ammunition)',
+        'UralReammo_INS': 'Ural (Ammunition)',
+        'UralReammo_TK_EP1': 'Ural (Ammunition)',
+        'UralRefuel_CDF': 'Ural (Fuel)',
+        'UralRefuel_INS': 'Ural (Fuel)',
+        'UralRefuel_TK_EP1': 'Ural (Fuel)',
+        'UralRepair_CDF': 'Ural (Repair)',
+        'UralRepair_INS': 'Ural (Repair)',
+        'UralRepair_TK_EP1': 'Ural (Repair)',
+        'Ural_CDF': 'Ural',
+        'Ural_INS': 'Ural',
+        'Ural_TK_CIV_EP1': 'Ural',
+        'Ural_UN_EP1': 'Ural',
+        'Ural_ZU23_CDF': 'Ural (ZU-23)',
+        'Ural_ZU23_Gue': 'Ural (ZU-23)',
+        'Ural_ZU23_INS': 'Ural (ZU-23)',
+        'Ural_ZU23_TK_EP1': 'Ural (ZU-23)',
+        'Ural_ZU23_TK_GUE_EP1': 'Ural (ZU-23)',
+        'V3S_Civ': 'Truck',
+        'V3S_Gue': 'Truck',
+        'WarfareBMGNest_M240_US_EP1': 'MG Nest',
+        'WarfareBMGNest_PK_TK_EP1': 'MG Nest (PK)',
+        'WarfareBMGNest_PK_TK_GUE_EP1': 'MG Nest (PK)',
+        'WarfareReammoTruck_CDF': 'Ural (Ammunition)',
+        'WarfareReammoTruck_Gue': 'Ural (Ammunition)',
+        'WarfareReammoTruck_INS': 'Ural (Ammunition)',
+        'WarfareReammoTruck_RU': 'Utility Truck (Ammunition)',
+        'WarfareReammoTruck_USMC': 'MTVR (Ammunition)',
+        'WarfareSalvageTruck_Gue': 'Salvage Truck',
+        'WarfareSupplyTruck_Gue': 'Supply Truck',
+        'ZSU_CDF': 'ZSU-23 Shilka',
+        'ZSU_INS': 'ZSU-23 Shilka',
+        'ZSU_TK_EP1': 'ZSU-23 Shilka',
+    }
+
     # Weapons that are "real" combat weapons for armed detection
     def _is_real_combat_weapon(wep_cls: str) -> bool:
         if is_noise_weapon_inherited(wep_cls):
@@ -1135,7 +1307,9 @@ def main(argv=None):
 
     for cls in sorted(scope2_ground):
         rec = veh_raw[cls]
-        dn = rec.get('dn') or _resolve_field(cls, 'dn', veh_raw) or cls
+        dn = (_MISSION_DISPLAY_NAME.get(cls)
+              or rec.get('dn') or _resolve_field(cls, 'dn', veh_raw)
+              or _WIKI_DN_FILL.get(cls) or cls)
 
         # Faction
         f_raw = _resolve_field(cls, '_faction', veh_raw)
