@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "easa-loadouts",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "8097", "-s", "."],
+      "port": 8097
+    }
+  ]
+}

@@ -39,5 +39,13 @@
 - EASA CORE BUILD ✅ (commit 363260a): index.html 85 KB, 10/10 Playwright green. 3-panel ops-console app — airframe picker (21 EASA aircraft), preset list (in-game virtualised + RW), ordnance-rack stage (silhouette, station tiles, pylon meter), vehicle mode (54 eligible / 57 excluded, armed-flag authoritative). window.exportSinglePresetRow/exportFullEasaInit/exportVehicleSnippet/importEasaBlock stubs ready for build-2.
 - Visual overhauls in flight: loadout, garrison, wfmenu, sector, wddm, strategy, site.
 
+## Log (continued)
+- 🚨 LIVE BUG FOUND+FIXED: sector-planner was DEAD-ON-LOAD in production since 2026-06-29 — commit 3d669ff (campaign sim) accidentally REPLACED the trailing `init();` bootstrap with its section header. All parser tests stayed green; browser "verifications" only probed function existence. Fix: restored init() as last statement (main 3a016dd) + NEW tools/test_coldload.py regression gate (asserts map dropdown ≥7 worlds + towns + 0 errors on cold load). Verified live-fix rendering (40 towns Chernarus). LESSON: every tool needs a COLD-LOAD gate, not just unit/round-trip tests.
+- ALL 7 VISUAL OVERHAULS MERGED+DEPLOYED ✅ (loadout quartermaster / garrison ORBAT / wf-menu CRT / sector war-room / WDDM blueprint (+toolbar overlap fix after my screenshot review) / strategy command-ledger / faction-builder pending? NO — faction-builder visual not dispatched yet!). Site visual (feat/site-visual-jul2) verified by me via dev server + Playwright (home/tools/guide) — awaiting Steff deploy approval.
+- Shared-browser gotcha: the Playwright MCP browser is ONE instance shared with subagents — my sector screenshot got swapped mid-check by the WDDM agent. Use own python-playwright probes for verification.
+- EASA build-2 (SQF import/export + byte-identical gate) dispatched.
+
 ## Discovered Issues
-- (none yet)
+- garrison-editor tools/test_roundtrip.mjs: 3 PRE-EXISTING failures → RESOLVED by the spawned task session (task_dea4e8c0): stale HARDCODED expectations, not code bugs — (a) literals assumed LF but a2waspwarfare checks out CRLF (core.autocrlf), (b) SmallTown2 expected `], [` spacing that never existed in the source. Exporter proven correct by the byte-identical no-op oracle. Fix (in that session, uncommitted pending Steff's word): derive expected blocks from the pasted input + source-EOL, + fixture-sanity assertions. LESSON for suite tests: never hardcode fixture excerpts — derive from input (EOL-portable); the no-op round-trip is the oracle.
+- faction-builder visual overhaul NOT YET dispatched (only tool missing it) — do after current wave.
+- vehicles.json lacks boats (RHIB/PBX/Zodiac) — curated list covers eligibility; extend gen_assets.py later if boat mounting wanted.
