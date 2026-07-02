@@ -357,11 +357,6 @@ button.danger:hover { background: var(--danger); color: #fff; }
   border-top: 1px solid var(--steel); }
 .pool-empty { font-size: 11px; color: #39414b; padding: 10px;
   font-family: 'JetBrains Mono', monospace; text-align: center; }
-/* Show-all toggle */
-.show-all-toggle { font-size: 10px; color: var(--orange); background: none;
-  border: none; cursor: pointer; padding: 4px 0; font-family: 'JetBrains Mono', monospace; }
-.show-all-toggle:hover { text-decoration: underline; }
-
 /* Mag picker modal */
 .mag-modal { position: fixed; inset: 0; background: rgba(8,10,13,.7);
   display: none; align-items: center; justify-content: center; z-index: 50;
@@ -686,9 +681,6 @@ kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3
         <input type="text" id="poolSearch" placeholder="Search weapons…" autocomplete="off" aria-label="Search weapon pool">
       </div>
       <div class="pool-cats" id="poolCats" role="group" aria-label="Weapon categories"></div>
-      <div id="showAllRow" style="text-align:center;margin-bottom:4px;display:none">
-        <button class="show-all-toggle" id="showAllBtn" onclick="toggleShowAll()">SHOW ALL WEAPONS</button>
-      </div>
 
       <!-- Pool grid -->
       <div class="pool-scroll" id="poolScroll">
@@ -758,7 +750,7 @@ kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3
         <b style="color:var(--bone)">In-game notes:</b><br>
         EASA usable at the side's service point only (70 m range) · driver seat required ·
         Requires EASA upgrade ($4,000, unlocked after Air Factory) · Module param default ON ·
-        Cost check is <code>&gt;</code> (need <em>more</em> than price) · rearm re-applies the EASA preset automatically.
+        Cost check is <code>&gt;=</code> (buying at exactly the price is allowed) · rearm re-applies the EASA preset automatically.
       </div>
     </div>
   </div>
@@ -886,8 +878,6 @@ const state = {
 let _pendingWeapon = null;
 // Virtualised preset list state
 let _presetScrollTimer = null;
-// Show-all toggle for pool
-let _showAll = false;
 // Active pool category filter
 let _poolCat = null;
 // Pool search term
@@ -1451,17 +1441,17 @@ function renderPool() {
   const grid = $('poolGrid');
   if(!cats||!grid) return;
 
-  // Determine plausible pool
+  // Plausible pool only — mirrors what the in-game loadout manager offers
   let plausibleSet = new Set();
   if(state.airframeClass) {
-    const pool = buildPlausiblePool(state.airframeClass);
-    plausibleSet = new Set(pool);
+    plausibleSet = new Set(buildPlausiblePool(state.airframeClass));
   }
   const allWeapons = Object.entries(DATA.weapons||{});
-  const airWeapons = allWeapons.filter(([cls,w]) => AIR_CATS.includes(w.category));
+  const airWeapons = allWeapons.filter(([cls,w]) => AIR_CATS.includes(w.category) && plausibleSet.has(cls));
 
-  // Category chips
+  // Category chips (derived from the airframe's plausible pool)
   const allCats = [...new Set(airWeapons.map(([,w])=>w.category))].sort();
+  if(_poolCat && !allCats.includes(_poolCat)) _poolCat = null;
   cats.innerHTML='';
   const allC=document.createElement('span'); allC.className='chip clickable'+(!_poolCat?' on':'');
   allC.textContent='ALL'; allC.tabIndex=0;
@@ -1476,22 +1466,17 @@ function renderPool() {
     cats.appendChild(c);
   }
 
-  // Show-all toggle
-  const showAllRow=$('showAllRow'); const showAllBtn=$('showAllBtn');
-  if(state.airframeClass) {
-    showAllRow.style.display='block';
-    showAllBtn.textContent=_showAll?'SHOW PLAUSIBLE ONLY':'SHOW ALL WEAPONS';
-  } else {
-    showAllRow.style.display='none';
-  }
-
   // Filter weapons
-  let pool = _showAll || !state.airframeClass ? airWeapons : airWeapons.filter(([cls])=>plausibleSet.has(cls));
+  let pool = airWeapons;
   if(_poolCat) pool = pool.filter(([,w])=>w.category===_poolCat);
   if(_poolSearch) pool = pool.filter(([cls,w])=>cls.toLowerCase().includes(_poolSearch)||w.displayName?.toLowerCase().includes(_poolSearch));
 
   // Render
   grid.innerHTML='';
+  if(!state.airframeClass) {
+    const ph=document.createElement('div'); ph.className='pool-empty';
+    ph.textContent='— SELECT AN AIRFRAME —'; grid.appendChild(ph); return;
+  }
   if(!pool.length) {
     const ph=document.createElement('div'); ph.className='pool-empty';
     ph.textContent='— NO WEAPONS MATCH —'; grid.appendChild(ph); return;
@@ -1516,8 +1501,6 @@ function renderPool() {
     grid.appendChild(tile);
   }
 }
-
-function toggleShowAll() { _showAll=!_showAll; renderPool(); }
 
 /* ============================================================
    Open pool picker (from "+ station" button)
@@ -1607,7 +1590,6 @@ function setMode(mode) {
     if(ap) ap.style.display='none'; if(vp) vp.style.display='block';
     if(stAir) stAir.style.display='none'; if(stVeh) stVeh.style.display='flex';
     $('easaNotes').style.display='none';
-    $('showAllRow').style.display='none';
   } else {
     if(ap) ap.style.display='block'; if(vp) vp.style.display='none';
     if(stAir) stAir.style.display='flex'; if(stVeh) stVeh.style.display='none';
