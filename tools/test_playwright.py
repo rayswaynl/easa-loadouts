@@ -226,14 +226,14 @@ with sync_playwright() as p:
     # ── Build-2 tests ─────────────────────────────────────────────────────────
 
     # Read the real EASA_Init.sqf for round-trip tests
-    EASA_SQF_PATH = r"C:\Users\Steff\a2waspwarfare\Missions\[55-2hc]warfarev2_073v48co.chernarus\Client\Module\EASA\EASA_Init.sqf"
+    EASA_SQF_PATH = r"C:\Users\Miksuu\Documents\projects\a2waspwarfare\Missions\[55-2hc]warfarev2_073v48co.chernarus\Client\Module\EASA\EASA_Init.sqf"
     try:
         with open(EASA_SQF_PATH, encoding="utf-8") as f:
             easa_sqf_text = f.read()
     except FileNotFoundError:
         easa_sqf_text = None
 
-    # ── Test 7: Full-file import → parseEasaInit → 21 vehicles ──────────────
+    # ── Test 7: Full-file import → parseEasaInit → 22 vehicles ──────────────
     if easa_sqf_text:
         page.click("#modeBtn-plane")
         page.wait_for_timeout(300)
@@ -246,10 +246,10 @@ with sync_playwright() as p:
         import_count = page.evaluate("""() => {
             return window.DATA.seed.vehicles.length;
         }""")
-        if import_count == 21:
-            ok(f"Full-file import: 21 vehicles parsed")
+        if import_count == 22:
+            ok(f"Full-file import: 22 vehicles parsed")
         else:
-            fail(f"Full-file import: vehicle count", f"expected 21, got {import_count}")
+            fail(f"Full-file import: vehicle count", f"expected 22, got {import_count}")
 
         # ── Test 8: Export full → byte-identical to source ───────────────────
         exported = page.evaluate("""() => {

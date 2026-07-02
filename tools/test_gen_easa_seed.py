@@ -27,6 +27,7 @@ from gen_easa_seed import (
     parse_easa_sqf,
     _parse_sqf_array,
     _tokenise,
+    DEFAULT_SQF,
     SOURCE_FILE_REL,
 )
 
@@ -34,11 +35,7 @@ from gen_easa_seed import (
 # Shared fixtures
 # ---------------------------------------------------------------------------
 
-SQF_PATH = (
-    Path(r"C:\Users\Steff\a2waspwarfare\Missions")
-    / r"[55-2hc]warfarev2_073v48co.chernarus"
-    / r"Client\Module\EASA\EASA_Init.sqf"
-)
+SQF_PATH = DEFAULT_SQF
 
 
 @pytest.fixture(scope="module")
@@ -59,8 +56,8 @@ def vehicles(seed) -> list[dict]:
 
 
 def test_vehicle_count(vehicles):
-    assert len(vehicles) == 21, (
-        f"Expected 21 vehicles, got {len(vehicles)}: "
+    assert len(vehicles) == 22, (
+        f"Expected 22 vehicles, got {len(vehicles)}: "
         f"{[v['class'] for v in vehicles]}"
     )
 
@@ -222,11 +219,12 @@ def test_every_preset_has_at_least_one_mag(vehicles):
             )
 
 
-def test_every_preset_price_is_positive_int(vehicles):
+def test_every_preset_price_is_nonnegative_int(vehicles):
+    # Ka137_MG_PMC's Recon preset is free — the loadout manager allows $0 rows.
     for v in vehicles:
         for i, p in enumerate(v["presets"]):
-            assert isinstance(p["price"], int) and p["price"] > 0, (
-                f"{v['class']} preset {i}: price {p['price']!r} is not a positive int"
+            assert isinstance(p["price"], int) and p["price"] >= 0, (
+                f"{v['class']} preset {i}: price {p['price']!r} is not a non-negative int"
             )
 
 
@@ -264,11 +262,10 @@ def test_defaults_have_weapons_and_mags(vehicles):
         assert isinstance(v["default"]["mags"], list), (
             f"{v['class']} default mags not a list"
         )
-        assert len(v["default"]["weapons"]) >= 1, (
-            f"{v['class']} default has no weapons"
-        )
-        assert len(v["default"]["mags"]) >= 1, (
-            f"{v['class']} default has no mags"
+        # Su25_Ins ships with an empty EASA default (factory weapons untouched),
+        # so empty lists are valid; both lists must agree on emptiness though.
+        assert (len(v["default"]["weapons"]) >= 1) == (len(v["default"]["mags"]) >= 1), (
+            f"{v['class']} default has weapons/mags mismatch"
         )
 
 
