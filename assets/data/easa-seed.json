@@ -1408,17 +1408,8 @@
       "comment": "Su-25A [AF3] - 6 pylons",
       "pylons": 6,
       "default": {
-        "weapons": [
-          "AirBombLauncher",
-          "57mmLauncher"
-        ],
-        "mags": [
-          "4Rnd_FAB_250",
-          "2Rnd_FAB_250",
-          "4Rnd_FAB_250",
-          "2Rnd_FAB_250",
-          "64Rnd_57mm"
-        ]
+        "weapons": [],
+        "mags": []
       },
       "presets": [
         {
@@ -7653,6 +7644,54 @@
           "mags": [
             "2Rnd_R73",
             "12Rnd_Vikhr_KA50"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Ka137_MG_PMC",
+      "comment": null,
+      "pylons": null,
+      "default": {
+        "weapons": [
+          "PKT"
+        ],
+        "mags": [
+          "100Rnd_762x54_PKT"
+        ]
+      },
+      "presets": [
+        {
+          "price": 0,
+          "label": "[MR] Recon (MG)",
+          "weapons": [
+            "PKT"
+          ],
+          "mags": [
+            "100Rnd_762x54_PKT"
+          ]
+        },
+        {
+          "price": 2200,
+          "label": "[AG] AT-Strike - Konkurs/AT-5 (5) | S-5 (64)",
+          "weapons": [
+            "AT5Launcher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "5Rnd_AT5_BRDM2",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 1800,
+          "label": "[AA] Air Defence - Igla (4)",
+          "weapons": [
+            "Igla_twice"
+          ],
+          "mags": [
+            "2Rnd_Igla",
+            "2Rnd_Igla"
           ]
         }
       ]

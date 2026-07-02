@@ -25,7 +25,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_SQF = (
-    Path(r"C:\Users\Steff\a2waspwarfare\Missions")
+    Path(r"C:\Users\Miksuu\Documents\projects\a2waspwarfare\Missions")
     / r"[55-2hc]warfarev2_073v48co.chernarus"
     / r"Client\Module\EASA\EASA_Init.sqf"
 )
