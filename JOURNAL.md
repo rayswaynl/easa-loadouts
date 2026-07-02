@@ -52,3 +52,5 @@
 - garrison-editor tools/test_roundtrip.mjs: 3 PRE-EXISTING failures → RESOLVED by the spawned task session (task_dea4e8c0): stale HARDCODED expectations, not code bugs — (a) literals assumed LF but a2waspwarfare checks out CRLF (core.autocrlf), (b) SmallTown2 expected `], [` spacing that never existed in the source. Exporter proven correct by the byte-identical no-op oracle. Fix (in that session, uncommitted pending Steff's word): derive expected blocks from the pasted input + source-EOL, + fixture-sanity assertions. LESSON for suite tests: never hardcode fixture excerpts — derive from input (EOL-portable); the no-op round-trip is the oracle.
 - faction-builder visual overhaul NOT YET dispatched (only tool missing it) — do after current wave.
 - vehicles.json lacks boats (RHIB/PBX/Zodiac) — curated list covers eligibility; extend gen_assets.py later if boat mounting wanted.
+
+- 2026-07-02 DEPLOY ✅: Steff approved; stack merged to miksuu main (fd85952), Game PC pull+build+pm2 restart clean; live-verified home/tools/easa-tile/sitemap 200 + new thumbs rendering (CF edge cache lagged ~1min on _next/image variants).
