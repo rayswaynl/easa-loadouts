@@ -563,6 +563,17 @@ with sync_playwright() as p:
     else:
         fail("Side tint: removal", "body still carries a side-* class")
 
+    # ── Test 14: Faction filter removed from arsenal panel ───────────────────
+    faction_gone = page.evaluate("""() => {
+        const chips = document.getElementById('factionChips');
+        const labels = [...document.querySelectorAll('#leftPanel .section-label')].map(l => l.textContent.trim());
+        return { noChips: !chips, noLabel: !labels.includes('Faction') };
+    }""")
+    if faction_gone['noChips'] and faction_gone['noLabel']:
+        ok("Arsenal panel: faction filter removed (side selector supersedes it)")
+    else:
+        fail("Arsenal panel: faction filter removal", f"{faction_gone}")
+
     browser.close()
 
 # ── summary ───────────────────────────────────────────────────────────────────

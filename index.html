@@ -17,7 +17,6 @@
  * state = {
  *   mode: 'plane' | 'heli' | 'vehicle',
  *   side: 'blufor' | 'opfor' | null,       // side filter (null = all sides)
- *   faction: string | null,               // active faction chip filter
  *   airframeClass: string | null,         // selected EASA-registered airframe class
  *   rack: Array<{                          // ordered station entries
  *     id: string,                          // random uuid for keying
@@ -172,7 +171,6 @@ button.danger:hover { background: var(--danger); color: #fff; }
   color: var(--orange); font-weight: 500; }
 .chip.rw-badge { background: rgba(92,101,54,.25); border-color: var(--olive); color: #8fa05a; }
 .chip.warn-badge { background: rgba(192,57,43,.15); border-color: var(--danger); color: #e88; }
-.faction-chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0; }
 
 /* ---- Divider ---- */
 .divider { height: 1px; background: var(--line); margin: 10px 0; }
@@ -582,10 +580,6 @@ kbd { background: var(--steel2); border: 1px solid var(--line); border-radius: 3
         <button id="modeBtn-vehicle" aria-pressed="false" onclick="setMode('vehicle')">Vehicle</button>
       </div>
 
-      <!-- Faction filter chips -->
-      <div class="section-label">Faction</div>
-      <div id="factionChips" class="faction-chips" role="group" aria-label="Faction filter"></div>
-
       <!-- Airframe picker (plane/heli mode) -->
       <div id="airframePicker">
         <div class="section-label">Airframe</div>
@@ -904,7 +898,6 @@ const DATA = {
 const state = {
   mode: 'plane',
   side: null,
-  faction: null,
   airframeClass: null,
   rack: [],             // [{id, weaponClass, magClass, isGun}]
   price: 0,
@@ -962,7 +955,7 @@ const LS_PENDING = 'easa-loadouts-pending-v1';
 function saveState() {
   try {
     const snap = {
-      mode: state.mode, side: state.side, faction: state.faction,
+      mode: state.mode, side: state.side,
       airframeClass: state.airframeClass, rack: [...state.rack],
       price: state.price, label: state.label,
       selectedPresetRef: state.selectedPresetRef, dirty: state.dirty,
@@ -1098,18 +1091,11 @@ function matchesSide(faction) {
   return !state.side || factionSide(faction) === state.side;
 }
 
-// Get all factions visible in current mode's airframe pool
-function factionsForMode(mode) {
-  return [...new Set(airframesForMode(mode, null).map(a => a.faction).filter(Boolean))].sort();
-}
-
-// Get airframes for current mode, filtered by side + faction
-function airframesForMode(mode, faction) {
+// Get airframes for current mode, filtered by side
+function airframesForMode(mode) {
   const ecs = new Set(easaClasses());
-  let af = DATA.airframes?.filter(a => a.kind===mode && ecs.has(a.class)) || [];
-  af = af.filter(a => matchesSide(a.faction));
-  if(faction) af = af.filter(a => a.faction===faction);
-  return af;
+  const af = DATA.airframes?.filter(a => a.kind===mode && ecs.has(a.class)) || [];
+  return af.filter(a => matchesSide(a.faction));
 }
 
 // Build plausible weapon pool for an airframe (weapons in its seed presets + stock)
@@ -1133,41 +1119,12 @@ function catLabel(cat) { return CAT_LABELS[cat] || cat?.toUpperCase() || '?'; }
 const AIR_CATS = ['gun','rockets','agm','bomb','aam','cm'];
 
 /* ============================================================
-   Render helpers — faction chips
-   ============================================================ */
-function renderFactionChips() {
-  const el = $('factionChips'); if(!el) return;
-  let factions;
-  if(state.mode==='vehicle') {
-    factions = [...new Set((DATA.presetsDraft?.groundVehicles?.eligible||[])
-      .filter(v=>matchesSide(v.faction)).map(v=>v.faction).filter(Boolean))].sort();
-  } else {
-    factions = factionsForMode(state.mode);
-  }
-  el.innerHTML = '';
-  const allChip = document.createElement('span');
-  allChip.className = 'chip clickable' + (!state.faction?' on':'');
-  allChip.textContent = 'ALL'; allChip.tabIndex = 0;
-  allChip.onclick = () => { state.faction=null; renderFactionChips(); renderPicker(); };
-  allChip.onkeydown = e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();allChip.onclick();} };
-  el.appendChild(allChip);
-  for(const f of factions) {
-    const c = document.createElement('span');
-    c.className = 'chip clickable' + (state.faction===f?' on':'');
-    c.textContent = f; c.tabIndex = 0;
-    c.onclick = () => { state.faction=f; renderFactionChips(); renderPicker(); };
-    c.onkeydown = e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();c.onclick();} };
-    el.appendChild(c);
-  }
-}
-
-/* ============================================================
    Render — airframe picker (left panel)
    ============================================================ */
 function renderPicker() {
   const grid = $('pickerGrid'); if(!grid) return;
   grid.innerHTML = '';
-  const afs = airframesForMode(state.mode, state.faction);
+  const afs = airframesForMode(state.mode);
   if(!afs.length) {
     const ph = document.createElement('div');
     ph.className='picker-empty'; ph.style.gridColumn='1/-1';
@@ -1654,9 +1611,8 @@ function addStation(weapCls, magCls) {
    ============================================================ */
 function setSide(side) {
   state.side = (state.side === side) ? null : side;
-  state.faction = null; // active faction may not exist on the new side
   applySideUI();
-  renderFactionChips(); renderPicker();
+  renderPicker();
   if(state.mode === 'vehicle') renderVehiclePicker();
   debouncedSave();
 }
@@ -1673,7 +1629,7 @@ function applySideUI() {
    Mode switching
    ============================================================ */
 function setMode(mode) {
-  state.mode=mode; state.faction=null; state.airframeClass=null;
+  state.mode=mode; state.airframeClass=null;
   state.rack=[]; state.price=0; state.label=''; state.selectedPresetRef=null; state.dirty=false;
   state.vehicleClass=null; state.vWeaponClass=null; state.vMagClass=null; state.vMagCount=1;
   ['plane','heli','vehicle'].forEach(m=>{
@@ -1693,7 +1649,7 @@ function setMode(mode) {
     if(stAir) stAir.style.display='flex'; if(stVeh) stVeh.style.display='none';
   }
   const mc=$('modeChip'); if(mc) mc.innerHTML=`mode: <b>${mode.toUpperCase()}</b>`;
-  renderFactionChips(); renderPicker(); renderPool();
+  renderPicker(); renderPool();
   if(mode==='vehicle') renderVehicleStage();
   updateExportPanel();
   debouncedSave();
@@ -1711,8 +1667,8 @@ function renderVehiclePicker() {
   const gv=DATA.presetsDraft?.groundVehicles;
   if(!gv) return;
 
-  const eligible=(gv.eligible||[]).filter(v=>matchesSide(v.faction)&&(!state.faction||v.faction===state.faction));
-  const excluded=(gv.excluded||[]).filter(v=>matchesSide(v.faction)&&(!state.faction||v.faction===state.faction));
+  const eligible=(gv.eligible||[]).filter(v=>matchesSide(v.faction));
+  const excluded=(gv.excluded||[]).filter(v=>matchesSide(v.faction));
 
   if(eligible.length) {
     const lbl=document.createElement('div'); lbl.className='section-label';
