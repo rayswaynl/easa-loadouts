@@ -1,41 +1,61 @@
-# EASA Loadouts — spec (draft v0, research pending)
+# EASA Loadouts — spec v1 (mechanics research resolved; rosters/presets pending research B)
 
 ## What it is
-Browser designer for WASP Warfare **EASA** armament: pick an airframe (Airplane / Helicopter) or an **unarmed ground vehicle**, assemble a weapon loadout, and export game-ready SQF. Ships with **real-world preset loadouts** (named after real doctrine/configurations) as one-click starting points.
+Browser designer for WASP Warfare **EASA** armament — a full editor for the mission's EASA table plus a ground-vehicle weapon-mount designer, shipping **real-world preset loadouts**. Single-file `index.html`, offline, suite dark theme, own repo (`rayswaynl/easa-loadouts`) + GitHub Pages, tile on miksuu.com/tools.
 
-Suite conventions: single-file `index.html`, offline, WDDM/Loadout-Lab dark theme (gunmetal/steel/olive/orange/bone/chalk, Oswald/Inter/JetBrains Mono), own repo + GitHub Pages, tile on miksuu.com/tools.
-
-## Unique core interaction (program bar)
-A **side-profile "hardpoint rack" stage**: the selected airframe shown as a large silhouette with its weapon stations rendered as slots beneath/on it; drag or click weapons from the pool onto stations; the rack updates live with weight/ammo/cost. (Distinct from Loadout Lab's slot-list and WDDM's grid — this is the armament-on-airframe visual.)
+## Ground truth (from docs/research/easa-mechanics.md)
+- EASA data lives ONLY in `Client\Module\EASA\EASA_Init.sqf`: three parallel arrays `_easaVehi` / `_easaDefault` / `_easaLoadout`.
+- Preset row (authored) = `[price:int, 'label', [[weapons...],[mags...]]]` — the 4th AA-flag element is COMPUTED by the init post-processing loop; never emit it.
+- 21 registered aircraft (planes + helos, exact `typeOf` match). Wildcat `AW159_Lynx_BAF` is special (turret path `[-1]`).
+- Mags repeat per pylon slot (`addMagazine` once per occurrence) — the editor must model mag COUNTS as repeated entries.
+- AA presets are hidden in-game unless AIRAAM upgrade (idx 19) purchased / module 2 — the tool computes and badges `hasAA` per preset (from CfgAmmo airLock via generated data).
+- Ground vehicles: NOT in EASA. The mission's own pattern for arming ground vehicles is `addWeaponTurret` in `Common_BalanceInit.sqf` (BRDM-2 Igla :344, Pandur :362). Dynamically added weapons LOSE AMMO on rearm (rearm reads config `Magazines[]`) unless re-applied EASA-style. Mounting a 2nd weapon on an already-armed vehicle → HUD cycling glitch + rearm corruption ⇒ Vehicle mode restricts to UNARMED vehicles only.
 
 ## Modes
-1. **Airplane** — fixed-wing roster per faction.
-2. **Helicopter** — rotary roster per faction.
-3. **Vehicle** — ONLY ground vehicles with NO existing mounted weapon (a second mounted weapon glitches weapon cycling in A2). Armed vehicles listed greyed-out with the reason. Mount one weapon (M2/DShKM/Mk19/AGS/…) + magazines.
+1. **Airplane** / 2. **Helicopter** — same engine, filtered rosters:
+   - Seed = parsed live `EASA_Init.sqf` (all 21 aircraft, defaults + every existing preset with prices/labels).
+   - Edit existing presets, reorder, reprice, relabel; add new presets (from scratch, from stock default, or from a **real-world preset** one-click).
+   - Add a NEW aircraft to the EASA table (any air vehicle in the config reference): define default-strip loadout + preset list → emits the 3-parallel-array block.
+   - Live badges per preset: computed AA flag (⚠ gated behind AIRAAM in-game), pylon-count sanity hint (informational — engine doesn't enforce), price, classname validation.
+3. **Vehicle** — unarmed ground vehicles only (armed ones visible but greyed out with reason "already has a mounted weapon — 2nd weapon glitches cycling/rearm").
+   - Mount 1 weapon + magazines; export a `Common_BalanceInit.sqf`-style `addWeaponTurret` snippet (+ documented rearm caveat and optional re-apply hook note).
 
-## Panels (3-column app grid like Loadout Lab)
-- Left: mode toggle (segmented), faction filter, airframe/vehicle picker (thumbnails from arma2-co-config-reference), preset list for selection.
-- Center: the hardpoint rack stage + live totals (mag count, cost if EASA costs exist, validation badges).
-- Right: weapon/magazine pool picker (search + category chips), export panel.
+## Unique core interaction (program bar)
+**Hardpoint rack stage**: selected airframe as a large side-profile silhouette; its loadout rendered as station tiles under the wing/fuselage line; click/drag weapons from the pool onto the rack; live totals (mags, price, AA badge). Presets animate onto the rack.
 
-## Data (generated, assets/data/)
-- `airframes.json` — per-faction air rosters + stock loadouts + allowed pools (from mission source + CfgVehicles/CfgWeapons/CfgMagazines).
-- `vehicles.json` — unarmed ground vehicles (eligible) + armed (excluded w/ reason) + mountable weapon set.
-- `presets.json` — real-world presets (name, rationale line, weapon+mag lists) — curated from research.
-- Generator: `tools/gen_assets.py` (adapted from loadout-lab; weapon type/magazines inherited via parent chain).
+## Pylon/station model (per Steff 2026-07-02: "Can the EASA be pylon based somehow?" → YES, as the editing model)
+- ENGINE TRUTH: A2:OA has no per-pylon API (that's A3 setPylonLoadout). EASA = flat [[weapons],[mags]]; pylon counts in EASA_Init comments are informational. Visuals follow model weapon proxies via magazines.
+- TOOL MODEL: each airframe gets a curated `stations[]` layout (id, group: wingtip|outer|inner|centerline|gun, allowed categories, IRL label), sized from the documented pylon count + real station charts (research B).
+- A station tile holds ONE munition package = one MAGAZINE entry (the real EASA semantic unit; `2Rnd_FAB_250` renders as ×2). Gun stations hold the gun + its mag.
+- EXPORT FLATTEN: weapons[] = deduped launchers (same launcher twice = the stacking glitch), mags[] = one entry per filled station, stable order (station order).
+- IMPORT UNFLATTEN: assign a preset's mags to stations heuristically (category→group match, fill outer→in); leftover mags go to an "overflow" strip (still valid, just unplaced).
+- PYLON-CAPACITY METER: sum of munitions vs documented pylons → soft warning only (engine doesn't enforce; over-adding corrupts weapon cycling).
 
-## Export targets (⚠ finalize from research A)
-- EASA loadout SQF (whatever `EASA_LoadoutCat`/pool arrays expect) — paste-ready patch.
-- Per-preset "apply" snippet (removeWeapon/addWeapon/addMagazine sequence) for testing in the editor.
-- Vehicle mode: mount snippet + (if research supports) mission-config registration.
+## Panels (3-column, Loadout-Lab grid)
+- Left: mode segmented control, faction chips, airframe/vehicle thumbnail picker; per-airframe preset list (existing = editable, real-world = suggested, "+ new").
+- Center: hardpoint rack stage + validation strip.
+- Right: weapon/mag pool (search + category chips: Gun pods, Rockets, AGM, Bombs, AAM, CM) with per-airframe plausible-pool highlighting; export panel.
+
+## Exports (all copy-to-clipboard + download)
+1. **Single preset row** — paste into a vehicle's existing preset array (3-element row, comment header telling exactly where).
+2. **New vehicle block** — the 3 parallel `_easaVehi/_easaDefault/_easaLoadout` additions.
+3. **Full EASA_Init.sqf** — regenerated whole file (paste-over). ROUND-TRIP GATE: parse the real file → re-emit → semantically identical (arrays equal), byte-level where feasible.
+4. **Vehicle mount snippet** — BalanceInit-style SQF.
+5. Import: paste an `EASA_Init.sqf` (or a block) → parse into the editor.
+
+## Data (assets/data/, generated by tools/gen_assets.py)
+- `easa-seed.json` — parsed from the mission's EASA_Init.sqf (the 21 aircraft + presets + defaults).
+- `airframes.json` — air vehicles per faction (classname, display name, faction, plane|heli, pylons-info, thumbnail, stock weapons/mags) from config reference + research B rosters.
+- `weapons.json` / `magazines.json` — air weapons + vehicle-mount weapons w/ display names, thumbs, compatible mags, ammo airLock (for AA computation), inherited via parent chain (loadout-lab gotcha).
+- `vehicles.json` — ground vehicles per faction: eligible (unarmed) / excluded (armed + reason); mountable weapon set.
+- `presets-realworld.json` — curated real-world presets (research B): name, rationale, weapons+mags, per airframe.
 
 ## Gates
-- Round-trip: import exported SQF → identical state.
-- Playwright: 0 console errors, picker/export smoke, screenshot for the hub thumb.
-- Classname validation: every emitted classname exists in the config reference index.
+- Round-trip: EASA_Init.sqf parse→emit identical (CI-able Python test + in-browser check).
+- Playwright: 0 console errors; picker/preset/export smoke; screenshot → hub thumb.
+- Classname validation: every emitted classname exists in the config-reference index; every preset's mags compatible with its weapons.
 
-## Open questions (fill from research)
-- [ ] Exact EASA pool/data structure + where presets could hook (research A).
-- [ ] Do EASA costs exist per weapon? (research A)
-- [ ] Final rosters + preset list (research B).
-- [ ] Ground-vehicle mounting: turret path semantics + what WASP already does (research A/B).
+## In-game truths to surface in UI copy (from research)
+- EASA usable only at the side's service-point building (70 m), driver seat, EASA upgrade ($4k, needs air factory), module param on (default on).
+- Cost check is strict `>` (need MORE than price) — quirk, surface in tooltip.
+- Rearm re-applies the EASA preset automatically (WFBE_EASA_Setup).

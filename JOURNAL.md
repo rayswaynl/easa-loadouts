@@ -16,14 +16,18 @@
 
 ## Plan
 1. ✅ Recon (repos present, EASA files located, miksuu on main).
-2. 🔄 Research fleet (Opus): A=EASA mechanics+data model+export target, B=real-world loadout presets mapped to A2 classnames + unarmed-vehicle list, C=improvement audit of all 7 tools. Reports land in `docs/research/`.
+2. 🔄 Research fleet (Opus): A=EASA mechanics+data model+export target, B=real-world loadout presets mapped to A2 classnames + unarmed-vehicle list, C=improvement audit of all 7 tools, D=full miksuu.com site audit (Steff expanded scope mid-session: "do a pass on all aspects of miksuu.com in general"). Reports land in `docs/research/`.
 3. Build EASA Loadouts tool (single-file index.html pattern, gen pipeline from config reference, presets from research B, export = EASA-compatible SQF patch).
 4. Improvement pass across the 7 existing tools (subagent fleet, serialized, per-repo feat branches → main → Pages).
 5. Hub: add tile + thumb on a miksuu feat branch. NO prod deploy without Steff.
 6. Final report with suggestions/questions.
 
 ## Log
-- 2026-07-02: repo init, journal created, research fleet dispatched.
+- 2026-07-02: repo init, journal created, research fleet dispatched (+ site audit D after Steff expanded scope).
+- Research A (EASA mechanics) ✅ → docs/research/easa-mechanics.md. Data model: 3 parallel arrays in EASA_Init.sqf; preset=[price,label,[[wpns],[mags]]]; 4th AA element COMPUTED (never author); 21 aircraft exact-typeOf; Wildcat turret [-1] special case; ground vehicles unsupported → BalanceInit addWeaponTurret pattern (BRDM-2 Igla :344); 2nd-weapon glitch = HUD cycling + rearm ammo-loss (rearm reads config Magazines[]); EASA avoids via strip-before-apply + rearm re-apply (WFBE_EASA_Setup). SPEC.md updated to v1.
+- Research C (7-tool audit) ✅ → docs/research/tools-audit.md. Faction Builder v1 actually COMPLETE. Top bugs: wf-menu inheritedVal reads bc.props not bc (inspector dead), no beforeunload; sector-planner ownership not persisted (campaign sim silently flat-zero after refresh); loadout-lab gear catalog not persisted + clearAll race; garrison-editor ignores coreUnits handoff; strategy-economy seed-capture race → empty diffs. Suite-wide: add "← All Tools" back-link.
+- Builders dispatched: gen_easa_seed.py (parser+round-trip) + gen_assets.py (config indexer) — unblocked by research A.
+- IMPROVEMENT WAVE 1 dispatched (Sonnet, own repos, branch feat/improve-jul2, no push): wf-menu-designer, sector-planner, loadout-lab, garrison-editor. Wave 2 (strategy-economy, faction-builder, WDDM) after wave 1 slots free.
 
 ## Discovered Issues
 - (none yet)

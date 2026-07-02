@@ -1,0 +1,7661 @@
+{
+  "sourceFile": "Client/Module/EASA/EASA_Init.sqf",
+  "vehicles": [
+    {
+      "class": "Su34",
+      "comment": "Su-34 [AF5] - 10 pylons",
+      "pylons": 10,
+      "default": {
+        "weapons": [
+          "Ch29Launcher_Su34",
+          "R73Launcher_2"
+        ],
+        "mags": [
+          "6Rnd_Ch29",
+          "2Rnd_R73",
+          "2Rnd_R73"
+        ]
+      },
+      "presets": [
+        {
+          "price": 16400,
+          "label": "FAB-250 (6) | GBU-12 (2) | Kh-29 (4) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 21000,
+          "label": "FAB-250 (6) | GBU-12 (2) | Kh-29 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 15200,
+          "label": "FAB-250 (6) | GBU-12 (2) | Kh-29 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "6Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 26000,
+          "label": "FAB-250 (6) | GBU-12 (2) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21400,
+          "label": "FAB-250 (6) | GBU-12 (2) | R-73 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 15800,
+          "label": "FAB-250 (6) | GBU-12 (2) | R-73 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 29600,
+          "label": "FAB-250 (6) | GBU-12 (2) | S-8 (120)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 22000,
+          "label": "FAB-250 (6) | GBU-12 (4) | Kh-29 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 28000,
+          "label": "FAB-250 (6) | GBU-12 (4) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 22400,
+          "label": "FAB-250 (6) | GBU-12 (4) | R-73 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 31600,
+          "label": "FAB-250 (6) | GBU-12 (4) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 29000,
+          "label": "FAB-250 (6) | GBU-12 (6) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 33600,
+          "label": "FAB-250 (6) | GBU-12 (6) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 34600,
+          "label": "FAB-250 (6) | GBU-12 (8)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 14400,
+          "label": "FAB-250 (6) | Kh-29 (4) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8800,
+          "label": "FAB-250 (6) | Kh-29 (4) | R-73 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 18000,
+          "label": "FAB-250 (6) | Kh-29 (4) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8600,
+          "label": "FAB-250 (6) | Kh-29 (6) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "6Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 13200,
+          "label": "FAB-250 (6) | Kh-29 (6) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "6Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "FAB-250 (6) | Kh-29 (8)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 23000,
+          "label": "FAB-250 (6) | R-73 (2) | S-8 (120)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 18400,
+          "label": "FAB-250 (6) | R-73 (4) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 13800,
+          "label": "FAB-250 (6) | R-73 (6) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8200,
+          "label": "FAB-250 (6) | R-73 (8)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 14600,
+          "label": "FAB-250 (12) | GBU-12 (2) | Kh-29 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 20600,
+          "label": "FAB-250 (12) | GBU-12 (2) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 15000,
+          "label": "FAB-250 (12) | GBU-12 (2) | R-73 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 24200,
+          "label": "FAB-250 (12) | GBU-12 (2) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21600,
+          "label": "FAB-250 (12) | GBU-12 (4) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 26200,
+          "label": "FAB-250 (12) | GBU-12 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 27200,
+          "label": "FAB-250 (12) | GBU-12 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 8000,
+          "label": "FAB-250 (12) | Kh-29 (4) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 12600,
+          "label": "FAB-250 (12) | Kh-29 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "FAB-250 (12) | Kh-29 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "6Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 17600,
+          "label": "FAB-250 (12) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 13000,
+          "label": "FAB-250 (12) | R-73 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "FAB-250 (12) | R-73 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 21200,
+          "label": "FAB-250 (12) | S-8 (120)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14200,
+          "label": "FAB-250 (18) | GBU-12 (2) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 18800,
+          "label": "FAB-250 (18) | GBU-12 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 19800,
+          "label": "FAB-250 (18) | GBU-12 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "FAB-250 (18) | Kh-29 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 12200,
+          "label": "FAB-250 (18) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "FAB-250 (18) | R-73 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 15800,
+          "label": "FAB-250 (18) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 12400,
+          "label": "FAB-250 (24) | GBU-12 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "FAB-250 (24) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 10400,
+          "label": "FAB-250 (24) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 4000,
+          "label": "FAB-250 (30)",
+          "weapons": [
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 21800,
+          "label": "GBU-12 (2) | Kh-29 (4) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 16200,
+          "label": "GBU-12 (2) | Kh-29 (4) | R-73 (4)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 25400,
+          "label": "GBU-12 (2) | Kh-29 (4) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 16000,
+          "label": "GBU-12 (2) | Kh-29 (6) | R-73 (2)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "6Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 20600,
+          "label": "GBU-12 (2) | Kh-29 (6) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "6Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14800,
+          "label": "GBU-12 (2) | Kh-29 (8)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 30400,
+          "label": "GBU-12 (2) | R-73 (2) | S-8 (120)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 25800,
+          "label": "GBU-12 (2) | R-73 (4) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21200,
+          "label": "GBU-12 (2) | R-73 (6) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 15600,
+          "label": "GBU-12 (2) | R-73 (8)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 22800,
+          "label": "GBU-12 (4) | Kh-29 (4) | R-73 (2)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 27400,
+          "label": "GBU-12 (4) | Kh-29 (4) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21600,
+          "label": "GBU-12 (4) | Kh-29 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 32400,
+          "label": "GBU-12 (4) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 27800,
+          "label": "GBU-12 (4) | R-73 (4) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 22200,
+          "label": "GBU-12 (4) | R-73 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 36000,
+          "label": "GBU-12 (4) | S-8 (120)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 28400,
+          "label": "GBU-12 (6) | Kh-29 (4)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 34400,
+          "label": "GBU-12 (6) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 28800,
+          "label": "GBU-12 (6) | R-73 (4)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 38000,
+          "label": "GBU-12 (6) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 35400,
+          "label": "GBU-12 (8) | R-73 (2)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 40000,
+          "label": "GBU-12 (8) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 18800,
+          "label": "Kh-29 (4) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14200,
+          "label": "Kh-29 (4) | R-73 (4) | S-8 (40)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8600,
+          "label": "Kh-29 (4) | R-73 (6)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 22400,
+          "label": "Kh-29 (4) | S-8 (120)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14000,
+          "label": "Kh-29 (6) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8400,
+          "label": "Kh-29 (6) | R-73 (4)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 17600,
+          "label": "Kh-29 (6) | S-8 (80)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8200,
+          "label": "Kh-29 (8) | R-73 (2)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "4Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 12800,
+          "label": "Kh-29 (8) | S-8 (40)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "4Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "Kh-29 (10)",
+          "weapons": [
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 22800,
+          "label": "R-73 (4) | S-8 (120)",
+          "weapons": [
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 18200,
+          "label": "R-73 (6) | S-8 (80)",
+          "weapons": [
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "R-73 (8) | S-8 (40)",
+          "weapons": [
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8000,
+          "label": "R-73 (10)",
+          "weapons": [
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Su25_Ins",
+      "comment": "Su-25A [AF3] - 6 pylons",
+      "pylons": 6,
+      "default": {
+        "weapons": [
+          "AirBombLauncher",
+          "57mmLauncher"
+        ],
+        "mags": [
+          "4Rnd_FAB_250",
+          "2Rnd_FAB_250",
+          "4Rnd_FAB_250",
+          "2Rnd_FAB_250",
+          "64Rnd_57mm"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6000,
+          "label": "Ataka-V (4) | FAB-250 (6) | Gun rounds (360rnd) (2)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "180Rnd_30mm_GSh301",
+            "180Rnd_30mm_GSh301"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "Ataka-V (4) | FAB-250 (6) | Igla-V (2)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "Igla_twice"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_Igla"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "Ataka-V (4) | FAB-250 (6) | S-5 (64)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 4400,
+          "label": "Ataka-V (4) | FAB-250 (12)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "Ataka-V (4) | Gun rounds (360rnd) (2) | Igla-V (2)",
+          "weapons": [
+            "AT9Launcher",
+            "Igla_twice"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "180Rnd_30mm_GSh301",
+            "180Rnd_30mm_GSh301",
+            "2Rnd_Igla"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "Ataka-V (4) | Gun rounds (360rnd) (2) | S-5 (64)",
+          "weapons": [
+            "AT9Launcher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "180Rnd_30mm_GSh301",
+            "180Rnd_30mm_GSh301",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "Ataka-V (4) | Igla-V (2) | S-5 (64)",
+          "weapons": [
+            "AT9Launcher",
+            "Igla_twice",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_Igla",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "Ataka-V (4) | S-5 (128)",
+          "weapons": [
+            "AT9Launcher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "64Rnd_57mm",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "FAB-250 (6) | Gun rounds (360rnd) (2) | Igla-V (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "Igla_twice"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "180Rnd_30mm_GSh301",
+            "180Rnd_30mm_GSh301",
+            "2Rnd_Igla"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "FAB-250 (6) | Gun rounds (360rnd) (2) | S-5 (64)",
+          "weapons": [
+            "AirBombLauncher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "180Rnd_30mm_GSh301",
+            "180Rnd_30mm_GSh301",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 5000,
+          "label": "FAB-250 (6) | Igla-V (2) | S-5 (64)",
+          "weapons": [
+            "AirBombLauncher",
+            "Igla_twice",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_Igla",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 4600,
+          "label": "FAB-250 (6) | S-5 (128)",
+          "weapons": [
+            "AirBombLauncher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "64Rnd_57mm",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 4400,
+          "label": "FAB-250 (12) | Gun rounds (360rnd) (2)",
+          "weapons": [
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "180Rnd_30mm_GSh301",
+            "180Rnd_30mm_GSh301"
+          ]
+        },
+        {
+          "price": 3600,
+          "label": "FAB-250 (12) | Igla-V (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "Igla_twice"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_Igla"
+          ]
+        },
+        {
+          "price": 4200,
+          "label": "FAB-250 (12) | S-5 (64)",
+          "weapons": [
+            "AirBombLauncher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 2800,
+          "label": "FAB-250 (18)",
+          "weapons": [
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "Gun rounds (360rnd) (2) | Igla-V (2) | S-5 (64)",
+          "weapons": [
+            "Igla_twice",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "180Rnd_30mm_GSh301",
+            "180Rnd_30mm_GSh301",
+            "2Rnd_Igla",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "Gun rounds (360rnd) (2) | S-5 (128)",
+          "weapons": [
+            "57mmLauncher"
+          ],
+          "mags": [
+            "180Rnd_30mm_GSh301",
+            "180Rnd_30mm_GSh301",
+            "64Rnd_57mm",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 4400,
+          "label": "Igla-V (2) | S-5 (128)",
+          "weapons": [
+            "Igla_twice",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "2Rnd_Igla",
+            "64Rnd_57mm",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 4000,
+          "label": "S-5 (192)",
+          "weapons": [
+            "57mmLauncher"
+          ],
+          "mags": [
+            "64Rnd_57mm",
+            "64Rnd_57mm",
+            "64Rnd_57mm"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Su25_TK_EP1",
+      "comment": "Su-25T [AF4] - 8 pylons",
+      "pylons": 8,
+      "default": {
+        "weapons": [
+          "AT9Launcher",
+          "R73Launcher_2",
+          "S8Launcher"
+        ],
+        "mags": [
+          "4Rnd_AT9_Mi24P",
+          "4Rnd_AT9_Mi24P",
+          "2Rnd_R73",
+          "40Rnd_S8T"
+        ]
+      },
+      "presets": [
+        {
+          "price": 15200,
+          "label": "Ataka-V (4) | FAB-250 (6) | GBU-12 (2) | R-73 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 19800,
+          "label": "Ataka-V (4) | FAB-250 (6) | GBU-12 (2) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 20800,
+          "label": "Ataka-V (4) | FAB-250 (6) | GBU-12 (4)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 13200,
+          "label": "Ataka-V (4) | FAB-250 (6) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 16800,
+          "label": "Ataka-V (4) | FAB-250 (6) | S-8 (80)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 13400,
+          "label": "Ataka-V (4) | FAB-250 (12) | GBU-12 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "Ataka-V (4) | FAB-250 (12) | R-73 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 11400,
+          "label": "Ataka-V (4) | FAB-250 (12) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 5000,
+          "label": "Ataka-V (4) | FAB-250 (18)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 20600,
+          "label": "Ataka-V (4) | GBU-12 (2) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 24200,
+          "label": "Ataka-V (4) | GBU-12 (2) | S-8 (80)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21600,
+          "label": "Ataka-V (4) | GBU-12 (4) | R-73 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 26200,
+          "label": "Ataka-V (4) | GBU-12 (4) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 27200,
+          "label": "Ataka-V (4) | GBU-12 (6)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 17600,
+          "label": "Ataka-V (4) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "AT9Launcher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21200,
+          "label": "Ataka-V (4) | S-8 (120)",
+          "weapons": [
+            "AT9Launcher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14000,
+          "label": "Ataka-V (8) | FAB-250 (6) | GBU-12 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "Ataka-V (8) | FAB-250 (6) | R-73 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 12000,
+          "label": "Ataka-V (8) | FAB-250 (6) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "Ataka-V (8) | FAB-250 (12)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 14800,
+          "label": "Ataka-V (8) | GBU-12 (2) | R-73 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 19400,
+          "label": "Ataka-V (8) | GBU-12 (2) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 20400,
+          "label": "Ataka-V (8) | GBU-12 (4)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 12800,
+          "label": "Ataka-V (8) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 16400,
+          "label": "Ataka-V (8) | S-8 (80)",
+          "weapons": [
+            "AT9Launcher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "Ataka-V (12) | FAB-250 (6)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "Ataka-V (12) | GBU-12 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "Ataka-V (12) | R-73 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 11600,
+          "label": "Ataka-V (12) | S-8 (40)",
+          "weapons": [
+            "AT9Launcher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "Ataka-V (16)",
+          "weapons": [
+            "AT9Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P"
+          ]
+        },
+        {
+          "price": 20000,
+          "label": "FAB-250 (6) | GBU-12 (2) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 23600,
+          "label": "FAB-250 (6) | GBU-12 (2) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21000,
+          "label": "FAB-250 (6) | GBU-12 (4) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 25600,
+          "label": "FAB-250 (6) | GBU-12 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 26600,
+          "label": "FAB-250 (6) | GBU-12 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 17000,
+          "label": "FAB-250 (6) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 20600,
+          "label": "FAB-250 (6) | S-8 (120)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "FAB-250 (12) | GBU-12 (2) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 18200,
+          "label": "FAB-250 (12) | GBU-12 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 19200,
+          "label": "FAB-250 (12) | GBU-12 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 11600,
+          "label": "FAB-250 (12) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 15200,
+          "label": "FAB-250 (12) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 11800,
+          "label": "FAB-250 (18) | GBU-12 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "FAB-250 (18) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 9800,
+          "label": "FAB-250 (18) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 3400,
+          "label": "FAB-250 (24)",
+          "weapons": [
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 24400,
+          "label": "GBU-12 (2) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 28000,
+          "label": "GBU-12 (2) | S-8 (120)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 26400,
+          "label": "GBU-12 (4) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 30000,
+          "label": "GBU-12 (4) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 27400,
+          "label": "GBU-12 (6) | R-73 (2)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 32000,
+          "label": "GBU-12 (6) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21400,
+          "label": "R-73 (2) | S-8 (120)",
+          "weapons": [
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 25000,
+          "label": "S-8 (160)",
+          "weapons": [
+            "S8Launcher"
+          ],
+          "mags": [
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Su39",
+      "comment": "Su-39 [AF5] - 10 pylons",
+      "pylons": 10,
+      "default": {
+        "weapons": [
+          "R73Launcher_2",
+          "S8Launcher",
+          "VikhrLauncher"
+        ],
+        "mags": [
+          "2Rnd_R73",
+          "40Rnd_S8T",
+          "40Rnd_S8T",
+          "12Rnd_Vikhr_KA50"
+        ]
+      },
+      "presets": [
+        {
+          "price": 16400,
+          "label": "FAB-250 (6) | GBU-12 (2) | Kh-29 (4) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 21000,
+          "label": "FAB-250 (6) | GBU-12 (2) | Kh-29 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 15200,
+          "label": "FAB-250 (6) | GBU-12 (2) | Kh-29 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "6Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 26000,
+          "label": "FAB-250 (6) | GBU-12 (2) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14400,
+          "label": "FAB-250 (6) | GBU-12 (2) | R-73 (2) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 21400,
+          "label": "FAB-250 (6) | GBU-12 (2) | R-73 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 19000,
+          "label": "FAB-250 (6) | GBU-12 (2) | S-8 (40) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 29600,
+          "label": "FAB-250 (6) | GBU-12 (2) | S-8 (120)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 22000,
+          "label": "FAB-250 (6) | GBU-12 (4) | Kh-29 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 28000,
+          "label": "FAB-250 (6) | GBU-12 (4) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 22400,
+          "label": "FAB-250 (6) | GBU-12 (4) | R-73 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 31600,
+          "label": "FAB-250 (6) | GBU-12 (4) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 20000,
+          "label": "FAB-250 (6) | GBU-12 (4) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 29000,
+          "label": "FAB-250 (6) | GBU-12 (6) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 33600,
+          "label": "FAB-250 (6) | GBU-12 (6) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 34600,
+          "label": "FAB-250 (6) | GBU-12 (8)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 14400,
+          "label": "FAB-250 (6) | Kh-29 (4) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8800,
+          "label": "FAB-250 (6) | Kh-29 (4) | R-73 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 18000,
+          "label": "FAB-250 (6) | Kh-29 (4) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "FAB-250 (6) | Kh-29 (4) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 8600,
+          "label": "FAB-250 (6) | Kh-29 (6) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "6Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 13200,
+          "label": "FAB-250 (6) | Kh-29 (6) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "6Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "FAB-250 (6) | Kh-29 (8)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 12400,
+          "label": "FAB-250 (6) | R-73 (2) | S-8 (40) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 23000,
+          "label": "FAB-250 (6) | R-73 (2) | S-8 (120)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 18400,
+          "label": "FAB-250 (6) | R-73 (4) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "FAB-250 (6) | R-73 (4) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 16000,
+          "label": "FAB-250 (6) | S-8 (80) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 26600,
+          "label": "FAB-250 (6) | S-8 (160)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 3400,
+          "label": "FAB-250 (6) | Vikhr (24)",
+          "weapons": [
+            "AirBombLauncher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "12Rnd_Vikhr_KA50",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 14600,
+          "label": "FAB-250 (12) | GBU-12 (2) | Kh-29 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 20600,
+          "label": "FAB-250 (12) | GBU-12 (2) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 15000,
+          "label": "FAB-250 (12) | GBU-12 (2) | R-73 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 24200,
+          "label": "FAB-250 (12) | GBU-12 (2) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 12600,
+          "label": "FAB-250 (12) | GBU-12 (2) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 21600,
+          "label": "FAB-250 (12) | GBU-12 (4) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 26200,
+          "label": "FAB-250 (12) | GBU-12 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 27200,
+          "label": "FAB-250 (12) | GBU-12 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 8000,
+          "label": "FAB-250 (12) | Kh-29 (4) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 12600,
+          "label": "FAB-250 (12) | Kh-29 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "FAB-250 (12) | Kh-29 (6)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "6Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 17600,
+          "label": "FAB-250 (12) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "FAB-250 (12) | R-73 (2) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 13000,
+          "label": "FAB-250 (12) | R-73 (4) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 10600,
+          "label": "FAB-250 (12) | S-8 (40) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 21200,
+          "label": "FAB-250 (12) | S-8 (120)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14200,
+          "label": "FAB-250 (18) | GBU-12 (2) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 18800,
+          "label": "FAB-250 (18) | GBU-12 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 19800,
+          "label": "FAB-250 (18) | GBU-12 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "FAB-250 (18) | Kh-29 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 12200,
+          "label": "FAB-250 (18) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "FAB-250 (18) | R-73 (4)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 15800,
+          "label": "FAB-250 (18) | S-8 (80)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 4200,
+          "label": "FAB-250 (18) | Vikhr (12)",
+          "weapons": [
+            "AirBombLauncher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 12400,
+          "label": "FAB-250 (24) | GBU-12 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "FAB-250 (24) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 10400,
+          "label": "FAB-250 (24) | S-8 (40)",
+          "weapons": [
+            "AirBombLauncher",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 4000,
+          "label": "FAB-250 (30)",
+          "weapons": [
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 21800,
+          "label": "GBU-12 (2) | Kh-29 (4) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 16200,
+          "label": "GBU-12 (2) | Kh-29 (4) | R-73 (4)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 25400,
+          "label": "GBU-12 (2) | Kh-29 (4) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 13800,
+          "label": "GBU-12 (2) | Kh-29 (4) | Vikhr (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 16000,
+          "label": "GBU-12 (2) | Kh-29 (6) | R-73 (2)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "6Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 20600,
+          "label": "GBU-12 (2) | Kh-29 (6) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "6Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14800,
+          "label": "GBU-12 (2) | Kh-29 (8)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 19800,
+          "label": "GBU-12 (2) | R-73 (2) | S-8 (40) | Vikhr (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 30400,
+          "label": "GBU-12 (2) | R-73 (2) | S-8 (120)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 25800,
+          "label": "GBU-12 (2) | R-73 (4) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14200,
+          "label": "GBU-12 (2) | R-73 (4) | Vikhr (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 23400,
+          "label": "GBU-12 (2) | S-8 (80) | Vikhr (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 34000,
+          "label": "GBU-12 (2) | S-8 (160)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 10800,
+          "label": "GBU-12 (2) | Vikhr (24)",
+          "weapons": [
+            "BombLauncherF35",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "12Rnd_Vikhr_KA50",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 22800,
+          "label": "GBU-12 (4) | Kh-29 (4) | R-73 (2)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 27400,
+          "label": "GBU-12 (4) | Kh-29 (4) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 21600,
+          "label": "GBU-12 (4) | Kh-29 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 32400,
+          "label": "GBU-12 (4) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 20800,
+          "label": "GBU-12 (4) | R-73 (2) | Vikhr (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 27800,
+          "label": "GBU-12 (4) | R-73 (4) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 25400,
+          "label": "GBU-12 (4) | S-8 (40) | Vikhr (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 36000,
+          "label": "GBU-12 (4) | S-8 (120)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 28400,
+          "label": "GBU-12 (6) | Kh-29 (4)",
+          "weapons": [
+            "BombLauncherF35",
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 34400,
+          "label": "GBU-12 (6) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 28800,
+          "label": "GBU-12 (6) | R-73 (4)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 38000,
+          "label": "GBU-12 (6) | S-8 (80)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 26400,
+          "label": "GBU-12 (6) | Vikhr (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 35400,
+          "label": "GBU-12 (8) | R-73 (2)",
+          "weapons": [
+            "BombLauncherF35",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 40000,
+          "label": "GBU-12 (8) | S-8 (40)",
+          "weapons": [
+            "BombLauncherF35",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 18800,
+          "label": "Kh-29 (4) | R-73 (2) | S-8 (80)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 7200,
+          "label": "Kh-29 (4) | R-73 (2) | Vikhr (12)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 14200,
+          "label": "Kh-29 (4) | R-73 (4) | S-8 (40)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 11800,
+          "label": "Kh-29 (4) | S-8 (40) | Vikhr (12)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 22400,
+          "label": "Kh-29 (4) | S-8 (120)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 14000,
+          "label": "Kh-29 (6) | R-73 (2) | S-8 (40)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "2Rnd_R73",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8400,
+          "label": "Kh-29 (6) | R-73 (4)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 17600,
+          "label": "Kh-29 (6) | S-8 (80)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "Kh-29 (6) | Vikhr (12)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 8200,
+          "label": "Kh-29 (8) | R-73 (2)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "4Rnd_Ch29",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 12800,
+          "label": "Kh-29 (8) | S-8 (40)",
+          "weapons": [
+            "Ch29Launcher_Su34",
+            "S8Launcher"
+          ],
+          "mags": [
+            "4Rnd_Ch29",
+            "4Rnd_Ch29",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "Kh-29 (10)",
+          "weapons": [
+            "Ch29Launcher_Su34"
+          ],
+          "mags": [
+            "6Rnd_Ch29",
+            "4Rnd_Ch29"
+          ]
+        },
+        {
+          "price": 16800,
+          "label": "R-73 (2) | S-8 (80) | Vikhr (12)",
+          "weapons": [
+            "R73Launcher_2",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 27400,
+          "label": "R-73 (2) | S-8 (160)",
+          "weapons": [
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 4200,
+          "label": "R-73 (2) | Vikhr (24)",
+          "weapons": [
+            "R73Launcher_2",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "12Rnd_Vikhr_KA50",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 12200,
+          "label": "R-73 (4) | S-8 (40) | Vikhr (12)",
+          "weapons": [
+            "R73Launcher_2",
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 22800,
+          "label": "R-73 (4) | S-8 (120)",
+          "weapons": [
+            "R73Launcher_2",
+            "S8Launcher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "2Rnd_R73",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        },
+        {
+          "price": 8800,
+          "label": "S-8 (40) | Vikhr (24)",
+          "weapons": [
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 20400,
+          "label": "S-8 (120) | Vikhr (12)",
+          "weapons": [
+            "S8Launcher",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "12Rnd_Vikhr_KA50"
+          ]
+        },
+        {
+          "price": 31000,
+          "label": "S-8 (200)",
+          "weapons": [
+            "S8Launcher"
+          ],
+          "mags": [
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T",
+            "40Rnd_S8T"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "L39_TK_EP1",
+      "comment": "L-39 [AF3] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "R73Launcher_2",
+          "57mmLauncher"
+        ],
+        "mags": [
+          "2Rnd_R73",
+          "64Rnd_57mm"
+        ]
+      },
+      "presets": [
+        {
+          "price": 3800,
+          "label": "Ataka-V (4) | FAB-250 (6)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 4600,
+          "label": "Ataka-V (4) | R-73 (2)",
+          "weapons": [
+            "AT9Launcher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 4200,
+          "label": "Ataka-V (4) | S-5 (64)",
+          "weapons": [
+            "AT9Launcher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 3400,
+          "label": "Ataka-V (8)",
+          "weapons": [
+            "AT9Launcher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P"
+          ]
+        },
+        {
+          "price": 4000,
+          "label": "FAB-250 (6) | R-73 (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 3600,
+          "label": "FAB-250 (6) | S-5 (64)",
+          "weapons": [
+            "AirBombLauncher",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 2200,
+          "label": "FAB-250 (12)",
+          "weapons": [
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 4400,
+          "label": "R-73 (2) | S-5 (64)",
+          "weapons": [
+            "R73Launcher_2",
+            "57mmLauncher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "64Rnd_57mm"
+          ]
+        },
+        {
+          "price": 3800,
+          "label": "R-73 (4)",
+          "weapons": [
+            "R73Launcher_2"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "2Rnd_R73"
+          ]
+        },
+        {
+          "price": 3000,
+          "label": "S-5 (128)",
+          "weapons": [
+            "57mmLauncher"
+          ],
+          "mags": [
+            "64Rnd_57mm",
+            "64Rnd_57mm"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "F35B",
+      "comment": "F-35B [AF5] - 6 pylons",
+      "pylons": 6,
+      "default": {
+        "weapons": [
+          "MaverickLauncher",
+          "SidewinderLaucher_F35",
+          "BombLauncherF35"
+        ],
+        "mags": [
+          "2Rnd_Maverick_A10",
+          "2Rnd_Sidewinder_F35",
+          "2Rnd_GBU12"
+        ]
+      },
+      "presets": [
+        {
+          "price": 13600,
+          "label": "AGM-65 (2) | AIM-9L (2) | GBU-12 (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_F35",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_F35",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "AGM-65 (2) | AIM-9L (4)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_F35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_F35",
+            "2Rnd_Sidewinder_F35"
+          ]
+        },
+        {
+          "price": 19200,
+          "label": "AGM-65 (2) | GBU-12 (4)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "AGM-65 (4) | AIM-9L (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_F35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_F35"
+          ]
+        },
+        {
+          "price": 12400,
+          "label": "AGM-65 (4) | GBU-12 (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 4600,
+          "label": "AGM-65 (6)",
+          "weapons": [
+            "MaverickLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10"
+          ]
+        },
+        {
+          "price": 19400,
+          "label": "AIM-9L (2) | GBU-12 (4)",
+          "weapons": [
+            "SidewinderLaucher_F35",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_F35",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 12800,
+          "label": "AIM-9L (4) | GBU-12 (2)",
+          "weapons": [
+            "SidewinderLaucher_F35",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_F35",
+            "2Rnd_Sidewinder_F35",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "AIM-9L (6)",
+          "weapons": [
+            "SidewinderLaucher_F35"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_F35",
+            "2Rnd_Sidewinder_F35",
+            "2Rnd_Sidewinder_F35"
+          ]
+        },
+        {
+          "price": 25000,
+          "label": "GBU-12 (6)",
+          "weapons": [
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "L159_ACR",
+      "comment": "L-159 [AF3] - 6 pylons",
+      "pylons": 6,
+      "default": {
+        "weapons": [
+          "MaverickLauncher",
+          "SidewinderLaucher_AH1Z",
+          "FFARLauncher"
+        ],
+        "mags": [
+          "2Rnd_Maverick_A10",
+          "2Rnd_Sidewinder_AH1Z",
+          "38Rnd_FFAR"
+        ]
+      },
+      "presets": [
+        {
+          "price": 4400,
+          "label": "AGM-114 (8) | AGM-65 (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10"
+          ]
+        },
+        {
+          "price": 4600,
+          "label": "AGM-114 (8) | AIM-9L (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 4200,
+          "label": "AGM-114 (8) | Hydra (38)",
+          "weapons": [
+            "HellfireLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 3800,
+          "label": "AGM-114 (8) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "AGM-65 (2) | AIM-9L (2) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "AGM-65 (2) | AIM-9L (2) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "AGM-65 (2) | AIM-9L (4)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "AGM-65 (2) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "AGM-65 (2) | Hydra (76)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 4400,
+          "label": "AGM-65 (2) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "AGM-65 (4) | AIM-9L (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 5400,
+          "label": "AGM-65 (4) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 5000,
+          "label": "AGM-65 (4) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 4600,
+          "label": "AGM-65 (6)",
+          "weapons": [
+            "MaverickLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "AIM-9L (2) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5400,
+          "label": "AIM-9L (2) | Hydra (76)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 4600,
+          "label": "AIM-9L (2) | MK-82 (12)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "AIM-9L (4) | Hydra (38)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 5400,
+          "label": "AIM-9L (4) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 4200,
+          "label": "Hydra (38) | MK-82 (12)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 4600,
+          "label": "Hydra (76) | MK-82 (6)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 4000,
+          "label": "Hydra (114)",
+          "weapons": [
+            "FFARLauncher"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 2800,
+          "label": "MK-82 (18)",
+          "weapons": [
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "A10",
+      "comment": "A-10A [AF3] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "FFARLauncher",
+          "Mk82BombLauncher_6"
+        ],
+        "mags": [
+          "38Rnd_FFAR",
+          "6Rnd_Mk82"
+        ]
+      },
+      "presets": [
+        {
+          "price": 4200,
+          "label": "AGM-65 (2) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 3800,
+          "label": "AGM-65 (2) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 3600,
+          "label": "AGM-65 (2) | Stinger (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "StingerLauncher_twice"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Stinger"
+          ]
+        },
+        {
+          "price": 3600,
+          "label": "Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 3400,
+          "label": "Hydra (38) | Stinger (2)",
+          "weapons": [
+            "FFARLauncher",
+            "StingerLauncher_twice"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "2Rnd_Stinger"
+          ]
+        },
+        {
+          "price": 3000,
+          "label": "Hydra (76)",
+          "weapons": [
+            "FFARLauncher"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 3000,
+          "label": "MK-82 (6) | Stinger (2)",
+          "weapons": [
+            "Mk82BombLauncher_6",
+            "StingerLauncher_twice"
+          ],
+          "mags": [
+            "6Rnd_Mk82",
+            "2Rnd_Stinger"
+          ]
+        },
+        {
+          "price": 2200,
+          "label": "MK-82 (12)",
+          "weapons": [
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "A10_US_EP1",
+      "comment": "A-10C [AF4] - 8 pylons",
+      "pylons": 8,
+      "default": {
+        "weapons": [
+          "MaverickLauncher",
+          "SidewinderLaucher_AH1Z",
+          "FFARLauncher",
+          "Mk82BombLauncher_6"
+        ],
+        "mags": [
+          "2Rnd_Maverick_A10",
+          "2Rnd_Sidewinder_AH1Z",
+          "38Rnd_FFAR",
+          "6Rnd_Mk82"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6800,
+          "label": "AGM-114 (8) | AGM-65 (2) | AIM-9L (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 13400,
+          "label": "AGM-114 (8) | AGM-65 (2) | GBU-12 (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "AGM-114 (8) | AGM-65 (2) | Hydra (38)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "AGM-114 (8) | AGM-65 (2) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "AGM-114 (8) | AGM-65 (4)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "AGM-114 (8) | AIM-9L (2) | GBU-12 (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "AGM-114 (8) | AIM-9L (2) | Hydra (38)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "AGM-114 (8) | AIM-9L (2) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 13200,
+          "label": "AGM-114 (8) | GBU-12 (2) | Hydra (38)",
+          "weapons": [
+            "HellfireLauncher",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 12800,
+          "label": "AGM-114 (8) | GBU-12 (2) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 19200,
+          "label": "AGM-114 (8) | GBU-12 (4)",
+          "weapons": [
+            "HellfireLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "AGM-114 (8) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "AGM-114 (8) | Hydra (76)",
+          "weapons": [
+            "HellfireLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 4400,
+          "label": "AGM-114 (8) | MK-82 (12)",
+          "weapons": [
+            "HellfireLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 3400,
+          "label": "AGM-114 (16)",
+          "weapons": [
+            "HellfireLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "8Rnd_Hellfire"
+          ]
+        },
+        {
+          "price": 15600,
+          "label": "AGM-65 (2) | AIM-9L (2) | GBU-12 (2) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 15200,
+          "label": "AGM-65 (2) | AIM-9L (2) | GBU-12 (2) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 21600,
+          "label": "AGM-65 (2) | AIM-9L (2) | GBU-12 (4)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 8200,
+          "label": "AGM-65 (2) | AIM-9L (2) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 7600,
+          "label": "AGM-65 (2) | AIM-9L (2) | Hydra (76)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "AGM-65 (2) | AIM-9L (2) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14800,
+          "label": "AGM-65 (2) | GBU-12 (2) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14200,
+          "label": "AGM-65 (2) | GBU-12 (2) | Hydra (76)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 13400,
+          "label": "AGM-65 (2) | GBU-12 (2) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 21200,
+          "label": "AGM-65 (2) | GBU-12 (4) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 20800,
+          "label": "AGM-65 (2) | GBU-12 (4) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 27200,
+          "label": "AGM-65 (2) | GBU-12 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "AGM-65 (2) | Hydra (38) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "AGM-65 (2) | Hydra (76) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "AGM-65 (2) | Hydra (114)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 5000,
+          "label": "AGM-65 (2) | MK-82 (18)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14800,
+          "label": "AGM-65 (4) | AIM-9L (2) | GBU-12 (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 7800,
+          "label": "AGM-65 (4) | AIM-9L (2) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "AGM-65 (4) | AIM-9L (2) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14400,
+          "label": "AGM-65 (4) | GBU-12 (2) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 14000,
+          "label": "AGM-65 (4) | GBU-12 (2) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 20400,
+          "label": "AGM-65 (4) | GBU-12 (4)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "AGM-65 (4) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "AGM-65 (4) | Hydra (76)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "AGM-65 (4) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "AGM-65 (6) | AIM-9L (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "AGM-65 (6) | GBU-12 (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "AGM-65 (6) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "AGM-65 (6) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "AGM-65 (8)",
+          "weapons": [
+            "MaverickLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10"
+          ]
+        },
+        {
+          "price": 15000,
+          "label": "AIM-9L (2) | GBU-12 (2) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14400,
+          "label": "AIM-9L (2) | GBU-12 (2) | Hydra (76)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "AIM-9L (2) | GBU-12 (2) | MK-82 (12)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 21400,
+          "label": "AIM-9L (2) | GBU-12 (4) | Hydra (38)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 21000,
+          "label": "AIM-9L (2) | GBU-12 (4) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 27400,
+          "label": "AIM-9L (2) | GBU-12 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "AIM-9L (2) | Hydra (38) | MK-82 (12)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "AIM-9L (2) | Hydra (76) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "AIM-9L (2) | Hydra (114)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "AIM-9L (2) | MK-82 (18)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 13200,
+          "label": "GBU-12 (2) | Hydra (38) | MK-82 (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "GBU-12 (2) | Hydra (76) | MK-82 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 13000,
+          "label": "GBU-12 (2) | Hydra (114)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 11800,
+          "label": "GBU-12 (2) | MK-82 (18)",
+          "weapons": [
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 20600,
+          "label": "GBU-12 (4) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 20000,
+          "label": "GBU-12 (4) | Hydra (76)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 19200,
+          "label": "GBU-12 (4) | MK-82 (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 27000,
+          "label": "GBU-12 (6) | Hydra (38)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 26600,
+          "label": "GBU-12 (6) | MK-82 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 33000,
+          "label": "GBU-12 (8)",
+          "weapons": [
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 4800,
+          "label": "Hydra (38) | MK-82 (18)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "Hydra (76) | MK-82 (12)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "Hydra (114) | MK-82 (6)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5000,
+          "label": "Hydra (152)",
+          "weapons": [
+            "FFARLauncher"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 3400,
+          "label": "MK-82 (24)",
+          "weapons": [
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AV8B",
+      "comment": "AV8B (LGB) [AF4] - 8 pylons",
+      "pylons": 8,
+      "default": {
+        "weapons": [
+          "BombLauncherF35"
+        ],
+        "mags": [
+          "2Rnd_GBU12",
+          "2Rnd_GBU12",
+          "2Rnd_GBU12"
+        ]
+      },
+      "presets": [
+        {
+          "price": 3000,
+          "label": "GBU-12 (6) | Hydra (38)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 9000,
+          "label": "GBU-12 (8)",
+          "weapons": [
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AV8B2",
+      "comment": "AV8B [AF5] - 8 pylons",
+      "pylons": 8,
+      "default": {
+        "weapons": [
+          "MaverickLauncher",
+          "SidewinderLaucher_AH1Z"
+        ],
+        "mags": [
+          "2Rnd_Maverick_A10",
+          "2Rnd_Maverick_A10",
+          "2Rnd_Maverick_A10",
+          "2Rnd_Sidewinder_AH1Z"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6800,
+          "label": "AGM-114 (8) | AGM-65 (2) | AIM-9L (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 13400,
+          "label": "AGM-114 (8) | AGM-65 (2) | GBU-12 (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "AGM-114 (8) | AGM-65 (2) | Hydra (38)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "AGM-114 (8) | AGM-65 (2) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "AGM-114 (8) | AGM-65 (4)",
+          "weapons": [
+            "HellfireLauncher",
+            "MaverickLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "AGM-114 (8) | AIM-9L (2) | GBU-12 (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "AGM-114 (8) | AIM-9L (2) | Hydra (38)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "AGM-114 (8) | AIM-9L (2) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "AGM-114 (8) | AIM-9L (4)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 13200,
+          "label": "AGM-114 (8) | GBU-12 (2) | Hydra (38)",
+          "weapons": [
+            "HellfireLauncher",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 12800,
+          "label": "AGM-114 (8) | GBU-12 (2) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 19200,
+          "label": "AGM-114 (8) | GBU-12 (4)",
+          "weapons": [
+            "HellfireLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "AGM-114 (8) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "HellfireLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "AGM-114 (8) | Hydra (76)",
+          "weapons": [
+            "HellfireLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 4400,
+          "label": "AGM-114 (8) | MK-82 (12)",
+          "weapons": [
+            "HellfireLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 15600,
+          "label": "AGM-65 (2) | AIM-9L (2) | GBU-12 (2) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 15200,
+          "label": "AGM-65 (2) | AIM-9L (2) | GBU-12 (2) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 21600,
+          "label": "AGM-65 (2) | AIM-9L (2) | GBU-12 (4)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 8200,
+          "label": "AGM-65 (2) | AIM-9L (2) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 7600,
+          "label": "AGM-65 (2) | AIM-9L (2) | Hydra (76)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "AGM-65 (2) | AIM-9L (2) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 15000,
+          "label": "AGM-65 (2) | AIM-9L (4) | GBU-12 (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 8000,
+          "label": "AGM-65 (2) | AIM-9L (4) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 7600,
+          "label": "AGM-65 (2) | AIM-9L (4) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "AGM-65 (2) | AIM-9L (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 14800,
+          "label": "AGM-65 (2) | GBU-12 (2) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14200,
+          "label": "AGM-65 (2) | GBU-12 (2) | Hydra (76)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 13400,
+          "label": "AGM-65 (2) | GBU-12 (2) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 21200,
+          "label": "AGM-65 (2) | GBU-12 (4) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 20800,
+          "label": "AGM-65 (2) | GBU-12 (4) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 27200,
+          "label": "AGM-65 (2) | GBU-12 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "AGM-65 (2) | Hydra (38) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "AGM-65 (2) | Hydra (76) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "AGM-65 (2) | Hydra (114)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 5000,
+          "label": "AGM-65 (2) | MK-82 (18)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14800,
+          "label": "AGM-65 (4) | AIM-9L (2) | GBU-12 (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 7800,
+          "label": "AGM-65 (4) | AIM-9L (2) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "AGM-65 (4) | AIM-9L (2) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 7200,
+          "label": "AGM-65 (4) | AIM-9L (4)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 14400,
+          "label": "AGM-65 (4) | GBU-12 (2) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 14000,
+          "label": "AGM-65 (4) | GBU-12 (2) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 20400,
+          "label": "AGM-65 (4) | GBU-12 (4)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "AGM-65 (4) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "AGM-65 (4) | Hydra (76)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "AGM-65 (4) | MK-82 (12)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "AGM-65 (6) | AIM-9L (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "AGM-65 (6) | GBU-12 (2)",
+          "weapons": [
+            "MaverickLauncher",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "AGM-65 (6) | Hydra (38)",
+          "weapons": [
+            "MaverickLauncher",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6200,
+          "label": "AGM-65 (6) | MK-82 (6)",
+          "weapons": [
+            "MaverickLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5800,
+          "label": "AGM-65 (8)",
+          "weapons": [
+            "MaverickLauncher"
+          ],
+          "mags": [
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10",
+            "2Rnd_Maverick_A10"
+          ]
+        },
+        {
+          "price": 15000,
+          "label": "AIM-9L (2) | GBU-12 (2) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14400,
+          "label": "AIM-9L (2) | GBU-12 (2) | Hydra (76)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "AIM-9L (2) | GBU-12 (2) | MK-82 (12)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 21400,
+          "label": "AIM-9L (2) | GBU-12 (4) | Hydra (38)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 21000,
+          "label": "AIM-9L (2) | GBU-12 (4) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 27400,
+          "label": "AIM-9L (2) | GBU-12 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "AIM-9L (2) | Hydra (38) | MK-82 (12)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 7000,
+          "label": "AIM-9L (2) | Hydra (76) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6400,
+          "label": "AIM-9L (2) | Hydra (114)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "AIM-9L (2) | MK-82 (18)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14800,
+          "label": "AIM-9L (4) | GBU-12 (2) | Hydra (38)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 14400,
+          "label": "AIM-9L (4) | GBU-12 (2) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 20800,
+          "label": "AIM-9L (4) | GBU-12 (4)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "AIM-9L (4) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "AIM-9L (4) | Hydra (76)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6000,
+          "label": "AIM-9L (4) | MK-82 (12)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 14200,
+          "label": "AIM-9L (6) | GBU-12 (2)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 7200,
+          "label": "AIM-9L (6) | Hydra (38)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "AIM-9L (6) | MK-82 (6)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 6600,
+          "label": "AIM-9L (8)",
+          "weapons": [
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 13200,
+          "label": "GBU-12 (2) | Hydra (38) | MK-82 (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 13600,
+          "label": "GBU-12 (2) | Hydra (76) | MK-82 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 13000,
+          "label": "GBU-12 (2) | Hydra (114)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 11800,
+          "label": "GBU-12 (2) | MK-82 (18)",
+          "weapons": [
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 20600,
+          "label": "GBU-12 (4) | Hydra (38) | MK-82 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 20000,
+          "label": "GBU-12 (4) | Hydra (76)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 19200,
+          "label": "GBU-12 (4) | MK-82 (12)",
+          "weapons": [
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 27000,
+          "label": "GBU-12 (6) | Hydra (38)",
+          "weapons": [
+            "BombLauncherF35",
+            "FFARLauncher"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 26600,
+          "label": "GBU-12 (6) | MK-82 (6)",
+          "weapons": [
+            "BombLauncherF35",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 33000,
+          "label": "GBU-12 (8)",
+          "weapons": [
+            "BombLauncherF35"
+          ],
+          "mags": [
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12",
+            "2Rnd_GBU12"
+          ]
+        },
+        {
+          "price": 4800,
+          "label": "Hydra (38) | MK-82 (18)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5200,
+          "label": "Hydra (76) | MK-82 (12)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5600,
+          "label": "Hydra (114) | MK-82 (6)",
+          "weapons": [
+            "FFARLauncher",
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "6Rnd_Mk82"
+          ]
+        },
+        {
+          "price": 5000,
+          "label": "Hydra (152)",
+          "weapons": [
+            "FFARLauncher"
+          ],
+          "mags": [
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR",
+            "38Rnd_FFAR"
+          ]
+        },
+        {
+          "price": 3400,
+          "label": "MK-82 (24)",
+          "weapons": [
+            "Mk82BombLauncher_6"
+          ],
+          "mags": [
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82",
+            "6Rnd_Mk82"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Mi24_D_CZ_ACR",
+      "comment": "Mi-24V (CZ) [AF3] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "AT9Launcher"
+        ],
+        "mags": [
+          "8Rnd_AT9_Mi24V"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6800,
+          "label": "Ataka-V (8) | Stinger (2)",
+          "weapons": [
+            "AT9Launcher",
+            "StingerLauncher_twice"
+          ],
+          "mags": [
+            "8Rnd_AT9_Mi24V",
+            "2Rnd_Stinger"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AH64D",
+      "comment": "AH-64D (TOW) [AF3] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "TOWLauncherSingle"
+        ],
+        "mags": [
+          "6Rnd_TOW2"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6800,
+          "label": "Stinger (2) | TOW-2 (6)",
+          "weapons": [
+            "StingerLauncher_twice",
+            "TOWLauncherSingle"
+          ],
+          "mags": [
+            "2Rnd_Stinger",
+            "6Rnd_TOW2"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AH64D_EP1",
+      "comment": "AH-64D (Hellfire) [AF4] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "HellfireLauncher"
+        ],
+        "mags": [
+          "8Rnd_Hellfire"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6800,
+          "label": "AGM-114 (8) | Stinger (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "StingerLauncher_twice"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Stinger"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "BAF_Apache_AH1_D",
+      "comment": "Apache AH1 [AF4] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "HellfireLauncher"
+        ],
+        "mags": [
+          "8Rnd_Hellfire"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6800,
+          "label": "AGM-114 (8) | Stinger (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "StingerLauncher_twice"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Stinger"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AH1Z",
+      "comment": "AH-1Z [AF5] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "HellfireLauncher"
+        ],
+        "mags": [
+          "8Rnd_Hellfire",
+          "8Rnd_Hellfire"
+        ]
+      },
+      "presets": [
+        {
+          "price": 3400,
+          "label": "AGM-114 (8) | AIM-9L (2)",
+          "weapons": [
+            "HellfireLauncher",
+            "SidewinderLaucher_AH1Z"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "2Rnd_Sidewinder_AH1Z"
+          ]
+        },
+        {
+          "price": 1000,
+          "label": "AGM-114 (16)",
+          "weapons": [
+            "HellfireLauncher"
+          ],
+          "mags": [
+            "8Rnd_Hellfire",
+            "8Rnd_Hellfire"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AW159_Lynx_BAF",
+      "comment": "Wildcat AH11 [AF3] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "CRV7_HEPD",
+          "CTWS",
+          "SpikeLauncher_ACR"
+        ],
+        "mags": [
+          "6Rnd_CRV7_HEPD",
+          "200Rnd_40mmHE_FV510",
+          "200Rnd_40mmSABOT_FV510",
+          "2Rnd_Spike_ACR",
+          "2Rnd_Spike_ACR"
+        ]
+      },
+      "presets": [
+        {
+          "price": 8800,
+          "label": "Spike (2) | Stinger (2)",
+          "weapons": [
+            "CRV7_HEPD",
+            "CTWS",
+            "SpikeLauncher_ACR",
+            "StingerLauncher_twice"
+          ],
+          "mags": [
+            "6Rnd_CRV7_HEPD",
+            "200Rnd_40mmHE_FV510",
+            "200Rnd_40mmSABOT_FV510",
+            "2Rnd_Spike_ACR",
+            "2Rnd_Stinger"
+          ]
+        },
+        {
+          "price": 5000,
+          "label": "Spike (4)",
+          "weapons": [
+            "CRV7_HEPD",
+            "CTWS",
+            "SpikeLauncher_ACR"
+          ],
+          "mags": [
+            "6Rnd_CRV7_HEPD",
+            "200Rnd_40mmHE_FV510",
+            "200Rnd_40mmSABOT_FV510",
+            "2Rnd_Spike_ACR",
+            "2Rnd_Spike_ACR"
+          ]
+        },
+        {
+          "price": 10600,
+          "label": "Stinger (4)",
+          "weapons": [
+            "CRV7_HEPD",
+            "CTWS",
+            "StingerLauncher_twice"
+          ],
+          "mags": [
+            "6Rnd_CRV7_HEPD",
+            "200Rnd_40mmHE_FV510",
+            "200Rnd_40mmSABOT_FV510",
+            "2Rnd_Stinger",
+            "2Rnd_Stinger"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Mi24_V",
+      "comment": "Mi-24V [AF3] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "AT9Launcher"
+        ],
+        "mags": [
+          "4Rnd_AT9_Mi24P"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6800,
+          "label": "Ataka-V (4) | Igla-V (2)",
+          "weapons": [
+            "AT9Launcher",
+            "Igla_twice"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_Igla"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Mi24_P",
+      "comment": "Mi-24P [AF3] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "AT9Launcher",
+          "HeliBombLauncher"
+        ],
+        "mags": [
+          "4Rnd_AT9_Mi24P",
+          "2Rnd_FAB_250"
+        ]
+      },
+      "presets": [
+        {
+          "price": 2600,
+          "label": "Ataka-V (4) | FAB-250 (6)",
+          "weapons": [
+            "AT9Launcher",
+            "AirBombLauncher"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250"
+          ]
+        },
+        {
+          "price": 6800,
+          "label": "Ataka-V (4) | Igla-V (2)",
+          "weapons": [
+            "AT9Launcher",
+            "Igla_twice"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_Igla"
+          ]
+        },
+        {
+          "price": 7400,
+          "label": "FAB-250 (6) | Igla-V (2)",
+          "weapons": [
+            "AirBombLauncher",
+            "Igla_twice"
+          ],
+          "mags": [
+            "4Rnd_FAB_250",
+            "2Rnd_FAB_250",
+            "2Rnd_Igla"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Ka52",
+      "comment": "Ka-52 [AF4] - 8 pylons",
+      "pylons": 8,
+      "default": {
+        "weapons": [
+          "AT9Launcher"
+        ],
+        "mags": [
+          "4Rnd_AT9_Mi24P",
+          "4Rnd_AT9_Mi24P",
+          "4Rnd_AT9_Mi24P"
+        ]
+      },
+      "presets": [
+        {
+          "price": 6800,
+          "label": "Ataka-V (12) | Igla-V (2)",
+          "weapons": [
+            "AT9Launcher",
+            "Igla_twice"
+          ],
+          "mags": [
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "4Rnd_AT9_Mi24P",
+            "2Rnd_Igla"
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Ka52Black",
+      "comment": "Ka-52 (Black) [AF5] - 4 pylons",
+      "pylons": 4,
+      "default": {
+        "weapons": [
+          "VikhrLauncher"
+        ],
+        "mags": [
+          "12Rnd_Vikhr_KA50"
+        ]
+      },
+      "presets": [
+        {
+          "price": 9000,
+          "label": "R-73 (2) | Vikhr (12)",
+          "weapons": [
+            "R73Launcher_2",
+            "VikhrLauncher"
+          ],
+          "mags": [
+            "2Rnd_R73",
+            "12Rnd_Vikhr_KA50"
+          ]
+        }
+      ]
+    }
+  ]
+}
