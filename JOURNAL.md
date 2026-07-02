@@ -28,6 +28,11 @@
 - Research C (7-tool audit) ✅ → docs/research/tools-audit.md. Faction Builder v1 actually COMPLETE. Top bugs: wf-menu inheritedVal reads bc.props not bc (inspector dead), no beforeunload; sector-planner ownership not persisted (campaign sim silently flat-zero after refresh); loadout-lab gear catalog not persisted + clearAll race; garrison-editor ignores coreUnits handoff; strategy-economy seed-capture race → empty diffs. Suite-wide: add "← All Tools" back-link.
 - Builders dispatched: gen_easa_seed.py (parser+round-trip) + gen_assets.py (config indexer) — unblocked by research A.
 - IMPROVEMENT WAVE 1 dispatched (Sonnet, own repos, branch feat/improve-jul2, no push): wf-menu-designer, sector-planner, loadout-lab, garrison-editor. Wave 2 (strategy-economy, faction-builder, WDDM) after wave 1 slots free.
+- Research D (miksuu site audit) ✅ → docs/research/miksuu-site-audit.md + deep-dive corrections (root error/404 EXIST; real items = per-route boundaries, ogMeta canonical fix, sitemap /tools; /armory intentionally hidden). improve-site dispatched on feat/site-improve-jul2 (deploy user-gated).
+- NEW LANE (Steff): "Do Visual / UX / UI overhauls as well" → docs/DESIGN-BRIEF.md written (ops-console commitment, locked palette/fonts, 11 suite vocabulary items, per-tool identity moments, verification bar). Overhauls sequenced AFTER each repo's functional merge (branch feat/visual-jul2).
+- MERGED+DEPLOYED to Pages: loadout-lab (catalog persist, clearAll guard, mag dedup — verified 13 pytest), garrison-editor (coreUnits handoff WIRED, groupsRaw sync, per-tier variants — 35 pytest + RT + 26 smoke green), wf-menu-designer (undo timing, autosave+beforeunload, evalSZ, ST_RIGHT/CENTER align, deep-clone corruption fix — 3 suites green ON MAIN; note: its tests live at REPO ROOT not tools/). AUDIT FALSE POSITIVE confirmed: inheritedVal bc.props was CORRECT (improver disproved with passing inspector tests).
+- Visual overhauls dispatched: loadout-lab (quartermaster), garrison-editor (ORBAT), wf-menu-designer (CRT console — chrome only, canvas stays faithful preview).
+- STEFF Q&A: "Can EASA be pylon based?" → answered YES as editing model (engine has no pylon API; stations=magazine entries, flatten on export, capacity meter soft-warn) — in SPEC.md.
 
 ## Discovered Issues
 - (none yet)
