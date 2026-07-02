@@ -535,6 +535,34 @@ with sync_playwright() as p:
     else:
         fail("Side selector: vehicle filter", f"opfor={veh_opfor}, all={veh_all}")
 
+    # ── Test 13: Side tint washes the three panels while a side is active ────
+    page.click("#sideBtn-blufor")
+    page.wait_for_timeout(300)
+    tint_on = page.evaluate("""() => {
+        const tinted = el => getComputedStyle(el).backgroundImage.includes('linear-gradient');
+        return {
+            bodyClass: document.body.classList.contains('side-blufor'),
+            left: tinted(document.getElementById('leftPanel')),
+            stage: tinted(document.getElementById('rackStage')),
+            right: tinted(document.getElementById('rightPanel')),
+            tintVar: getComputedStyle(document.body).getPropertyValue('--side-tint').trim()
+        };
+    }""")
+    if tint_on['bodyClass'] and tint_on['left'] and tint_on['stage'] and tint_on['right'] and '74' in tint_on['tintVar']:
+        ok("Side tint: BLUFOR wash applied to arsenal, rack, and ordnance panels")
+    else:
+        fail("Side tint: BLUFOR wash", f"{tint_on}")
+
+    page.click("#sideBtn-blufor")  # toggle off
+    page.wait_for_timeout(300)
+    tint_off = page.evaluate("""() =>
+        !document.body.classList.contains('side-blufor') && !document.body.classList.contains('side-opfor')
+    """)
+    if tint_off:
+        ok("Side tint: removed when side deselected")
+    else:
+        fail("Side tint: removal", "body still carries a side-* class")
+
     browser.close()
 
 # ── summary ───────────────────────────────────────────────────────────────────

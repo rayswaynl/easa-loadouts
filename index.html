@@ -55,6 +55,7 @@
   --olive: #5C6536; --bone: #E7E3D6; --orange: #D9763C; --orange-deep: #B85F2A;
   --chalk: #F2EFE8; --line: #39414b; --danger: #c0392b;
   --blufor: #4a86c8; --opfor: #c8524a;
+  --side-tint: rgba(0,0,0,0); /* active side wash over the three panels */
 }
 
 /* ---- Reset / base ---- */
@@ -331,6 +332,15 @@ button.danger:hover { background: var(--danger); color: #fff; }
 .side-btn.side-opfor { border: 1px solid rgba(200,82,74,.55); color: var(--opfor); }
 .side-btn.side-opfor:hover { border-color: var(--opfor); }
 .side-btn.side-opfor.on { background: var(--opfor); border-color: var(--opfor); color: #220d0b; }
+
+/* Side wash — faint blue/red tint over arsenal, ordnance rack, and ordnance
+   panels while a side is active. Kept at 6-7% so the ops-console palette
+   still reads underneath. */
+body.side-blufor { --side-tint: rgba(74,134,200,.09); } /* steel base is already cool — blue needs a touch more than red */
+body.side-opfor { --side-tint: rgba(200,82,74,.07); }
+.panel { background-image: linear-gradient(var(--side-tint), var(--side-tint)); }
+.stage { background-image: linear-gradient(var(--side-tint), var(--side-tint)),
+  radial-gradient(120% 120% at 50% 10%, #0f1318 0%, #09090d 100%); }
 
 /* ============================================================
    VEHICLE MODE — stage
@@ -1655,6 +1665,7 @@ function applySideUI() {
   for(const s of ['blufor','opfor']) {
     const btn = $('sideBtn-'+s);
     if(btn) { btn.classList.toggle('on', state.side===s); btn.setAttribute('aria-pressed', state.side===s?'true':'false'); }
+    document.body.classList.toggle('side-'+s, state.side===s);
   }
 }
 
