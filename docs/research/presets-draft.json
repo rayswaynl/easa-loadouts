@@ -1,0 +1,2461 @@
+{
+  "_meta": {
+    "generated": "2026-07-02",
+    "source_config": "arma2-co-config-reference (A2:OA 1.63 dump by UHAX)",
+    "source_mission": "a2waspwarfare v48 Chernarus",
+    "note": "All weapon classnames are CfgWeapons entries; all magazine classnames are CfgMagazines entries. Verified against config reference dumps. ACR DLC classes (L159_ACR, Mi24_D_CZ_ACR) are absent from the dump and flagged."
+  },
+  "airframes": [
+    {
+      "class": "A10",
+      "name": "A-10 Thunderbolt II",
+      "factions": ["USMC"],
+      "kind": "plane",
+      "notes": "A10_US_EP1 inherits same config. BalanceInit strips all weapons except GAU8 until LF unlocks.",
+      "stock": [
+        {
+          "weapon": "GAU8",
+          "mags": [{ "class": "1350Rnd_30mmAP_A10", "count": 1 }]
+        },
+        {
+          "weapon": "MaverickLauncher",
+          "mags": [{ "class": "2Rnd_Maverick_A10", "count": 1 }]
+        },
+        {
+          "weapon": "BombLauncherA10",
+          "mags": [{ "class": "4Rnd_GBU12", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher_14",
+          "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "SidewinderLaucher_AH1Z",
+          "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "pool": [
+        {
+          "weapon": "GAU8",
+          "mags": [{ "class": "1350Rnd_30mmAP_A10", "count": 1 }]
+        },
+        {
+          "weapon": "MaverickLauncher",
+          "mags": [{ "class": "2Rnd_Maverick_A10", "count": 1 }]
+        },
+        {
+          "weapon": "BombLauncherA10",
+          "mags": [{ "class": "4Rnd_GBU12", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher_14",
+          "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "SidewinderLaucher_AH1Z",
+          "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "OIF CAS Standard",
+          "why": "Iraq 2003-2010, 23rd FW mixed-ordnance CAS sortie: gun + 2x Maverick + 4x GBU-12 (approx Mk.82) + FFAR pod + AIM-9",
+          "approximations": [
+            "GBU-12 used for Mk.82 slot (real mixed; A2 only has GBU)",
+            "14-rd FFAR pod approximates 2x LAU-61 19-rd pods"
+          ],
+          "items": [
+            {
+              "weapon": "GAU8",
+              "mags": [{ "class": "1350Rnd_30mmAP_A10", "count": 1 }]
+            },
+            {
+              "weapon": "MaverickLauncher",
+              "mags": [{ "class": "2Rnd_Maverick_A10", "count": 1 }]
+            },
+            {
+              "weapon": "BombLauncherA10",
+              "mags": [{ "class": "4Rnd_GBU12", "count": 1 }]
+            },
+            {
+              "weapon": "FFARLauncher_14",
+              "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "OEF Tank-Plinking",
+          "why": "Afghanistan 2001-2014, dedicated anti-armor: 4x AGM-65G Maverick + GBU-12 for bunkers (A2 capped at 2 Maverick)",
+          "approximations": [
+            "A2 MaverickLauncher limited to 2Rnd_Maverick_A10; real loadout carried 4x AGM-65G"
+          ],
+          "items": [
+            {
+              "weapon": "GAU8",
+              "mags": [{ "class": "1350Rnd_30mmAP_A10", "count": 1 }]
+            },
+            {
+              "weapon": "MaverickLauncher",
+              "mags": [{ "class": "2Rnd_Maverick_A10", "count": 1 }]
+            },
+            {
+              "weapon": "BombLauncherA10",
+              "mags": [{ "class": "4Rnd_GBU12", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Gun Run / TIC",
+          "why": "Troops in contact — gun is primary, FFAR for suppression while setting up strafing pass",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GAU8",
+              "mags": [{ "class": "1350Rnd_30mmAP_A10", "count": 1 }]
+            },
+            {
+              "weapon": "FFARLauncher_14",
+              "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Sandy CSAR Escort",
+          "why": "Search and rescue escort role: Sidewinder for CAP, Maverick + gun for ground threat suppression",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GAU8",
+              "mags": [{ "class": "1350Rnd_30mmAP_A10", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "MaverickLauncher",
+              "mags": [{ "class": "2Rnd_Maverick_A10", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AV8B",
+      "name": "AV-8B Harrier II (LGB)",
+      "factions": ["USMC"],
+      "kind": "plane",
+      "notes": "GBU-12 variant. AV8B2 is Mk82+FFAR variant. BalanceInit strips BombLauncher (LF-gated).",
+      "stock": [
+        {
+          "weapon": "GAU12",
+          "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+        },
+        {
+          "weapon": "BombLauncher",
+          "mags": [{ "class": "6Rnd_GBU12_AV8B", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "pool": [
+        {
+          "weapon": "GAU12",
+          "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+        },
+        {
+          "weapon": "BombLauncher",
+          "mags": [{ "class": "6Rnd_GBU12_AV8B", "count": 1 }]
+        },
+        {
+          "weapon": "Mk82BombLauncher_6",
+          "mags": [{ "class": "6Rnd_Mk82", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher_14",
+          "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "SidewinderLaucher_AH1Z",
+          "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "USMC MEU CAS Standard",
+          "why": "USMC MEU CAS deployments 2003-2012: GAU-12 + LGBs + FFAR + AIM-9. AGM-65E approximated by GBU-12.",
+          "approximations": [
+            "GBU-12 approximates AGM-65E Maverick (laser); no Maverick class on Harrier in A2"
+          ],
+          "items": [
+            {
+              "weapon": "GAU12",
+              "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+            },
+            {
+              "weapon": "BombLauncher",
+              "mags": [{ "class": "6Rnd_GBU12_AV8B", "count": 1 }]
+            },
+            {
+              "weapon": "FFARLauncher_14",
+              "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Precision Strike",
+          "why": "Deliberate hardened-target strike: max LGBs, no rockets for weight",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GAU12",
+              "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+            },
+            {
+              "weapon": "BombLauncher",
+              "mags": [{ "class": "6Rnd_GBU12_AV8B", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "DAS Unguided",
+          "why": "AV-8B+ with Mk82 dumb bombs for area target (AV8B2 config): 6x Mk82 + FFAR + AIM-9",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GAU12",
+              "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+            },
+            {
+              "weapon": "Mk82BombLauncher_6",
+              "mags": [{ "class": "6Rnd_Mk82", "count": 1 }]
+            },
+            {
+              "weapon": "FFARLauncher_14",
+              "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AV8B2",
+      "name": "AV-8B Harrier II+",
+      "factions": ["USMC"],
+      "kind": "plane",
+      "notes": "Mk82 + FFAR variant of Harrier. Shares pool with AV8B.",
+      "stock": [
+        {
+          "weapon": "GAU12",
+          "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+        },
+        {
+          "weapon": "Mk82BombLauncher_6",
+          "mags": [{ "class": "6Rnd_Mk82", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher_14",
+          "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "SidewinderLaucher_AH1Z",
+          "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "pool": "shared_with:AV8B",
+      "presets": "shared_with:AV8B"
+    },
+    {
+      "class": "F35B",
+      "name": "F-35B Lightning II",
+      "factions": ["USMC"],
+      "kind": "plane",
+      "stock": [
+        {
+          "weapon": "GAU12",
+          "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+        },
+        {
+          "weapon": "BombLauncherF35",
+          "mags": [{ "class": "2Rnd_GBU12", "count": 1 }]
+        },
+        {
+          "weapon": "SidewinderLaucher_F35",
+          "mags": [{ "class": "2Rnd_Sidewinder_F35", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "pool": [
+        {
+          "weapon": "GAU12",
+          "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+        },
+        {
+          "weapon": "BombLauncherF35",
+          "mags": [{ "class": "2Rnd_GBU12", "count": 1 }]
+        },
+        {
+          "weapon": "SidewinderLaucher_F35",
+          "mags": [{ "class": "2Rnd_Sidewinder_F35", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Precision Strike",
+          "why": "Standard STOVL stealth-equiv loadout: GBU-12 approximates internal JDAM; AIM-9 for self-defence",
+          "approximations": [
+            "GBU-12 approximates GBU-31 JDAM (real F-35B internal); A2 has no JDAM"
+          ],
+          "items": [
+            {
+              "weapon": "GAU12",
+              "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+            },
+            {
+              "weapon": "BombLauncherF35",
+              "mags": [{ "class": "2Rnd_GBU12", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_F35",
+              "mags": [{ "class": "2Rnd_Sidewinder_F35", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Beast Mode CAS",
+          "why": "F-35B full external load sacrificing stealth: max GBU-12 + AIM-9",
+          "approximations": [
+            "Only 2x GBU-12 available in A2 F35B mag; real beast mode carries 6+ bombs"
+          ],
+          "items": [
+            {
+              "weapon": "GAU12",
+              "mags": [{ "class": "300Rnd_25mm_GAU12", "count": 1 }]
+            },
+            {
+              "weapon": "BombLauncherF35",
+              "mags": [{ "class": "2Rnd_GBU12", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_F35",
+              "mags": [{ "class": "2Rnd_Sidewinder_F35", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Su25_base",
+      "name": "Su-25 Frogfoot",
+      "factions": ["RU", "CDF", "INS", "TKA"],
+      "faction_classes": ["Su25_Ins", "Su25_CDF", "Su25_TK_EP1"],
+      "kind": "plane",
+      "notes": "All Su-25 variants share Su25_base config. BalanceInit strips R73 and S8 from Su25_Ins; strips bombs+rockets from Su25_TK_EP1 at low LF.",
+      "stock": [
+        {
+          "weapon": "GSh301",
+          "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+        },
+        {
+          "weapon": "AirBombLauncher",
+          "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+        },
+        {
+          "weapon": "R73Launcher_2",
+          "mags": [{ "class": "2Rnd_R73", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "pool": [
+        {
+          "weapon": "GSh301",
+          "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+        },
+        {
+          "weapon": "AirBombLauncher",
+          "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "40Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "80mmLauncher",
+          "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher",
+          "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher_128",
+          "mags": [{ "class": "128Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "R73Launcher_2",
+          "mags": [{ "class": "2Rnd_R73", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Afghanistan '85",
+          "why": "40th Army VVS 1985, Bagram/Shindand: primary weapon S-8 80mm rockets + FAB-250; ATGMs rarely used vs Mujahideen",
+          "approximations": [
+            "4Rnd_FAB_250 slightly generous; real was 2x FAB-250 per sortie. R-60 self-defence absent (A2 R-60 classname unverified)."
+          ],
+          "items": [
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "AirBombLauncher",
+              "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Anti-Armor Strike",
+          "why": "Cold War NATO-contingency doctrine; Kh-25ML (AS-10) has no A2 equivalent — FAB-250 substitutes as unguided approximation",
+          "approximations": [
+            "Kh-25ML (AS-10 Karen) absent in A2. FAB-250 is a poor substitute — unguided. R-73 used in place of R-60 (upgrade)."
+          ],
+          "items": [
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "AirBombLauncher",
+              "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "R73Launcher_2",
+              "mags": [{ "class": "2Rnd_R73", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "CAS Light",
+          "why": "Chechnya-era light CAS patrol: gun emphasis, minimal bomb load",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "R73Launcher_2",
+              "mags": [{ "class": "2Rnd_R73", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "S-5 Area Suppression",
+          "why": "Afghanistan pre-S-8 era: UB-32 S-5 57mm pods for massed area suppression of infantry in open ground",
+          "approximations": [
+            "57mmLauncher 64-rd load approximates 2x UB-32 pods (32rds each)"
+          ],
+          "items": [
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "57mmLauncher_128",
+              "mags": [{ "class": "128Rnd_57mm", "count": 1 }]
+            },
+            {
+              "weapon": "AirBombLauncher",
+              "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Su39",
+      "name": "Su-39 (Su-25TM)",
+      "factions": ["RU"],
+      "kind": "plane",
+      "notes": "Adds Ch29Launcher over Su-25 base. Vikhr ATGM (real Su-39 signature weapon) has no A2 equivalent.",
+      "stock": [
+        {
+          "weapon": "GSh301",
+          "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+        },
+        {
+          "weapon": "Ch29Launcher",
+          "mags": [{ "class": "4Rnd_Ch29", "count": 1 }]
+        },
+        {
+          "weapon": "R73Launcher_2",
+          "mags": [{ "class": "2Rnd_R73", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "pool": [
+        {
+          "weapon": "GSh301",
+          "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+        },
+        {
+          "weapon": "Ch29Launcher",
+          "mags": [{ "class": "4Rnd_Ch29", "count": 1 }]
+        },
+        {
+          "weapon": "AirBombLauncher",
+          "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "80mmLauncher",
+          "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher",
+          "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "R73Launcher_2",
+          "mags": [{ "class": "2Rnd_R73", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Anti-Tank Specialist",
+          "why": "Su-25TM primary mission: Kh-29T TV-guided ATGMs + S-8 suppression. Real Vikhr absent in A2; Ch29Launcher is best available substitute.",
+          "approximations": [
+            "Vikhr ATGM (AT-16, 12km range) has no A2 classname. Ch29Launcher/4Rnd_Ch29 is the closest guided anti-tank weapon in A2."
+          ],
+          "items": [
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "Ch29Launcher",
+              "mags": [{ "class": "4Rnd_Ch29", "count": 1 }]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "R73Launcher_2",
+              "mags": [{ "class": "2Rnd_R73", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Strike + Self-Defence",
+          "why": "Mixed anti-ground + AAM self-protection; Kh-29 + FAB-250 + R-73",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "Ch29Launcher",
+              "mags": [{ "class": "4Rnd_Ch29", "count": 1 }]
+            },
+            {
+              "weapon": "AirBombLauncher",
+              "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+            },
+            {
+              "weapon": "R73Launcher_2",
+              "mags": [{ "class": "2Rnd_R73", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Su34",
+      "name": "Su-34 Fullback",
+      "factions": ["RU"],
+      "kind": "plane",
+      "notes": "2-seat: pilot fires rockets+flares; gunner controls cannon+Kh-29+R-73. Turret split is fixed in A2 config.",
+      "stock": [
+        {
+          "weapon": "80mmLauncher",
+          "mags": [{ "class": "40Rnd_S8T", "count": 1 }],
+          "seat": "pilot"
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }],
+          "seat": "pilot"
+        },
+        {
+          "weapon": "GSh301",
+          "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }],
+          "seat": "gunner"
+        },
+        {
+          "weapon": "Ch29Launcher_Su34",
+          "mags": [
+            { "class": "6Rnd_Ch29", "count": 1 },
+            { "class": "4Rnd_Ch29", "count": 1 }
+          ],
+          "seat": "gunner"
+        },
+        {
+          "weapon": "R73Launcher",
+          "mags": [{ "class": "4Rnd_R73", "count": 1 }],
+          "seat": "gunner"
+        }
+      ],
+      "pool": [
+        {
+          "weapon": "80mmLauncher",
+          "mags": [{ "class": "40Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "AirBombLauncher",
+          "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+        },
+        {
+          "weapon": "GSh301",
+          "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+        },
+        {
+          "weapon": "Ch29Launcher_Su34",
+          "mags": [{ "class": "6Rnd_Ch29", "count": 1 }]
+        },
+        {
+          "weapon": "R73Launcher",
+          "mags": [{ "class": "4Rnd_R73", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Syria 2015 Precision Strike",
+          "why": "Documented Syrian campaign loads: Kh-29T precision + GSh-30 + R-73 AAM (pilot flies rockets; gunner controls precision weapons)",
+          "approximations": [
+            "R-77 BVR has no A2 equivalent; R-73 substitutes as WVR-only AAM"
+          ],
+          "items": [
+            {
+              "weapon": "80mmLauncher",
+              "mags": [{ "class": "40Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "Ch29Launcher_Su34",
+              "mags": [{ "class": "6Rnd_Ch29", "count": 1 }]
+            },
+            {
+              "weapon": "R73Launcher",
+              "mags": [{ "class": "4Rnd_R73", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Deep Strike",
+          "why": "Long-range interdiction: maximum Kh-29 + GSh-30; omit AAM for more strike capacity",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "80mmLauncher",
+              "mags": [{ "class": "40Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "Ch29Launcher_Su34",
+              "mags": [{ "class": "6Rnd_Ch29", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Escort / Air Superiority",
+          "why": "Su-34 escort role: max R-73 + gun. Real aircraft carries R-77 BVR; A2 approximates with R-73 WVR only.",
+          "approximations": [
+            "R-77 (AMRAAM-equiv) absent in A2 vanilla. R73Launcher / 4Rnd_R73 is WVR-only substitute."
+          ],
+          "items": [
+            {
+              "weapon": "GSh301",
+              "mags": [{ "class": "180Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "R73Launcher",
+              "mags": [{ "class": "4Rnd_R73", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "L39_TK_EP1",
+      "name": "L-39 Albatros",
+      "factions": ["TKA", "RU_CO"],
+      "kind": "plane",
+      "stock": [
+        {
+          "weapon": "GSh23L_L39",
+          "mags": [{ "class": "150Rnd_23mm_GSh23L", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher",
+          "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+        }
+      ],
+      "pool": [
+        {
+          "weapon": "GSh23L_L39",
+          "mags": [{ "class": "150Rnd_23mm_GSh23L", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher",
+          "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher_128",
+          "mags": [{ "class": "128Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "AirBombLauncher",
+          "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Armed Trainer Strike",
+          "why": "L-39ZA config as used by Iraq, Syria, African operators: GSh-23L + S-5 57mm rockets + FAB bombs (light CAS)",
+          "approximations": [
+            "57mmLauncher 64-rd approximates 2x UB-16 S-5 pods (32rds each). FAB-100 absent in A2; FAB-250 used instead."
+          ],
+          "items": [
+            {
+              "weapon": "GSh23L_L39",
+              "mags": [{ "class": "150Rnd_23mm_GSh23L", "count": 1 }]
+            },
+            {
+              "weapon": "57mmLauncher",
+              "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+            },
+            {
+              "weapon": "AirBombLauncher",
+              "mags": [{ "class": "4Rnd_FAB_250", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "COIN Patrol",
+          "why": "Light patrol loadout: all rockets for volume, no bombs; counterinsurgency/patrol sortie",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GSh23L_L39",
+              "mags": [{ "class": "150Rnd_23mm_GSh23L", "count": 1 }]
+            },
+            {
+              "weapon": "57mmLauncher_128",
+              "mags": [{ "class": "128Rnd_57mm", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AH1Z",
+      "name": "AH-1Z Viper",
+      "factions": ["USMC"],
+      "kind": "heli",
+      "notes": "M197 + Hellfire + Sidewinder in gunner turret. Pilot has FFAR pods. BalanceInit strips Sidewinder at low LF.",
+      "stock": {
+        "pilot": [
+          {
+            "weapon": "FFARLauncher",
+            "mags": [{ "class": "38Rnd_FFAR", "count": 1 }]
+          },
+          {
+            "weapon": "CMFlareLauncher",
+            "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+          }
+        ],
+        "gunner_turret": [
+          {
+            "weapon": "M197",
+            "mags": [{ "class": "750Rnd_M197_AH1", "count": 1 }]
+          },
+          {
+            "weapon": "HellfireLauncher",
+            "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+          },
+          {
+            "weapon": "SidewinderLaucher_AH1Z",
+            "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+          }
+        ]
+      },
+      "pool": [
+        {
+          "weapon": "M197",
+          "mags": [{ "class": "750Rnd_M197_AH1", "count": 1 }]
+        },
+        {
+          "weapon": "HellfireLauncher",
+          "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher",
+          "mags": [{ "class": "38Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher_14",
+          "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "SidewinderLaucher_AH1Z",
+          "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Anti-Armor Heavy",
+          "why": "USMC deliberate anti-armor mission: full Hellfire load + 20mm gun + AIM-9 self-defence",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "M197",
+              "mags": [{ "class": "750Rnd_M197_AH1", "count": 1 }]
+            },
+            {
+              "weapon": "HellfireLauncher",
+              "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "OEF CAS Rockets",
+          "why": "Afghanistan: volume of fire over precision; rockets dominate; most common actual USMC Viper usage in OEF",
+          "approximations": [
+            "38Rnd_FFAR approximates 2x LAU-61 pods (19rds each = 38 — exact match!)"
+          ],
+          "items": [
+            {
+              "weapon": "M197",
+              "mags": [{ "class": "750Rnd_M197_AH1", "count": 1 }]
+            },
+            {
+              "weapon": "FFARLauncher",
+              "mags": [{ "class": "38Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Mixed Strike",
+          "why": "Balanced MEU escort: Hellfires for vehicles, rockets for suppression; standard USMC deployed loadout",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "M197",
+              "mags": [{ "class": "750Rnd_M197_AH1", "count": 1 }]
+            },
+            {
+              "weapon": "HellfireLauncher",
+              "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+            },
+            {
+              "weapon": "FFARLauncher_14",
+              "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Air Alert",
+          "why": "Anti-helicopter escort: AIM-9 Sidewinder + M197 only; rare but documented configuration",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "M197",
+              "mags": [{ "class": "750Rnd_M197_AH1", "count": 1 }]
+            },
+            {
+              "weapon": "SidewinderLaucher_AH1Z",
+              "mags": [{ "class": "2Rnd_Sidewinder_AH1Z", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "AH64D",
+      "name": "AH-64D Apache Longbow",
+      "factions": ["USMC", "US_CO"],
+      "faction_classes": ["AH64D", "AH64D_EP1", "BAF_Apache_AH1_D"],
+      "kind": "heli",
+      "notes": "M230 + Hellfire in gunner turret. Pilot has FFAR + flares. BalanceInit strips Hellfire at low LF.",
+      "stock": {
+        "pilot": [
+          {
+            "weapon": "FFARLauncher",
+            "mags": [{ "class": "38Rnd_FFAR", "count": 1 }]
+          },
+          {
+            "weapon": "CMFlareLauncher",
+            "mags": [{ "class": "60Rnd_CMFlareMagazine", "count": 1 }]
+          }
+        ],
+        "gunner_turret": [
+          {
+            "weapon": "M230",
+            "mags": [{ "class": "1200Rnd_30x113mm_M789_HEDP", "count": 1 }]
+          },
+          {
+            "weapon": "HellfireLauncher",
+            "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+          }
+        ]
+      },
+      "pool": [
+        {
+          "weapon": "M230",
+          "mags": [{ "class": "1200Rnd_30x113mm_M789_HEDP", "count": 1 }]
+        },
+        {
+          "weapon": "HellfireLauncher",
+          "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher",
+          "mags": [{ "class": "38Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher_14",
+          "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "SidewinderLaucher_AH64",
+          "mags": [{ "class": "8Rnd_Sidewinder_AH64", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "60Rnd_CMFlareMagazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "OIF 2003 Tank Plinking",
+          "why": "101st Airborne Aviation deep attack Iraq 2003: 8-16x AGM-114K Hellfire was standard; A2 cap is 8",
+          "approximations": [
+            "A2 HellfireLauncher carries 8Rnd_Hellfire; real Apache max is 16x Hellfire on 4 rails"
+          ],
+          "items": [
+            {
+              "weapon": "M230",
+              "mags": [{ "class": "1200Rnd_30x113mm_M789_HEDP", "count": 1 }]
+            },
+            {
+              "weapon": "HellfireLauncher",
+              "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+            },
+            {
+              "weapon": "FFARLauncher",
+              "mags": [{ "class": "38Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "60Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Urban CAS",
+          "why": "Iraq/Afghanistan mixed: Hellfires for point targets, Hydra 14-rd for suppression, gun always ready",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "M230",
+              "mags": [{ "class": "1200Rnd_30x113mm_M789_HEDP", "count": 1 }]
+            },
+            {
+              "weapon": "HellfireLauncher",
+              "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+            },
+            {
+              "weapon": "FFARLauncher_14",
+              "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "60Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Escort / Force Protection",
+          "why": "Convoy escort and force protection: Hellfires + gun; AIM-92 Stinger (ATAS) absent in A2",
+          "approximations": [
+            "AIM-92 Stinger ATAS not in A2. SidewinderLaucher_AH64 / 8Rnd_Sidewinder_AH64 substitutes if available."
+          ],
+          "items": [
+            {
+              "weapon": "M230",
+              "mags": [{ "class": "1200Rnd_30x113mm_M789_HEDP", "count": 1 }]
+            },
+            {
+              "weapon": "HellfireLauncher",
+              "mags": [{ "class": "8Rnd_Hellfire", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "60Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Mi24_D",
+      "name": "Mi-24D Hind-D",
+      "factions": ["CDF", "RU_CO", "TKA"],
+      "faction_classes": ["Mi24_D", "Mi24_D_TK_EP1"],
+      "kind": "heli",
+      "notes": "Mi24_D_CZ_ACR is ACR DLC — not in config dump. YakB + AT-2 Falanga in gunner turret. Pilot has S-5 rockets.",
+      "stock": {
+        "pilot": [
+          {
+            "weapon": "57mmLauncher_128",
+            "mags": [{ "class": "128Rnd_57mm", "count": 1 }]
+          },
+          {
+            "weapon": "CMFlareLauncher",
+            "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+          }
+        ],
+        "gunner_turret": [
+          {
+            "weapon": "YakB",
+            "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+          },
+          {
+            "weapon": "AT2Launcher",
+            "mags": [{ "class": "4Rnd_AT2_Mi24D", "count": 1 }]
+          }
+        ]
+      },
+      "pool": [
+        {
+          "weapon": "YakB",
+          "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+        },
+        {
+          "weapon": "AT2Launcher",
+          "mags": [{ "class": "4Rnd_AT2_Mi24D", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher_128",
+          "mags": [{ "class": "128Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher",
+          "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "80mmLauncher",
+          "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Afghanistan Soviet '80",
+          "why": "40th Army Mi-24D 1980-85: primarily S-5 57mm rockets + YakB; AT-2 Falanga rarely used vs Mujahideen",
+          "approximations": [
+            "128Rnd_57mm is generous vs real 2x UB-32 (64rds); AT-2 retained for authenticity but rarely selected."
+          ],
+          "items": [
+            {
+              "weapon": "YakB",
+              "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+            },
+            {
+              "weapon": "57mmLauncher_128",
+              "mags": [{ "class": "128Rnd_57mm", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Warsaw Pact Anti-Armor",
+          "why": "Cold War contingency doctrine: AT-2 Falanga ATGM + YakB + S-5 rockets for attacking tank columns",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "YakB",
+              "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+            },
+            {
+              "weapon": "AT2Launcher",
+              "mags": [{ "class": "4Rnd_AT2_Mi24D", "count": 1 }]
+            },
+            {
+              "weapon": "57mmLauncher",
+              "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Assault Escort",
+          "why": "Balanced: ATGMs for vehicles, rockets for suppression of infantry; classic combined-arms escort role",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "YakB",
+              "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+            },
+            {
+              "weapon": "AT2Launcher",
+              "mags": [{ "class": "4Rnd_AT2_Mi24D", "count": 1 }]
+            },
+            {
+              "weapon": "57mmLauncher_128",
+              "mags": [{ "class": "128Rnd_57mm", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Mi24_P",
+      "name": "Mi-24P Hind-F",
+      "factions": ["RU"],
+      "kind": "heli",
+      "notes": "Fixed GSh-30-2 twin cannon (no turret rotation). AT-9 Ataka on turret. BalanceInit upgrades at LF3: strips bombs+80mm, adds 57mm+extra GSh ammo.",
+      "stock": {
+        "pilot": [
+          {
+            "weapon": "GSh302",
+            "mags": [{ "class": "750Rnd_30mm_GSh301", "count": 1 }]
+          },
+          {
+            "weapon": "80mmLauncher",
+            "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+          },
+          {
+            "weapon": "CMFlareLauncher",
+            "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+          }
+        ],
+        "gunner_turret": [
+          {
+            "weapon": "HeliBombLauncher",
+            "mags": [{ "class": "2Rnd_FAB_250", "count": 1 }]
+          },
+          {
+            "weapon": "AT9Launcher",
+            "mags": [{ "class": "4Rnd_AT9_Mi24P", "count": 1 }]
+          }
+        ]
+      },
+      "pool": [
+        {
+          "weapon": "GSh302",
+          "mags": [{ "class": "750Rnd_30mm_GSh301", "count": 1 }]
+        },
+        {
+          "weapon": "HeliBombLauncher",
+          "mags": [{ "class": "2Rnd_FAB_250", "count": 1 }]
+        },
+        {
+          "weapon": "AT9Launcher",
+          "mags": [{ "class": "4Rnd_AT9_Mi24P", "count": 1 }]
+        },
+        {
+          "weapon": "80mmLauncher",
+          "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher",
+          "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Heavy Gunship",
+          "why": "Mi-24P primary role: fixed GSh-30-2 strafing + Ataka-V ATGM + S-8 rockets",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GSh302",
+              "mags": [{ "class": "750Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "AT9Launcher",
+              "mags": [{ "class": "4Rnd_AT9_Mi24P", "count": 1 }]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Anti-Armor Specialist",
+          "why": "Maximum ATGMs: Ataka + FAB-250 bombs for fortification busting; gun always available",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GSh302",
+              "mags": [{ "class": "750Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "AT9Launcher",
+              "mags": [{ "class": "4Rnd_AT9_Mi24P", "count": 1 }]
+            },
+            {
+              "weapon": "HeliBombLauncher",
+              "mags": [{ "class": "2Rnd_FAB_250", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Fire Support",
+          "why": "Pure fire support: rockets + gun, no ATGMs — faster rearming cycle, area suppression emphasis",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "GSh302",
+              "mags": [{ "class": "750Rnd_30mm_GSh301", "count": 1 }]
+            },
+            {
+              "weapon": "80mmLauncher",
+              "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+            },
+            {
+              "weapon": "57mmLauncher",
+              "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Mi24_V",
+      "name": "Mi-24V Hind-E",
+      "factions": ["RU", "INS"],
+      "kind": "heli",
+      "notes": "YakB turret + AT-6 Spiral. Upgraded from D: better ATGM. BalanceInit strips AT6Launcher at low LF.",
+      "stock": {
+        "pilot": [
+          {
+            "weapon": "S8Launcher",
+            "mags": [{ "class": "80Rnd_80mm", "count": 1 }]
+          },
+          {
+            "weapon": "CMFlareLauncher",
+            "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+          }
+        ],
+        "gunner_turret": [
+          {
+            "weapon": "YakB",
+            "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+          },
+          {
+            "weapon": "AT6Launcher",
+            "mags": [{ "class": "4Rnd_AT6_Mi24V", "count": 1 }]
+          }
+        ]
+      },
+      "pool": [
+        {
+          "weapon": "YakB",
+          "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+        },
+        {
+          "weapon": "AT6Launcher",
+          "mags": [{ "class": "4Rnd_AT6_Mi24V", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "80mmLauncher",
+          "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+        },
+        {
+          "weapon": "57mmLauncher",
+          "mags": [{ "class": "64Rnd_57mm", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Afghanistan '86 Upgraded",
+          "why": "Mi-24V replaced D in Afghanistan 1986; AT-6 Spiral vs Falanga; same rocket-dominant doctrine",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "YakB",
+              "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+            },
+            {
+              "weapon": "AT6Launcher",
+              "mags": [{ "class": "4Rnd_AT6_Mi24V", "count": 1 }]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Rocket Emphasis",
+          "why": "Heavy S-8 rocket load for area suppression; common in Chechnya 1994-96",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "YakB",
+              "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "80mmLauncher",
+              "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Anti-Armor Pure",
+          "why": "Maximum ATGMs: 4x AT-6 Spiral + YakB for tank hunting; minimal rocket weight",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "YakB",
+              "mags": [{ "class": "1470Rnd_127x108_YakB", "count": 1 }]
+            },
+            {
+              "weapon": "AT6Launcher",
+              "mags": [{ "class": "4Rnd_AT6_Mi24V", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "Ka52",
+      "name": "Ka-52 Alligator",
+      "factions": ["RU"],
+      "faction_classes": ["Ka52", "Ka52Black"],
+      "kind": "heli",
+      "notes": "2A42 30mm dual-belt (HE+AP) in gunner turret. Vikhr ATGM is signature weapon. BalanceInit strips VikhrLauncher at low LF.",
+      "stock": {
+        "pilot": [
+          {
+            "weapon": "80mmLauncher",
+            "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+          },
+          {
+            "weapon": "CMFlareLauncher",
+            "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+          }
+        ],
+        "gunner_turret": [
+          {
+            "weapon": "2A42",
+            "mags": [
+              { "class": "230Rnd_30mmHE_2A42", "count": 1 },
+              { "class": "230Rnd_30mmAP_2A42", "count": 1 }
+            ]
+          },
+          {
+            "weapon": "VikhrLauncher",
+            "mags": [{ "class": "12Rnd_Vikhr_KA50", "count": 1 }]
+          }
+        ]
+      },
+      "pool": [
+        {
+          "weapon": "2A42",
+          "mags": [
+            { "class": "230Rnd_30mmHE_2A42", "count": 1 },
+            { "class": "230Rnd_30mmAP_2A42", "count": 1 }
+          ]
+        },
+        {
+          "weapon": "VikhrLauncher",
+          "mags": [{ "class": "12Rnd_Vikhr_KA50", "count": 1 }]
+        },
+        {
+          "weapon": "S8Launcher",
+          "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+        },
+        {
+          "weapon": "80mmLauncher",
+          "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+        },
+        {
+          "weapon": "AT6Launcher",
+          "mags": [{ "class": "4Rnd_AT6_Mi24V", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "Anti-Armor Primary",
+          "why": "Ka-52 designed role: 12x Vikhr-M ATGM (AT-16) + 30mm dual-belt cannon; accurately representable in A2",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "2A42",
+              "mags": [
+                { "class": "230Rnd_30mmHE_2A42", "count": 1 },
+                { "class": "230Rnd_30mmAP_2A42", "count": 1 }
+              ]
+            },
+            {
+              "weapon": "VikhrLauncher",
+              "mags": [{ "class": "12Rnd_Vikhr_KA50", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Fire Support",
+          "why": "CAS support: S-8 rockets + 2A42 cannon for volume fire; Syria 2022 pattern",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "2A42",
+              "mags": [
+                { "class": "230Rnd_30mmHE_2A42", "count": 1 },
+                { "class": "230Rnd_30mmAP_2A42", "count": 1 }
+              ]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "80mmLauncher",
+              "mags": [{ "class": "40Rnd_80mm", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Mixed Strike",
+          "why": "Vikhr ATGMs + S-8 rockets + 30mm; Syria 2022 documented usage combining precision and area fire",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "2A42",
+              "mags": [
+                { "class": "230Rnd_30mmHE_2A42", "count": 1 },
+                { "class": "230Rnd_30mmAP_2A42", "count": 1 }
+              ]
+            },
+            {
+              "weapon": "VikhrLauncher",
+              "mags": [{ "class": "12Rnd_Vikhr_KA50", "count": 1 }]
+            },
+            {
+              "weapon": "S8Launcher",
+              "mags": [{ "class": "80Rnd_S8T", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlare_Chaff_Magazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "class": "UH1Y",
+      "name": "UH-1Y Venom",
+      "factions": ["USMC"],
+      "kind": "heli",
+      "notes": "Light attack/escort. M240 door guns are always-on turrets. BalanceInit upgrades FFAR from 14 to 4x14 pods at higher LF.",
+      "stock": {
+        "pilot": [
+          {
+            "weapon": "FFARLauncher_14",
+            "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+          },
+          {
+            "weapon": "CMFlareLauncher",
+            "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+          }
+        ]
+      },
+      "pool": [
+        {
+          "weapon": "FFARLauncher_14",
+          "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "FFARLauncher",
+          "mags": [{ "class": "38Rnd_FFAR", "count": 1 }]
+        },
+        {
+          "weapon": "CMFlareLauncher",
+          "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+        }
+      ],
+      "presets": [
+        {
+          "name": "USMC Fire Support Escort",
+          "why": "Typical USMC MEU/MAG-26 escort loadout: XM8 rocket subsystem 2x LAU-61 pods (19rds each = 38 total)",
+          "approximations": [
+            "FFARLauncher / 38Rnd_FFAR is exact match for 2x LAU-61 19-rd pods"
+          ],
+          "items": [
+            {
+              "weapon": "FFARLauncher",
+              "mags": [{ "class": "38Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        },
+        {
+          "name": "Light Scout",
+          "why": "Minimalist escort: light FFAR load for responsiveness; common for MEU insertion escort",
+          "approximations": [],
+          "items": [
+            {
+              "weapon": "FFARLauncher_14",
+              "mags": [{ "class": "14Rnd_FFAR", "count": 1 }]
+            },
+            {
+              "weapon": "CMFlareLauncher",
+              "mags": [{ "class": "120Rnd_CMFlareMagazine", "count": 1 }]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "groundVehicles": {
+    "eligible": [
+      { "class": "MMT_USMC", "name": "USMC Supply Truck", "faction": "USMC" },
+      { "class": "M1030", "name": "M1030 Motorcycle", "faction": "USMC" },
+      { "class": "HMMWV", "name": "HMMWV (base)", "faction": "USMC" },
+      {
+        "class": "HMMWV_Ambulance",
+        "name": "HMMWV Ambulance",
+        "faction": "USMC"
+      },
+      { "class": "MTVR", "name": "MTVR Cargo Truck", "faction": "USMC" },
+      { "class": "MtvrRepair", "name": "MTVR Repair", "faction": "USMC" },
+      { "class": "MtvrRefuel", "name": "MTVR Refuel", "faction": "USMC" },
+      {
+        "class": "WarfareSalvageTruck_USMC",
+        "name": "Salvage Truck (USMC)",
+        "faction": "USMC"
+      },
+      {
+        "class": "WarfareReammoTruck_USMC",
+        "name": "Reammo Truck (USMC)",
+        "faction": "USMC"
+      },
+      {
+        "class": "WarfareSupplyTruck_USMC",
+        "name": "Supply Truck (USMC)",
+        "faction": "USMC"
+      },
+      {
+        "class": "Zodiac",
+        "name": "Zodiac Inflatable Boat",
+        "faction": "USMC"
+      },
+      { "class": "PBX", "name": "PBX Patrol Boat", "faction": "USMC" },
+      { "class": "ATV_US_EP1", "name": "ATV (US EP1)", "faction": "US_CO" },
+      {
+        "class": "HMMWV_M1035_DES_EP1",
+        "name": "HMMWV Soft-Top (Desert)",
+        "faction": "US_CO"
+      },
+      {
+        "class": "M1133_MEV_EP1",
+        "name": "Stryker MEV Medevac",
+        "faction": "US_CO"
+      },
+      { "class": "BAF_ATV_W", "name": "BAF ATV", "faction": "US_CO" },
+      {
+        "class": "BAF_Offroad_W",
+        "name": "BAF Land Rover",
+        "faction": "US_CO"
+      },
+      {
+        "class": "LandRover_Special_CZ_EP1",
+        "name": "CZ Special Land Rover",
+        "faction": "US_CO"
+      },
+      { "class": "MMT_Civ", "name": "Civilian Truck", "faction": "RU" },
+      { "class": "TT650_Ins", "name": "Motorbike (INS)", "faction": "INS" },
+      { "class": "TT650_Gue", "name": "Motorbike (GUE)", "faction": "GUE" },
+      { "class": "TT650_TK_EP1", "name": "Motorbike (TK)", "faction": "TKA" },
+      { "class": "UAZ_RU", "name": "UAZ (RU base)", "faction": "RU" },
+      { "class": "UAZ_INS", "name": "UAZ (INS base)", "faction": "INS" },
+      { "class": "UAZ_CDF", "name": "UAZ (CDF base)", "faction": "CDF" },
+      {
+        "class": "UAZ_Unarmed_TK_EP1",
+        "name": "UAZ Unarmed (TK)",
+        "faction": "TKA"
+      },
+      { "class": "SUV_TK_EP1", "name": "SUV (TK)", "faction": "TKA" },
+      { "class": "SUV_PMC", "name": "SUV (PMC)", "faction": "GUE_CO" },
+      { "class": "Kamaz", "name": "Kamaz Truck", "faction": "RU" },
+      { "class": "KamazRepair", "name": "Kamaz Repair", "faction": "RU" },
+      { "class": "KamazRefuel", "name": "Kamaz Refuel", "faction": "RU" },
+      { "class": "Ural_CDF", "name": "Ural Truck (CDF)", "faction": "CDF" },
+      { "class": "Ural_INS", "name": "Ural Truck (INS)", "faction": "INS" },
+      {
+        "class": "WarfareSalvageTruck_RU",
+        "name": "Salvage Truck (RU)",
+        "faction": "RU"
+      },
+      {
+        "class": "WarfareReammoTruck_RU",
+        "name": "Reammo Truck (RU)",
+        "faction": "RU"
+      },
+      {
+        "class": "WarfareSupplyTruck_RU",
+        "name": "Supply Truck (RU)",
+        "faction": "RU"
+      },
+      {
+        "class": "WarfareSalvageTruck_CDF",
+        "name": "Salvage Truck (CDF)",
+        "faction": "CDF"
+      },
+      {
+        "class": "UralRepair_CDF",
+        "name": "Ural Repair (CDF)",
+        "faction": "CDF"
+      },
+      {
+        "class": "UralReammo_CDF",
+        "name": "Ural Reammo (CDF)",
+        "faction": "CDF"
+      },
+      {
+        "class": "UralRefuel_CDF",
+        "name": "Ural Refuel (CDF)",
+        "faction": "CDF"
+      },
+      {
+        "class": "WarfareSupplyTruck_CDF",
+        "name": "Supply Truck (CDF)",
+        "faction": "CDF"
+      },
+      {
+        "class": "WarfareSalvageTruck_INS",
+        "name": "Salvage Truck (INS)",
+        "faction": "INS"
+      },
+      {
+        "class": "UralRepair_INS",
+        "name": "Ural Repair (INS)",
+        "faction": "INS"
+      },
+      {
+        "class": "UralReammo_INS",
+        "name": "Ural Reammo (INS)",
+        "faction": "INS"
+      },
+      {
+        "class": "UralRefuel_INS",
+        "name": "Ural Refuel (INS)",
+        "faction": "INS"
+      },
+      {
+        "class": "WarfareSupplyTruck_INS",
+        "name": "Supply Truck (INS)",
+        "faction": "INS"
+      },
+      {
+        "class": "GAZ_Vodnik_MedEvac",
+        "name": "Vodnik MedEvac",
+        "faction": "RU"
+      },
+      { "class": "V3S_TK_EP1", "name": "V3S Truck (TK)", "faction": "TKA" },
+      {
+        "class": "V3S_Open_EP1",
+        "name": "V3S Open Truck (TK)",
+        "faction": "TKA"
+      },
+      {
+        "class": "M113Ambul_TK_EP1",
+        "name": "M113 Ambulance (TK)",
+        "faction": "TKA"
+      },
+      { "class": "V3S_Gue", "name": "V3S Truck (GUE)", "faction": "GUE" },
+      {
+        "class": "WarfareRepairTruck_Gue",
+        "name": "Repair Truck (GUE)",
+        "faction": "GUE"
+      },
+      {
+        "class": "WarfareSalvageTruck_Gue",
+        "name": "Salvage Truck (GUE)",
+        "faction": "GUE"
+      },
+      {
+        "class": "WarfareReammoTruck_Gue",
+        "name": "Reammo Truck (GUE)",
+        "faction": "GUE"
+      },
+      {
+        "class": "WarfareSupplyTruck_Gue",
+        "name": "Supply Truck (GUE)",
+        "faction": "GUE"
+      }
+    ],
+    "excluded": [
+      { "class": "HMMWV_M2", "reason": "M2 HMG turret", "faction": "USMC" },
+      {
+        "class": "HMMWV_MK19",
+        "reason": "Mk19 grenade launcher turret",
+        "faction": "USMC"
+      },
+      {
+        "class": "HMMWV_TOW",
+        "reason": "TOW ATGM launcher",
+        "faction": "USMC"
+      },
+      {
+        "class": "HMMWV_Avenger",
+        "reason": "Avenger Stinger SAM system",
+        "faction": "USMC"
+      },
+      {
+        "class": "HMMWV_Armored",
+        "reason": "M2 HMG (armored HMMWV)",
+        "faction": "USMC"
+      },
+      { "class": "RHIB2Turret", "reason": "M240/M2 turret", "faction": "USMC" },
+      {
+        "class": "LAV25",
+        "reason": "M242 25mm cannon + coax",
+        "faction": "USMC"
+      },
+      {
+        "class": "Pandur2_ACR",
+        "reason": "30mm ATKMK44 / M242 (BalanceInit converted)",
+        "faction": "USMC"
+      },
+      {
+        "class": "HMMWV_M998A2_SOV_DES_EP1",
+        "reason": "Armed SOV variant",
+        "faction": "US_CO"
+      },
+      {
+        "class": "HMMWV_M1151_M2_DES_EP1",
+        "reason": "M2 HMG CROWS",
+        "faction": "US_CO"
+      },
+      {
+        "class": "HMMWV_M998_crows_MK19_DES_EP1",
+        "reason": "Mk19 CROWS",
+        "faction": "US_CO"
+      },
+      {
+        "class": "HMMWV_M998_crows_M2_DES_EP1",
+        "reason": "M2 CROWS",
+        "faction": "US_CO"
+      },
+      {
+        "class": "M1126_ICV_M2_EP1",
+        "reason": "M2 HMG — Stryker ICV",
+        "faction": "US_CO"
+      },
+      {
+        "class": "M1126_ICV_mk19_EP1",
+        "reason": "Mk19 — Stryker ICV",
+        "faction": "US_CO"
+      },
+      {
+        "class": "M1129_MC_EP1",
+        "reason": "120mm mortar carrier",
+        "faction": "US_CO"
+      },
+      {
+        "class": "M1135_ATGMV_EP1",
+        "reason": "TOW ATGM — Stryker ATGMV",
+        "faction": "US_CO"
+      },
+      {
+        "class": "M1128_MGS_EP1",
+        "reason": "105mm M68A2 cannon — Stryker MGS",
+        "faction": "US_CO"
+      },
+      {
+        "class": "BAF_Jackal2_GMG_W",
+        "reason": "GMG 40mm grenade launcher",
+        "faction": "US_CO"
+      },
+      {
+        "class": "BAF_Jackal2_L2A1_W",
+        "reason": "L2A1 .50 HMG",
+        "faction": "US_CO"
+      },
+      {
+        "class": "UAZ_MG_INS",
+        "reason": "PKT/DSHKM MG turret",
+        "faction": "INS"
+      },
+      {
+        "class": "UAZ_MG_CDF",
+        "reason": "PKT/DSHKM MG turret",
+        "faction": "CDF"
+      },
+      { "class": "UAZ_MG_TK_EP1", "reason": "PKT MG turret", "faction": "TKA" },
+      {
+        "class": "UAZ_AGS30_RU",
+        "reason": "AGS-30 grenade launcher",
+        "faction": "RU"
+      },
+      {
+        "class": "UAZ_AGS30_CDF",
+        "reason": "AGS-30 grenade launcher",
+        "faction": "CDF"
+      },
+      {
+        "class": "UAZ_AGS30_INS",
+        "reason": "AGS-30 grenade launcher",
+        "faction": "INS"
+      },
+      {
+        "class": "UAZ_AGS30_TK_EP1",
+        "reason": "AGS-30 grenade launcher",
+        "faction": "TKA"
+      },
+      {
+        "class": "UAZ_SPG9_INS",
+        "reason": "SPG-9 recoilless rifle",
+        "faction": "INS"
+      },
+      {
+        "class": "LandRover_MG_TK_EP1",
+        "reason": "PKT/DShKM MG",
+        "faction": "TKA"
+      },
+      {
+        "class": "LandRover_SPG9_TK_EP1",
+        "reason": "SPG-9 recoilless rifle",
+        "faction": "TKA"
+      },
+      { "class": "GAZ_Vodnik", "reason": "KORD 12.7mm HMG", "faction": "RU" },
+      {
+        "class": "GAZ_Vodnik_HMG",
+        "reason": "KORD 12.7mm HMG",
+        "faction": "RU"
+      },
+      {
+        "class": "Pickup_PK_GUE",
+        "reason": "PK machine gun technical",
+        "faction": "GUE"
+      },
+      {
+        "class": "Pickup_PK_TK_GUE_EP1",
+        "reason": "PK machine gun technical",
+        "faction": "GUE_CO"
+      },
+      {
+        "class": "Offroad_DSHKM_Gue",
+        "reason": "DShKM HMG technical",
+        "faction": "GUE"
+      },
+      {
+        "class": "Offroad_DSHKM_TK_GUE_EP1",
+        "reason": "DShKM HMG technical",
+        "faction": "GUE_CO"
+      },
+      {
+        "class": "Offroad_SPG9_Gue",
+        "reason": "SPG-9 recoilless rifle",
+        "faction": "GUE"
+      },
+      {
+        "class": "Offroad_SPG9_TK_GUE_EP1",
+        "reason": "SPG-9 recoilless rifle",
+        "faction": "GUE_CO"
+      },
+      {
+        "class": "BRDM2_INS",
+        "reason": "KPVT 14.5mm + PKT — armored",
+        "faction": "INS"
+      },
+      {
+        "class": "BRDM2_CDF",
+        "reason": "KPVT 14.5mm + PKT — armored",
+        "faction": "CDF"
+      },
+      {
+        "class": "BRDM2_Gue",
+        "reason": "KPVT 14.5mm + PKT — armored",
+        "faction": "GUE"
+      },
+      {
+        "class": "BRDM2_TK_EP1",
+        "reason": "KPVT 14.5mm + PKT — armored",
+        "faction": "TKA"
+      },
+      {
+        "class": "BRDM2_TK_GUE_EP1",
+        "reason": "KPVT 14.5mm — armored",
+        "faction": "GUE_CO"
+      },
+      {
+        "class": "BRDM2_ATGM_INS",
+        "reason": "AT-5 Konkurs / converted to Igla (BalanceInit)",
+        "faction": "INS"
+      },
+      {
+        "class": "BRDM2_ATGM_TK_EP1",
+        "reason": "AT-5 Konkurs ATGM",
+        "faction": "TKA"
+      },
+      {
+        "class": "BTR60_TK_EP1",
+        "reason": "KPVT + PKT — armored APC",
+        "faction": "TKA"
+      },
+      { "class": "BTR90", "reason": "2A42 30mm + AT-5 — IFV", "faction": "RU" },
+      {
+        "class": "BTR40_MG_TK_GUE_EP1",
+        "reason": "DShKM HMG",
+        "faction": "GUE_CO"
+      },
+      {
+        "class": "Ural_ZU23_INS",
+        "reason": "ZU-23-2 twin 23mm AA cannon",
+        "faction": "INS"
+      },
+      {
+        "class": "Ural_ZU23_CDF",
+        "reason": "ZU-23-2 twin 23mm AA cannon",
+        "faction": "CDF"
+      },
+      {
+        "class": "Ural_ZU23_Gue",
+        "reason": "ZU-23-2 twin 23mm AA cannon",
+        "faction": "GUE"
+      },
+      {
+        "class": "Ural_ZU23_TK_EP1",
+        "reason": "ZU-23-2 twin 23mm AA cannon",
+        "faction": "TKA"
+      },
+      {
+        "class": "GRAD_RU",
+        "reason": "BM-21 artillery rocket launcher",
+        "faction": "RU"
+      },
+      {
+        "class": "GRAD_CDF",
+        "reason": "BM-21 artillery rocket launcher",
+        "faction": "CDF"
+      },
+      {
+        "class": "GRAD_INS",
+        "reason": "BM-21 artillery rocket launcher",
+        "faction": "INS"
+      },
+      {
+        "class": "GRAD_TK_EP1",
+        "reason": "BM-21 artillery rocket launcher",
+        "faction": "TKA"
+      },
+      { "class": "ArmoredSUV_PMC", "reason": "DShKM HMG", "faction": "GUE_CO" },
+      {
+        "class": "Ka60_GL_PMC",
+        "reason": "M32 grenade launcher turret",
+        "faction": "GUE_CO"
+      }
+    ],
+    "mountable": [
+      {
+        "weapon": "M2",
+        "displayName": "M2 Machinegun",
+        "side": "West",
+        "mags": [
+          {
+            "class": "100Rnd_127x99_M2",
+            "count": 100,
+            "displayName": "M2 Machine Gun"
+          }
+        ]
+      },
+      {
+        "weapon": "M3P",
+        "displayName": "M3P .50 HMG",
+        "side": "West",
+        "mags": [
+          {
+            "class": "250Rnd_127x99_M3P",
+            "count": 250,
+            "displayName": "M3P Belt"
+          }
+        ]
+      },
+      {
+        "weapon": "DSHKM",
+        "displayName": "DShKM 12.7mm",
+        "side": "East",
+        "notes": "Classname is DSHKM (all caps) — NOT DShKM or DShKM_veh",
+        "mags": [
+          {
+            "class": "50Rnd_127x107_DSHKM",
+            "count": 50,
+            "displayName": "DShKM Belt (50)"
+          },
+          {
+            "class": "150Rnd_127x107_DSHKM",
+            "count": 150,
+            "displayName": "DShKM Belt (150)"
+          }
+        ]
+      },
+      {
+        "weapon": "KORD",
+        "displayName": "KORD 12.7mm",
+        "side": "East",
+        "mags": [
+          {
+            "class": "150Rnd_127x108_KORD",
+            "count": 150,
+            "displayName": "KORD Belt (150)"
+          },
+          {
+            "class": "50Rnd_127x108_KORD",
+            "count": 50,
+            "displayName": "KORD Belt (50)"
+          }
+        ]
+      },
+      {
+        "weapon": "PKT",
+        "displayName": "PKT 7.62mm",
+        "side": "East",
+        "mags": [
+          {
+            "class": "1500Rnd_762x54_PKT",
+            "count": 1500,
+            "displayName": "PKT Belt (1500)"
+          },
+          {
+            "class": "200Rnd_762x54_PKT",
+            "count": 200,
+            "displayName": "PKT Belt (200)"
+          }
+        ]
+      },
+      {
+        "weapon": "M134",
+        "displayName": "M134 Minigun",
+        "side": "West",
+        "mags": [
+          {
+            "class": "4000Rnd_762x51_M134",
+            "count": 4000,
+            "displayName": "M134 Belt (4000)"
+          },
+          {
+            "class": "2000Rnd_762x51_M134",
+            "count": 2000,
+            "displayName": "M134 Belt (2000)"
+          }
+        ]
+      },
+      {
+        "weapon": "M240_veh",
+        "displayName": "M240 7.62mm",
+        "side": "West",
+        "mags": [
+          {
+            "class": "1200Rnd_762x51_M240",
+            "count": 1200,
+            "displayName": "M240 Belt (1200)"
+          },
+          {
+            "class": "100Rnd_762x51_M240",
+            "count": 100,
+            "displayName": "M240 Mag (100)"
+          }
+        ]
+      },
+      {
+        "weapon": "MK19",
+        "displayName": "Mk19 Grenade Launcher",
+        "side": "West",
+        "notes": "Classname is MK19 (all caps) — NOT Mk19 or Mk19_veh",
+        "mags": [
+          {
+            "class": "48Rnd_40mm_MK19",
+            "count": 48,
+            "displayName": "Mk. 19 40mm (48)"
+          }
+        ]
+      },
+      {
+        "weapon": "AGS30",
+        "displayName": "AGS-30 Grenade Launcher",
+        "side": "East",
+        "notes": "Classname is AGS30 (no underscore) — NOT AGS_30",
+        "mags": [
+          {
+            "class": "29Rnd_30mm_AGS30",
+            "count": 29,
+            "displayName": "HE Rounds (29)"
+          },
+          {
+            "class": "400Rnd_30mm_AGS17",
+            "count": 400,
+            "displayName": "AGS-17 Belt (400)"
+          }
+        ]
+      },
+      {
+        "weapon": "SPG9",
+        "displayName": "SPG-9 Recoilless Rifle",
+        "side": "Gue",
+        "mags": [
+          { "class": "PG9_AT", "count": null, "displayName": "PG-9 AT Round" },
+          { "class": "OG9_HE", "count": null, "displayName": "OG-9 HE Round" }
+        ]
+      },
+      {
+        "weapon": "TOWLauncherSingle",
+        "displayName": "M220 TOW ATGM",
+        "side": "West",
+        "mags": [
+          {
+            "class": "6Rnd_TOW_HMMWV",
+            "count": 6,
+            "displayName": "BGM-71A TOW (6)"
+          },
+          {
+            "class": "6Rnd_TOW2",
+            "count": 6,
+            "displayName": "BGM-71E TOW-2A (6)"
+          }
+        ]
+      },
+      {
+        "weapon": "AT5LauncherSingle",
+        "displayName": "Konkurs 9M113 ATGM",
+        "side": "East",
+        "mags": [
+          {
+            "class": "8Rnd_AT5_BMP2",
+            "count": 8,
+            "displayName": "Konkurs 9M113 (8)"
+          }
+        ]
+      },
+      {
+        "weapon": "Igla_twice",
+        "displayName": "Igla 9K38 (twin)",
+        "side": "East",
+        "notes": "Used in BalanceInit BRDM-2 Igla conversion (addWeaponTurret). Requires 2Rnd_Igla twice.",
+        "mags": [
+          { "class": "2Rnd_Igla", "count": 2, "displayName": "Igla 9K38 (2)" }
+        ]
+      },
+      {
+        "weapon": "M242",
+        "displayName": "M242 Bushmaster 25mm",
+        "side": "West",
+        "notes": "Used in BalanceInit Pandur conversion. Heavy cannon — suitable only for armored vehicles.",
+        "mags": [
+          {
+            "class": "210Rnd_25mm_M242_APDS",
+            "count": 240,
+            "displayName": "M242 APFSDS-T"
+          },
+          {
+            "class": "210Rnd_25mm_M242_HEI",
+            "count": 240,
+            "displayName": "M242 HEI-T"
+          }
+        ]
+      }
+    ]
+  },
+  "knownGaps": [
+    "L159_ACR and Mi24_D_CZ_ACR: ACR DLC classes absent from config dump — weapons/magazines unknown",
+    "Kh-25ML (AS-10 Karen): no A2 equivalent — Su-25 anti-armor preset uses FAB-250 as poor substitute",
+    "Vikhr ATGM (Su-39 real weapon): only exists on Ka-52 as VikhrLauncher/12Rnd_Vikhr_KA50 in A2",
+    "R-77 / AMRAAM BVR missile: no A2 equivalent — Su-34 escort preset uses R-73 WVR only",
+    "AIM-92 Stinger ATAS (Apache heli-mounted): not in A2 — Apache escort preset notes this",
+    "FAB-100 bomb: not in A2 — L-39 preset uses FAB-250 instead",
+    "ZU23 weapon class: top-level classname uncertain — appears in sub-modes, not confirmed as standalone CfgWeapons class",
+    "BTR40_TK_GUE_EP1: base BTR-40 may be unarmed — needs CfgVehicles verification",
+    "210Rnd_25mm_M242_APDS and _HEI: both have count=240 in config despite 210 in classname name"
+  ]
+}
